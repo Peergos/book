@@ -1,3 +1,4 @@
-# Summary
+# The Peergos book
 
-- [Chapter 1](./chapter_1.md)
+- [Overview](./overview/overview.md)
+    - [What is Peergos](./overview/what_is_peergos.md)
