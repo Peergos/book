@@ -1,3 +1,3 @@
 # The Peergos private social network
 
-Securely store and share data without exposing your social graph.
+The social network where you are in control.
