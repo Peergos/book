@@ -14,6 +14,10 @@
     - [Follow requests](./architecture/follow.md)
 
 - [Security](./security/security.md)
+    - [Threat models](./security/threats.md)
     - [Login](./security/login.md)
     - [Encryption](./security/encryption.md)
+    - [Access control](./security/cryptree.md)
+    - [Metadata](./security/meta.md)
     - [Quantum resistance](./security/quantum.md)
+    - [Social graph](./security/social.md)
