@@ -15,10 +15,12 @@
     - [File viewers](./features/viewers.md)
     - [Public links](./features/public.md)
     - [Migration](./features/migration.md)
+    - [File Sync](./features/sync.md)
     - [Open source](./features/open.md)
 
 - [Architecture](./architecture/architecture.md)
-    - [Overall](./architecture/overall.md)
+    - [Logical](./architecture/logical.md)
+    - [Physical](./architecture/physical.md)
     - [Immutable data](./architecture/immutable.md)
     - [Mutable pointers](./architecture/mutable.md)
     - [Writing subspaces](./architecture/writer.md)
