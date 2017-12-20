@@ -6,6 +6,7 @@
 
 - [Features](./features/features.md)
     - [Self hosting](./features/self.md)
+    - [Peer-to-peer](./features/p2p.md)
     - [Multi-device login](./features/multi.md)
     - [Web interface](./features/web.md)
     - [Social](./features/social.md)
