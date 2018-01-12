@@ -137,13 +137,27 @@
 <p>Peergos is fully open-source, both clients, and server (incuding the web-interface). No part of our infrastructure, apart from TLS and Peergos private keys, are secret. We also have reproducible builds (we don't use npm or browserify etc.) We also vendor all dependencies so any historic git commit should be buildable without any external data. Eventually we want to self host our git repos in Peergos itself. </p>
 <a class="header" href="print.html#peergos-architecture" id="peergos-architecture"><h1>Peergos architecture</h1></a>
 <a class="header" href="print.html#logical" id="logical"><h1>Logical</h1></a>
+<p>The logical architecture of Peergos consists of the following:</p>
+<ol>
+<li>a global append only log for the username &lt;==&gt; public key mappings</li>
+<li>a server for sending follow requests for users to (the server can't see the source user)</li>
+<li>a mapping from a public key to a hash (the mutable pointers)</li>
+<li>a mapping from a hash to the (encrypted) data it is the hash of (the data store)</li>
+</ol>
 <a class="header" href="print.html#physical" id="physical"><h1>Physical</h1></a>
+<p>The Physical architecture consists of a Tor hidden service for each user, behind which is a Peergos server which stores and publishes that user's mutable pointers, data store, and receives incoming follow requests. There is also the global append only log for the PKI. </p>
 <a class="header" href="print.html#immutable" id="immutable"><h1>Immutable</h1></a>
+<p>The immutable data store is provided by IPFS and allows anyone to retrive any cipher text from its hash through any Peergos node. Note that IPFS is used in a fully trustless manner. Every single hash and signature is checked client side during reads and writes. The underlyign storage can be provided by the local harddisk or any cloud provider without loss of privacy. </p>
 <a class="header" href="print.html#mutable" id="mutable"><h1>Mutable</h1></a>
+<p>Mutable pointers in Peergos are just a mapping from a public key to a root hash. Clearly, being mutable, they need some kind of synchronization or concurrent data structure. Each user lists a Tor hidden service which is responsible for synchronising their writes and publishing the latest root hashes. This means the global filesystem is sharded by username and each user can use a Tor hidden service with sufficient capability for their bandwidth requirements. </p>
 <a class="header" href="print.html#writing-subspaces" id="writing-subspaces"><h1>Writing subspaces</h1></a>
+<p>Each user has a randomly generated writing key pair which controls writes to their filesystem. They can create new writing key pairs for any subtree, for example when granting write access to a file or folder. If desired, a given writing key can be quota controlled, to prevent users to which you've granted write access to a file from filling your data store. </p>
 <a class="header" href="print.html#merkle-btree" id="merkle-btree"><h1>Merkle-btree</h1></a>
+<p>The main netork visible data structure in Peergos is a merkle-btree. All the data under a given writing keypair has its own merkle-btree. This is just a mapping from random 32 byte labels to cipher-text blobs. These blobs are cryptree nodes containing the cryptree data structure, and, in the case of a file section, merkle links to encrypted file fragments. Each 5 MiB section of a file is stored under a different random label in the btree, and similarly with large directories. </p>
 <a class="header" href="print.html#usernames" id="usernames"><h1>Usernames</h1></a>
+<p>The public keys and usernames are stored in a global append only data structure, with names taken on a first come first served basis. This needs consensus to ensure uniqueness of usernames. This is also where the Tor address of the server responsible for synchronising the user's writes is. </p>
 <a class="header" href="print.html#follow-requests" id="follow-requests"><h1>Follow requests</h1></a>
+<p>A user's Tor hidden service stores their pending follow requests until they are retrieved and deleted. </p>
 <a class="header" href="print.html#security" id="security"><h1>Security</h1></a>
 <p>Peergos' primary focus is security.</p>
 <a class="header" href="print.html#threat-models" id="threat-models"><h1>Threat models</h1></a>

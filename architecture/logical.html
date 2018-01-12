@@ -69,6 +69,13 @@
 
                 <div id="content" class="content">
                     <a class="header" href="./architecture/logical.html#logical" id="logical"><h1>Logical</h1></a>
+<p>The logical architecture of Peergos consists of the following:</p>
+<ol>
+<li>a global append only log for the username &lt;==&gt; public key mappings</li>
+<li>a server for sending follow requests for users to (the server can't see the source user)</li>
+<li>a mapping from a public key to a hash (the mutable pointers)</li>
+<li>a mapping from a hash to the (encrypted) data it is the hash of (the data store)</li>
+</ol>
 
                 </div>
 
