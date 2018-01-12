@@ -69,6 +69,27 @@
 
                 <div id="content" class="content">
                     <a class="header" href="./security/threats.html#threat-models" id="threat-models"><h1>Threat models</h1></a>
+<p>Peergos supports several threat models depending on the user and their situation.</p>
+<a class="header" href="./security/threats.html#casual-user" id="casual-user"><h1>Casual user:</h1></a>
+<ul>
+<li>Trusts the SSL certificate hierarchy and the domain name system</li>
+<li>Is happy to run Javascript in their browser</li>
+<li>Trusts TLS and their browser (and OS and CPU ;-) )</li>
+</ul>
+<p>Such a user can interact with peergos purely through a public web server that they trust over TLS.</p>
+<a class="header" href="./security/threats.html#slightly-paranoid-user" id="slightly-paranoid-user"><h2>Slightly paranoid user:</h2></a>
+<ul>
+<li>Doesn't trust DNS or SSL certificates</li>
+<li>Is happy to run Javascript served from localhost in their browser</li>
+</ul>
+<p>This class of user can download and run the Peergos application and access the web interface through their browser over localhost.</p>
+<a class="header" href="./security/threats.html#more-paranoid-user" id="more-paranoid-user"><h2>More paranoid user:</h2></a>
+<ul>
+<li>Doesn't not trust the SSL certificate system</li>
+<li>Doesn't trust DNS</li>
+<li>Doesn't trust javascript</li>
+</ul>
+<p>This class of user can download the Peergos application (or otherwise obtain a signed copy), or build it from source. They can then run Peergos locally and use the native user interface. Once they have obtained or built a copy they trust, then they need trust only the integrity of TweetNacl cryptography (or our post-quantum upgrade) and the Tor architecture. Every Peergos server will also act as a mirror for the Peergos binary (a few MiB) to allow independent audits of the current version of Peergos being served by particular machines. </p>
 
                 </div>
 

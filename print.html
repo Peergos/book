@@ -71,37 +71,70 @@
                     <a class="header" href="print.html#the-peergos-private-social-network" id="the-peergos-private-social-network"><h1>The Peergos private social network</h1></a>
 <p>The social network where you are in control.</p>
 <a class="header" href="print.html#what-is-peergos" id="what-is-peergos"><h1>What is Peergos</h1></a>
+<p>You can think of Peergos as a cross between Dropbox, email, Facebook, Youtube and Twitter, but fully end-to-end encrypted and decentralised to keep your data and social graph private.</p>
 <p>Peergos is a peer-to-peer encrypted filesystem with secure sharing of files designed to be resistant to surveillance of data content or friendship graphs. It will have a secure email replacement, with some interoperability with email. There will also be a totally private and secure social network, where users are in control of who sees what (executed cryptographically).</p>
 <p>The name Peergos comes from the Greek word Πύργος (Pyrgos), which means stronghold or tower, but phonetically spelt with the nice connection to being peer-to-peer.</p>
-<p><strong>WARNING:</strong> Peergos is still alpha software, and needs an independent security audit. Don't use it for data you can't afford to lose or expose, yet.</p>
+<p><strong>WARNING:</strong> Peergos is still alpha software, and needs an independent security audit. Don't use it for data you can't afford to lose or expose, yet. Some of the features in this documentation are yet to be imlemented. </p>
 <a class="header" href="print.html#aims" id="aims"><h1>Aims</h1></a>
 <ul>
 <li>To allow individuals to securely and privately store files in a peer to peer network which has no central node and is generally difficult to disrupt or surveil</li>
 <li>To allow secure sharing of such files with other users of the network without visible meta-data (who shares with who)</li>
 <li>To have a beautiful user interface that any computer or mobile user can understand</li>
 <li>To enable a new secure form of email, with optional interop with actual email</li>
-<li>To be independent of the central SSL CA trust architecture</li>
-<li>Self hostable - A user should be able to easily run Peergos on a machine in their home and get their own Peergos storage space, and social communication platform from it.</li>
-<li>A secure web interface</li>
+<li>To be independent of the central SSL CA trust architecture, and the domain name system</li>
+<li>Self hostable - A user should be able to easily run Peergos on a machine in their home and get their own Peergos storage space, and social communication platform from it</li>
+<li>A secure web interface as well as desktop clients, and native folder sync</li>
 <li>Enable users to collaborate, editing a document in place concurrently</li>
-<li>To enable secure real time chat</li>
+<li>To enable secure real time chat, and eventually realtime video chat</li>
 <li>Plausibly deniable dual login to an account, ala Truecrypt</li>
 <li>Optional use of U2F for securing login</li>
 </ul>
 <a class="header" href="print.html#features" id="features"><h1>Features</h1></a>
+<ul>
+<li>Self hosting</li>
+<li>Peer-to-peer</li>
+<li>Multi-device login</li>
+<li>Web interface</li>
+<li>Social</li>
+<li>Sharing</li>
+<li>Large files</li>
+<li>Streaming</li>
+<li>File viewers</li>
+<li>Public links</li>
+<li>Migration</li>
+<li>Folder Sync</li>
+<li>Open source</li>
+</ul>
 <a class="header" href="print.html#self-hosting" id="self-hosting"><h1>Self hosting</h1></a>
+<p>Peergos is fully self hostable. You can run peergos from your own home or server to obtain as much storage and bandwidth as you need, whilst still transparently interacting with anyone using any other server. Because the server only ever sees encrypted data you can also tell it to directly store your data in a standard cloud storage provider like Backblaze or Amazon without any loss of privacy. </p>
 <a class="header" href="print.html#peer-to-peer" id="peer-to-peer"><h1>Peer-to-peer</h1></a>
+<p>Peergos is built with a peer-to-peer architecture to protect against censorship and surveillance and to improve resiliency. </p>
 <a class="header" href="print.html#multi-device-login" id="multi-device-login"><h1>Multi-device login</h1></a>
+<p>Peergos is naturally mutli-device. You can log in to your account from any device, and through any Peergos server. It is not tied to any other data like your phone number or email address. All you need is your username and your password. </p>
 <a class="header" href="print.html#web-interface" id="web-interface"><h1>Web interface</h1></a>
+<p>In keeping with our aim to be as convenient to use as existing centralised services, Peergos has a web interface which can be used instead of a native application. This interface does not require any special knowledge, especially not of cryptography or keys, but should none-the-less encourage/enforce safe practices. The web interface does not load any code from third-party servers and is entirely self hosted. </p>
 <a class="header" href="print.html#social" id="social"><h1>Social</h1></a>
+<p>Peergos has an in-band mechanism for sharing files/send messages to other users. There is a one-way following mechanism. If Agata follows Bartek then Bartek can share files with Agata. If Bartek is also following Agata, then she can also share files with Bartek. Following can be revoked by either user at any point.</p>
+<p>There is also a public link mechanism for sharing files with people who do not have peergos accounts. </p>
 <a class="header" href="print.html#sharing" id="sharing"><h1>Sharing</h1></a>
+<p>A file or folder can be shared with any user who is following you. This access can be read only or writable. Access can be revoked at any time whilst maintaining access to anyone else the item is shared with. This is all achieved cryptographically with capabilities and lazy re-encryption. </p>
 <a class="header" href="print.html#large-files" id="large-files"><h1>Large files</h1></a>
+<p>There is no file size limit in Peergos apart from what will fit in your storage quota. Despite doing client side encryption/decryption we can still upload or download arbitrarily large files sending directly from/to the filesystem. </p>
 <a class="header" href="print.html#streaming" id="streaming"><h1>Streaming</h1></a>
+<p>Peergos is naturally streaming and despite having to decrypt files in the client we can still stream large files directly with low ram usage. This allows us to stream large videos in the browser directly to a html5 video element. </p>
 <a class="header" href="print.html#file-viewers" id="file-viewers"><h1>File viewers</h1></a>
+<p>There are several built-in file viewers in Peergos. We have standard media viewers for images, videos and audio, as well as a text viewer and a baseline hex viewer. In the future we hope to add pdf and other document viewers. </p>
 <a class="header" href="print.html#public-links" id="public-links"><h1>Public links</h1></a>
+<p>Any file or folder can generate a public link to itself. Anyone with a (Javascript enabled) web browser can view such a link. This is a capability based link which includes the necessary key in the hash fragment of the url. Despite the name, a public link doesn't expose the file to the network, or indeed to anyone who doesn't have the link itself.</p>
+<p>An example of a public link to a folder is:</p>
+<p>https://demo.peergos.net/#pQd8rmrEhBN1RbDLK1ioBnFF4YLgvPAmte3ypNDiwshMJJip9Dbbgw4t/FGXm4KWWePPNfdN91MNCeHgC16Wxemt4C4iDoS6qz1ea/5Pf7SvpL6BKtVUnPGmU3CqpZJ1hypK17GZbF27Ui8hKa2CXZWZZ</p>
 <a class="header" href="print.html#migration" id="migration"><h1>Migration</h1></a>
+<p>You identity in Peergos is not tied to any particular server. Compared to other federated social networks where moving server typically involves losing your social network and data, Peergos allows you to transparently migrate between servers and storage providers without any action required from your friends and without any data loss.</p>
+<p>This means, for example, you could start out by creating an account on our demo server which gives you a small amount of storage, then effortlessly migrate to a paid server, or to your own server. </p>
 <a class="header" href="print.html#file-sync" id="file-sync"><h1>File Sync</h1></a>
+<p>Peergos has the ability to do standard directory syncing and transparently mount a folder to your host operating system. This is achieved with a FUSE binding (or equivalent for Windows and MacOS). </p>
 <a class="header" href="print.html#open-source" id="open-source"><h1>Open source</h1></a>
+<p>Peergos is fully open-source, both clients, and server (incuding the web-interface). No part of our infrastructure, apart from TLS and Peergos private keys, are secret. We also have reproducible builds (we don't use npm or browserify etc.) We also vendor all dependencies so any historic git commit should be buildable without any external data. Eventually we want to self host our git repos in Peergos itself. </p>
 <a class="header" href="print.html#peergos-architecture" id="peergos-architecture"><h1>Peergos architecture</h1></a>
 <a class="header" href="print.html#logical" id="logical"><h1>Logical</h1></a>
 <a class="header" href="print.html#physical" id="physical"><h1>Physical</h1></a>
@@ -112,14 +145,47 @@
 <a class="header" href="print.html#usernames" id="usernames"><h1>Usernames</h1></a>
 <a class="header" href="print.html#follow-requests" id="follow-requests"><h1>Follow requests</h1></a>
 <a class="header" href="print.html#security" id="security"><h1>Security</h1></a>
+<p>Peergos' primary focus is security.</p>
 <a class="header" href="print.html#threat-models" id="threat-models"><h1>Threat models</h1></a>
+<p>Peergos supports several threat models depending on the user and their situation.</p>
+<a class="header" href="print.html#casual-user" id="casual-user"><h1>Casual user:</h1></a>
+<ul>
+<li>Trusts the SSL certificate hierarchy and the domain name system</li>
+<li>Is happy to run Javascript in their browser</li>
+<li>Trusts TLS and their browser (and OS and CPU ;-) )</li>
+</ul>
+<p>Such a user can interact with peergos purely through a public web server that they trust over TLS.</p>
+<a class="header" href="print.html#slightly-paranoid-user" id="slightly-paranoid-user"><h2>Slightly paranoid user:</h2></a>
+<ul>
+<li>Doesn't trust DNS or SSL certificates</li>
+<li>Is happy to run Javascript served from localhost in their browser</li>
+</ul>
+<p>This class of user can download and run the Peergos application and access the web interface through their browser over localhost.</p>
+<a class="header" href="print.html#more-paranoid-user" id="more-paranoid-user"><h2>More paranoid user:</h2></a>
+<ul>
+<li>Doesn't not trust the SSL certificate system</li>
+<li>Doesn't trust DNS</li>
+<li>Doesn't trust javascript</li>
+</ul>
+<p>This class of user can download the Peergos application (or otherwise obtain a signed copy), or build it from source. They can then run Peergos locally and use the native user interface. Once they have obtained or built a copy they trust, then they need trust only the integrity of TweetNacl cryptography (or our post-quantum upgrade) and the Tor architecture. Every Peergos server will also act as a mirror for the Peergos binary (a few MiB) to allow independent audits of the current version of Peergos being served by particular machines. </p>
 <a class="header" href="print.html#login" id="login"><h1>Login</h1></a>
+<p>Decentralised login is achieved using a capability based system. Your identity key pairs and root encryption key are derived from your password salted with your username and passed through the scrypt hashing function (with parameters 17, 8, 1, 96). By virtue of being decentralised, we cannot rate limit attempts to crack your password, so choosing a good passord is imperative. We recommend at least 14 random alphanumeric characters. </p>
 <a class="header" href="print.html#encryption" id="encryption"><h1>Encryption</h1></a>
+<p>All your files are encrypted symmetrically with a random 256-bit key using salsa20+poly1305 (from TweetNaCl). These keys are not derived from the contents of the file (as some services do) because this leaks to the network which files you are storing. Files are split into chunks of up to 5 MiB and each chunk is independently encrypted, and optionally erasure coded. The link from one chunk of a file to the next is also encrypted so that the netork cannot deduce how big an individual file is from the data at rest. </p>
 <a class="header" href="print.html#access-control" id="access-control"><h1>Access control</h1></a>
+<p>Read access to your files is controlled by a data structure call cryptree, which is essentially a tree of symmetric keys, where the holder of one key can decrypt all the descendany keys. The result is exxtremely fine grained access control. You can grant access to someone to a file and that user won't be able to see any of the sibling files in the same folder (or even their names). Granting read access to a folder implies granting read access to all the contents of the folder recursively.</p>
+<p>Write access is independently controlled by an asymmetric signing keypair. All updates to a given subtree are signed by the corresponding writing key. When you grant write access to a file or folder then that item is moved to a new writing key pair, to keep the fine grained access control applicable to write access too. This operates independently of the read access control cryptree. </p>
 <a class="header" href="print.html#metadata" id="metadata"><h1>Metadata</h1></a>
+<p>All of the metadata for a given file is also encrypted, with a different symmetric key. This includes the name for directories and also the filesize, modification time, any thumbnail and mime type for files. The size if files is further hidden by splitting files into 5MiB chunks and storing each chunk under a random label (along with those for all other files owned by the same user).</p>
+<p>The metadata around access patterns is hidden by hosting files behind a tor hidden service. This ensures that when one user reads a file shared with them by a friend this access does not leak to the network the fact that they are friends. </p>
 <a class="header" href="print.html#quantum-resistance" id="quantum-resistance"><h1>Quantum resistance</h1></a>
+<p>Peergos aims to be a long term secure file storage system, and hence we have architected it with an awareness of quantum computer based attacks (many of us are ex physicists).</p>
+<p>Files that you store but don't share with anyone are already resistant to quantum computer based attacks. This is because the process from logging in to decrypting them only involves hashing and symmetric encryption, neither of which are significantly weakened by a quantum computer.</p>
+<p>Files that have been shared are currently vulnerable to a quantum computer attack because they use asymmetric elliptic curve cryptography (Curve25519) to share the decryption capability. However, we plan to upgade to a suitable post-quantum algorithm soon. </p>
 <a class="header" href="print.html#social-graph" id="social-graph"><h1>Social graph</h1></a>
+<p>Following a user is implemented by them sharing read access to a directory in their filesystem. The read capability is sent encrypted from a random single use keypair to the target user's public key. These requests are sent over Tor to that user's hidden service to hide the metadata from the network. Once retrieved, the receiving user stores the capability in their own storage, symmetrically encrypted and deletes the follow request from their server. </p>
 <a class="header" href="print.html#tofu" id="tofu"><h1>TOFU</h1></a>
+<p>All users have a public identity key, and these are stored in an append only content addressed data structure (or blockchain if you will). This structure is mirrored by all nodes. This allows users to do public key lookups without leaking to the network who they are looking up. Users also store the keys of their friends in their own filesystem in a TOFU setup. This means that ordinary usage doesn't involve looking up keys from the public blockchain. </p>
 
                 </div>
 
