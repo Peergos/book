@@ -1,1 +1,3 @@
 # TOFU
+
+All users have a public identity key, and these are stored in an append only content addressed data structure (or blockchain if you will). This structure is mirrored by all nodes. This allows users to do public key lookups without leaking to the network who they are looking up. Users also store the keys of their friends in their own filesystem in a TOFU setup. This means that ordinary usage doesn't involve looking up keys from the public blockchain. 
