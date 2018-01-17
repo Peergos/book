@@ -69,7 +69,7 @@
 
                 <div id="content" class="content">
                     <a class="header" href="./security/encryption.html#encryption" id="encryption"><h1>Encryption</h1></a>
-<p>All your files are encrypted symmetrically with a random 256-bit key using salsa20+poly1305 (from TweetNaCl). These keys are not derived from the contents of the file (as some services do) because this leaks to the network which files you are storing. Files are split into chunks of up to 5 MiB and each chunk is independently encrypted, and optionally erasure coded. The link from one chunk of a file to the next is also encrypted so that the netork cannot deduce how big an individual file is from the data at rest. </p>
+<p>All your files are encrypted symmetrically with a random 256-bit key using salsa20+poly1305 (from TweetNaCl). These keys are not derived from the contents of the file (as some services do) because this leaks to the network which files you are storing. Files are split into chunks of up to 5 MiB and each chunk is independently encrypted, and optionally erasure coded. The link from one chunk of a file to the next is also encrypted so that the network cannot deduce how big an individual file is from the data at rest. </p>
 
                 </div>
 
