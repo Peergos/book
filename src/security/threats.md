@@ -2,7 +2,7 @@
 
 Peergos supports several threat models depending on the user and their situation.
 
-# Casual user:
+## Casual user:
 * Trusts the SSL certificate hierarchy and the domain name system
 * Is happy to run Javascript in their browser
 * Trusts TLS and their browser (and OS and CPU ;-) )
