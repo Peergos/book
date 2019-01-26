@@ -25,7 +25,7 @@
     - [Immutable data](./architecture/immutable.md)
     - [Mutable pointers](./architecture/mutable.md)
     - [Writing subspaces](./architecture/writer.md)
-    - [Merkle-btree](./architecture/btree.md)
+    - [Merkle-CHAMP](./architecture/champ.md)
     - [Usernames](./architecture/pki.md)
     - [Follow requests](./architecture/follow.md)
 
