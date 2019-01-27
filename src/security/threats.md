@@ -21,4 +21,4 @@ This class of user can download and run the Peergos application and access the w
 * Doesn't trust DNS
 * Doesn't trust javascript
 
-This class of user can download the Peergos application (or otherwise obtain a signed copy), or build it from source. They can then run Peergos locally and use the native user interface. Once they have obtained or built a copy they trust, then they need trust only the integrity of TweetNacl cryptography (or our post-quantum upgrade) and the Tor architecture. Every Peergos server will also act as a mirror for the Peergos binary (a few MiB) to allow independent audits of the current version of Peergos being served by particular machines. 
+This class of user can download the Peergos application (or otherwise obtain a signed copy), or build it from source. They can then run Peergos locally and use the native user interface. Once they have obtained or built a copy they trust, then they need trust only the integrity of TweetNacl cryptography (or our post-quantum upgrade) and the Tor architecture.  
