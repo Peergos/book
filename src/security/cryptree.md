@@ -4,4 +4,4 @@ Read access to your files is controlled by a data structure called cryptree, whi
 
 Write access is independently controlled by an asymmetric signing keypair. All updates to a given subtree are signed by the corresponding writing key. When you grant write access to a file or folder then that item is moved to a new writing key pair, to keep the fine grained access control applicable to write access too. This operates independently of the read access control cryptree.
 
-<img alt="Capability read access tree" src="img/cryptree.svg" class="center" style="width: 50%;" />
+<img alt="Capability read access tree" src="/img/cryptree.svg" class="center" style="width: 50%;" />
