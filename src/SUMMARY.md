@@ -38,3 +38,10 @@
     - [Quantum resistance](./security/quantum.md)
     - [Social graph](./security/social.md)
     - [TOFU](./security/tofu.md)
+
+- [How does it work?](./dev/details.md)
+    - [Signing up](./dev/signup.md)
+    - [Uploading a file](./dev/upload.md)
+    - [Sending a follow request](./dev/follow.md)
+    - [Sharing a file](./dev/sharing.md)
+    - [Granting write access](./dev/writeaccess.md)
