@@ -10,11 +10,11 @@ The steps involved in signing up are:
 2) Set up your identity
    - Write the public identity key to ipfs
    - Write the public following key to ipfs
-   - Create a WriterData for the identity key pair with the two resulting public key hashes
+   - Create a [WriterData](/architecture/writer.html) for the identity key pair with the two resulting public key hashes
    - Generate a random key pair to control writes to the users filesystem. Add this key pair as an owned key to the identity WriterData.
    - Commit the identity WriterData (write it to ipfs and set the mutable pointer for the identity key pair to the resulting hash). 
 
 3) Set up your filesystem
-   - Create a DirAccess cryptree node for the user's root directory, and add this to the champ of the filesystem key pair.
+   - Create a DirAccess [cryptree](/security/cryptree.html) node for the user's root directory, and add this to the champ of the filesystem key pair.
    - Add a write capability (encrypted) to the static data section of the identity key pair's WriterData
    - Create the /username/shared directory which is used when sending follow requests

@@ -43,5 +43,4 @@
     - [Signing up](./dev/signup.md)
     - [Uploading a file](./dev/upload.md)
     - [Sending a follow request](./dev/follow.md)
-    - [Sharing a file](./dev/sharing.md)
-    - [Granting write access](./dev/writeaccess.md)
+    - [Proxying requests](./dev/proxy.md)

@@ -16,6 +16,4 @@ A file upload proceeds in the following steps
 
 5) Delete the transaction file
 
-A modification, such as uploading a file, can be done through any Peergos server as the writes are proxied through an ipfs p2p stream to the owner's storage ipfs node. This is illustrated below.
-
-<img alt="Uploading a file through a different Peergos server" src="/img/upload-p2p.svg" class="center" style="width: 100%;" />
+A modification, such as uploading a file, can be done through any Peergos server as the writes are [proxied](/dev/proxy.html) through an ipfs p2p stream to the owner's storage ipfs node. 
