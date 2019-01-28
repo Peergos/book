@@ -1,5 +1,5 @@
 # Physical
 
-The Physical architecture consists of a Tor hidden service for each user, behind which is a Peergos server which stores and publishes that user's mutable pointers, data store, and receives incoming follow requests. There is also the global append only log for the PKI.
+Each user must have at least one Peergos server (which includes an instance of IPFS). This server stores their data, their mutable pointers and any pending follow requests for them. There is also the global append only log for the PKI which is mirrored on every node.
 
-<img alt="The physical architecture" src="img/phys-arch.svg" class="center" style="width: 80%;" />
+<img alt="The physical architecture" src="/img/physical-arch.svg" class="center" style="width: 100%;" />

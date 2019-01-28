@@ -2,9 +2,9 @@
 
 The logical architecture of Peergos consists of the following:
 
-1) a global append only log for the username <==> public key mappings
-2) each user designates a server for sending follow requests for users to (the server can't see the source user)
-2) a mapping from a public key to a hash (the mutable pointers)
-3) a mapping from a hash to the (encrypted) data it is the hash of (the data store)
+1) Content addressed storage: a mapping from a hash to the (encrypted) data it is the hash of (the data store)
+2) Mutable pointers: a mapping from a public key to a hash
+3) PKI: a global append only log for the username <==> {identity public key, storage public key} mappings
+4) Social: each user designates a server for sending follow requests for users to (the server can't see the source user). This is the same as the storage server for that user and is identified and contacted via its public key. 
 
-<img alt="Logical Architecture" src="img/logical.svg" class="center" style="width: 50%;" />
+<img alt="Logical Architecture" src="/img/logical-arch.svg" class="center" style="width: 100%;" />
