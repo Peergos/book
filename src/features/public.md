@@ -1,6 +1,6 @@
 # Public links
 
-Any file or folder can generate a public link to itself. Anyone with a (Javascript enabled) web browser can view such a link. This is a capability based link which includes the necessary key in the hash fragment of the url. Despite the name, a public link doesn't expose the file to the network, or indeed to anyone who doesn't have the link itself.
+A public link can be generated to point to any file or folder. Anyone with a (Javascript enabled) web browser can view such a link. This is a capability based link which includes the necessary key in the hash fragment of the url. Despite the name, a public link doesn't expose the file to the network, or indeed to anyone who doesn't have the link itself because the key material isn't sent to the server.
 
 An example of a public link to a folder is:
 

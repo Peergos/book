@@ -1,3 +1,3 @@
 # Social graph
 
-Following a user is implemented by them sharing read access to a directory in their filesystem. The read capability is sent encrypted from a random single use keypair to the target user's public key. These requests are sent over Tor to that user's hidden service to hide the metadata from the network. Once retrieved, the receiving user stores the capability in their own storage, symmetrically encrypted and deletes the follow request from their server. 
+Following a user is implemented by them sharing read access to a directory in their filesystem. The read capability is sent encrypted from a random single use keypair to the target user's public key. These requests will be sent over Tor to that user's hidden service to hide the metadata from the network. Once retrieved, the receiving user stores the capability in their own storage, symmetrically encrypted and deletes the follow request from their server. 
