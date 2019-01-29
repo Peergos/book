@@ -137,7 +137,7 @@
                 <div id="content" class="content">
                     <main>
                         <a class="header" href="#physical" id="physical"><h1>Physical</h1></a>
-<p>Each user must have at least one Peergos server (which includes an instance of IPFS). This server stores their data, their mutable pointers and any pending follow requests for them. There is also the global append only log for the PKI which is mirrored on every node.</p>
+<p>Each user must have at least one Peergos server (which includes an instance of IPFS). This server stores their data, their mutable pointers and any pending follow requests for them. There is also the global append only log for the PKI which is mirrored on every node. Communication between IPFS instances is done over encrypted secio streams. <a href="https://github.com/libp2p/go-libp2p-secio">secio</a> is like TLS but with a different handshake.</p>
 <p><img alt="The physical architecture" src="/img/physical-arch.svg" class="center" style="width: 100%;" /></p>
 
                     </main>

@@ -139,7 +139,7 @@
                         <a class="header" href="#the-peergos-private-social-network" id="the-peergos-private-social-network"><h1>The Peergos private social network</h1></a>
 <p>The social network where you are in control.</p>
 <a class="header" href="#what-is-peergos" id="what-is-peergos"><h1>What is Peergos</h1></a>
-<p>You can think of Peergos as a cross between Dropbox, email, Facebook, Youtube and Twitter, but fully end-to-end encrypted and decentralised to keep your data and social graph private.</p>
+<p>You can think of Peergos as a cross between Dropbox, email, Facebook, YouTube and Twitter, but fully end-to-end encrypted and decentralised to keep your data and social graph private.</p>
 <p>Peergos is a peer-to-peer encrypted filesystem with secure sharing of files designed to be resistant to surveillance of data content or friendship graphs. It will have a secure email replacement, with some interoperability with email. There will also be a totally private and secure social network, where users are in control of who sees what (executed cryptographically).</p>
 <p>The name Peergos comes from the Greek word Πύργος (Pyrgos), which means stronghold or tower, but phonetically spelt with the nice connection to being peer-to-peer. It is pronounced peer-goss, as in gossip.</p>
 <p><strong>WARNING:</strong> Peergos is still alpha software, and needs an independent security audit. Don't use it for data you can't afford to lose or expose, yet. Some of the features in this documentation are yet to be imlemented, in particular, Tor is not used yet. </p>
@@ -198,7 +198,7 @@
 <a class="header" href="#file-viewers" id="file-viewers"><h1>File viewers</h1></a>
 <p>There are several built-in file viewers in Peergos. We have media viewers for images, videos and audio, as well as a text viewer and a raw hex viewer. In the future we hope to add pdf and other document viewers and also editors. </p>
 <a class="header" href="#public-links" id="public-links"><h1>Public links</h1></a>
-<p>Any file or folder can generate a public link to itself. Anyone with a (Javascript enabled) web browser can view such a link. This is a capability based link which includes the necessary key in the hash fragment of the url. Despite the name, a public link doesn't expose the file to the network, or indeed to anyone who doesn't have the link itself.</p>
+<p>A public link can be generated to point to any file or folder. Anyone with a (Javascript enabled) web browser can view such a link. This is a capability based link which includes the necessary key in the hash fragment of the url. Despite the name, a public link doesn't expose the file to the network, or indeed to anyone who doesn't have the link itself because the key material isn't sent to the server.</p>
 <p>An example of a public link to a folder is:</p>
 <p><a href="https://demo.peergos.net/#pQd8rmrEhBN1RbDLK1ioBnFF4YLgvPAmte3ypNDiwshMJJip9Dbbgw4t/FGXm4KWWePPNfdN91MNCeHgC16Wxemt4C4iDoS6qz1ea/5Pf7SvpL6BKtVUnPGmU3CqpZJ1hypK17GZbF27Ui8hKa2CXZWZZ">https://demo.peergos.net/#pQd8rmrEhBN1RbDLK1ioBnFF4YLgvPAmte3ypNDiwshMJJip9Dbbgw4t/FGXm4KWWePPNfdN91MNCeHgC16Wxemt4C4iDoS6qz1ea/5Pf7SvpL6BKtVUnPGmU3CqpZJ1hypK17GZbF27Ui8hKa2CXZWZZ</a></p>
 <a class="header" href="#migration" id="migration"><h1>Migration</h1></a>
@@ -207,21 +207,21 @@
 <a class="header" href="#file-sync" id="file-sync"><h1>File Sync</h1></a>
 <p>Peergos has the ability to do standard directory syncing and transparently mount a folder to your host operating system. This is achieved with a FUSE binding (or equivalent for Windows and MacOS). </p>
 <a class="header" href="#open-source" id="open-source"><h1>Open source</h1></a>
-<p>Peergos is fully open-source, both clients, and server (incuding the web-interface).</p>
+<p>Peergos is fully open-source, both clients, and server (incuding the web-interface). The main interface is a web-ui, but Peergos can also be accessed using a Java client on the command line, or with a FUSE mount of your Peergos filesystem.</p>
 <p>No part of our infrastructure, apart from TLS and Peergos private keys, are secret. We also have reproducible builds (we don't use npm or browserify etc.) We also vendor all dependencies so any historic git commit should be buildable without any external data.</p>
 <p>Eventually we want to self host our git repos in Peergos itself. </p>
 <a class="header" href="#peergos-architecture" id="peergos-architecture"><h1>Peergos architecture</h1></a>
 <a class="header" href="#logical" id="logical"><h1>Logical</h1></a>
 <p>The logical architecture of Peergos consists of the following:</p>
 <ol>
-<li>Content addressed storage: a mapping from a hash to the (encrypted) data it is the hash of (the data store)</li>
+<li>Content addressed storage: a data store with a mapping from the hash of a block of data to the data itself</li>
 <li>Mutable pointers: a mapping from a public key to a hash</li>
 <li>PKI: a global append only log for the username &lt;==&gt; {identity public key, storage public key} mappings</li>
 <li>Social: each user designates a server for sending follow requests for users to (the server can't see the source user). This is the same as the storage server for that user and is identified and contacted via its public key.</li>
 </ol>
 <p><img alt="Logical Architecture" src="/img/logical-arch.svg" class="center" style="width: 100%;" /></p>
 <a class="header" href="#physical" id="physical"><h1>Physical</h1></a>
-<p>Each user must have at least one Peergos server (which includes an instance of IPFS). This server stores their data, their mutable pointers and any pending follow requests for them. There is also the global append only log for the PKI which is mirrored on every node.</p>
+<p>Each user must have at least one Peergos server (which includes an instance of IPFS). This server stores their data, their mutable pointers and any pending follow requests for them. There is also the global append only log for the PKI which is mirrored on every node. Communication between IPFS instances is done over encrypted secio streams. <a href="https://github.com/libp2p/go-libp2p-secio">secio</a> is like TLS but with a different handshake.</p>
 <p><img alt="The physical architecture" src="/img/physical-arch.svg" class="center" style="width: 100%;" /></p>
 <a class="header" href="#immutable-data" id="immutable-data"><h1>Immutable data</h1></a>
 <p>The immutable data store is provided by IPFS and allows anyone to retrieve any cipher text from its hash through any Peergos node. Note that IPFS is used in a fully trustless manner. Every single hash and signature is checked client side during reads and writes. The underlying storage can be provided by the local harddisk or any cloud provider without loss of privacy.</p>
@@ -347,7 +347,7 @@ CompletableFuture&lt;Optional&lt;byte[]&gt;&gt; getPointer(PublicKeyHash owner, 
 </code></pre>
 <a class="header" href="#writing-subspaces" id="writing-subspaces"><h1>Writing subspaces</h1></a>
 <p>Each user has a randomly generated writing key pair which controls writes to their filesystem. They can create new writing key pairs for any subtree, for example when granting write access to a file or folder. If desired, a given writing key can be quota controlled, to prevent users to which you've granted write access to a file from filling your data store.</p>
-<p>Everying signing keypair, including your identity keypair your root writing keypair map to a data structure called WriterData. A WriterData can contain merkle links to roots of merkle champs and various public keys. The full data structure is listed below. If any of the properties are empty they do not contribute to the size of the serialized WriterData.</p>
+<p>Every signing keypair, including your identity keypair, and your root writing keypair, map to a data structure called WriterData. A WriterData can contain merkle links to roots of merkle champs and various public keys. The full data structure is listed below. If any of the properties are empty they do not contribute to the size of the serialized WriterData.</p>
 <pre><code class="language-java">// the public signing key controlling this subspace
 PublicKeyHash controller;
 
@@ -373,7 +373,7 @@ Optional&lt;UserStaticData&gt; staticData;
 Optional&lt;Multihash&gt; tree;
 </code></pre>
 <a class="header" href="#merkle-champ" id="merkle-champ"><h1>Merkle-CHAMP</h1></a>
-<p>The main network visible data structure in Peergos is a merkle compressed hash array mapped trie, or merkle-champ. All the data under a given writing keypair has its own merkle-champ. This is just a mapping from random 32 byte labels to cipher-text blobs. These blobs are cryptree nodes containing the cryptree data structure, and, in the case of a file section, merkle links to encrypted file fragments. Each 5 MiB section of a file is stored under a different random label in the btree, and similarly with large directories.</p>
+<p>The main network visible data structure in Peergos is a merkle compressed hash array mapped trie, or merkle-champ. This data structure is explained in the next section. All the data under a given writing keypair has its own merkle-champ. This is just a mapping from random 32 byte labels to cipher-text blobs. These blobs are <a href="/security/cryptree.html">cryptree</a> nodes containing the cryptree data structure, and, in the case of a file section, merkle links to encrypted file fragments. A merkle-link is just a hash that references another ipfs object. Each 5 MiB section of a file is stored under a different random label in the btree, and similarly with large directories.</p>
 <p><img alt="the network visible merkle-champ" src="/img/champ.svg" class="center" style="width: 100%;" /></p>
 <a class="header" href="#usernames" id="usernames"><h1>Usernames</h1></a>
 <p>The public keys and usernames are stored in a global append only data structure, with names taken on a first come first served basis. This needs consensus to ensure uniqueness of usernames. This is also where the ipfs node id of the server(s) responsible for synchronising the user's writes is stored. The public key infrastructure (pki) server is called the Corenode, and its interface is the following.</p>
@@ -407,7 +407,7 @@ CompletableFuture&lt;String&gt; getUsername(PublicKeyHash key);
 CompletableFuture&lt;List&lt;String&gt;&gt; getUsernames(String prefix);
 </code></pre>
 <a class="header" href="#follow-requests" id="follow-requests"><h1>Follow requests</h1></a>
-<p>A user's storage server stores their pending follow requests until they are retrieved and deleted. These are not actually stored in ipfs itself, and reading them is guarded by a challenge protocol to mitigate against a future quantum computer.</p>
+<p>A user's storage server stores their pending follow requests until they are retrieved and deleted. These are not actually stored in ipfs itself, and reading them is guarded by a challenge protocol to mitigate against someone logging them alll now and decrypting them with a large quantum computer when one is built.</p>
 <p>Follow requests contain no unencrypted data visible to the network, or server, apart from the target user. Only the target user can decrypt the follow request to see the sender.</p>
 <p>The interface for sending, receiving and removing follow requests is called SocialNetwork and has the following methods:</p>
 <pre><code class="language-java">/** Send a follow request to the target public key
@@ -457,9 +457,9 @@ CompletableFuture&lt;Boolean&gt; removeFollowRequest(PublicKeyHash owner, byte[]
 <li>Doesn't trust DNS</li>
 <li>Doesn't trust javascript</li>
 </ul>
-<p>This class of user can download the Peergos application (or otherwise obtain a signed copy), or build it from source. They can then run Peergos locally and use the native user interface. Once they have obtained or built a copy they trust, then they need trust only the integrity of TweetNacl cryptography (or our post-quantum upgrade) and the Tor architecture.  </p>
+<p>This class of user can download the Peergos application (or otherwise obtain a signed copy), or build it from source. They can then run Peergos locally and use the native user interface, either the comand line or a FUSE mount. Once they have obtained or built a copy they trust, then they need trust only the integrity of TweetNacl cryptography (or our post-quantum upgrade) and the Tor architecture.  </p>
 <a class="header" href="#login" id="login"><h1>Login</h1></a>
-<p>Decentralised login is achieved using a capability based system. Your identity key pairs and root encryption key are derived from your password salted with your username and passed through the scrypt hashing function (with parameters 17, 8, 1, 96). By virtue of being decentralised, we cannot rate limit attempts to crack your password, so choosing a good passord is imperative. We recommend at least 14 random alphanumeric characters.</p>
+<p>Decentralised login is achieved using a capability based system. Your identity key pairs and root encryption key are derived from your password salted with your username and passed through the <a href="https://en.wikipedia.org/wiki/Scrypt">scrypt</a> hashing function (with parameters 17, 8, 1, 96). By virtue of being decentralised, we cannot rate limit attempts to crack your password, so choosing a good passord is imperative. We recommend at least 14 random alphanumeric characters.</p>
 <p><img alt="Login key derivation" src="/img/scrypt.svg" class="center" style="width: 70%;" /></p>
 <a class="header" href="#encryption" id="encryption"><h1>Encryption</h1></a>
 <p>All your files are encrypted symmetrically with a random 256-bit key using salsa20+poly1305 (from TweetNaCl). These keys are not derived from the contents of the file (as some services do) because this leaks to the network which files you are storing. Files are split into chunks of up to 5 MiB and each chunk is independently encrypted, and optionally erasure coded. The link from one chunk of a file to the next is also encrypted so that the network cannot deduce how big an individual file is from the data at rest. </p>
@@ -470,13 +470,13 @@ CompletableFuture&lt;Boolean&gt; removeFollowRequest(PublicKeyHash owner, byte[]
 <p><img alt="Write access capability tree" src="/img/write-cryptree.svg" class="center" style="width: 100%;" /></p>
 <a class="header" href="#metadata" id="metadata"><h1>Metadata</h1></a>
 <p>All of the metadata for a given file is encrypted, with a different symmetric key from the file itself. This includes the name for directories and also the filesize, modification time, any thumbnail and mime type for files. The size of files is further hidden by splitting files into 5MiB chunks and storing each chunk under a random label (along with those for all other files owned by the same user and controlled by the same writing key pair).</p>
-<p>The metadata around access patterns is hidden by hosting files behind a tor hidden service. This ensures that when one user reads a file shared with them by a friend this access does not leak to the network the fact that they are friends. </p>
+<p>The metadata around access patterns will be hidden by hosting files behind a tor hidden service once Tor is integrated. This will ensure that when one user reads a file shared with them by a friend this access does not leak to the network the fact that they are friends. </p>
 <a class="header" href="#quantum-resistance" id="quantum-resistance"><h1>Quantum resistance</h1></a>
 <p>Peergos aims to be a long term secure file storage system, and hence we have architected it with an awareness of quantum computer based attacks (many of us are ex physicists).</p>
 <p>Files that you store but don't share with anyone are already resistant to quantum computer based attacks. This is because the process from logging in to decrypting them only involves hashing and symmetric encryption, neither of which are significantly weakened by a quantum computer.</p>
 <p>Files that have been shared are currently vulnerable to a quantum computer attack because they use asymmetric elliptic curve cryptography (Curve25519) to share the decryption capability. However, we plan to upgade to a suitable post-quantum algorithm soon. </p>
 <a class="header" href="#social-graph" id="social-graph"><h1>Social graph</h1></a>
-<p>Following a user is implemented by them sharing read access to a directory in their filesystem. The read capability is sent encrypted from a random single use keypair to the target user's public key. These requests are sent over Tor to that user's hidden service to hide the metadata from the network. Once retrieved, the receiving user stores the capability in their own storage, symmetrically encrypted and deletes the follow request from their server. </p>
+<p>Following a user is implemented by them sharing read access to a directory in their filesystem. The read capability is sent encrypted from a random single use keypair to the target user's public key. These requests will be sent over Tor to that user's hidden service to hide the metadata from the network. Once retrieved, the receiving user stores the capability in their own storage, symmetrically encrypted and deletes the follow request from their server. </p>
 <a class="header" href="#tofu" id="tofu"><h1>TOFU</h1></a>
 <p>All users have a public identity key, and these are stored in an append only content addressed data structure (or blockchain if you will). This structure is mirrored by all nodes. This allows users to do public key lookups without leaking to the network who they are looking up. Users also store the keys of their friends in their own filesystem in a TOFU setup. This means that ordinary usage doesn't involve looking up keys from the public blockchain. </p>
 <a class="header" href="#how-does-it-work" id="how-does-it-work"><h1>How does it work?</h1></a>
