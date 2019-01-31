@@ -1,8 +1,6 @@
 # The Peergos book
 
 - [Overview](./overview/overview.md)
-    - [What is Peergos](./overview/what_is_peergos.md)
-    - [Aims](./overview/aims.md)
 
 - [Features](./features/features.md)
     - [Self hosting](./features/self.md)
