@@ -12,7 +12,7 @@
     - [Large files](./features/large.md)
     - [Streaming](./features/streaming.md)
     - [File viewers](./features/viewers.md)
-    - [Public links](./features/public.md)
+    - [Secret links](./features/secret.md)
     - [Migration](./features/migration.md)
     - [File Sync](./features/sync.md)
     - [Open source](./features/open.md)
