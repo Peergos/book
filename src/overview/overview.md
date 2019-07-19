@@ -6,7 +6,7 @@ Peergos is a peer-to-peer encrypted filesystem with secure sharing of files desi
 
 The name Peergos comes from the Greek word Πύργος (Pyrgos), which means stronghold or tower, but phonetically spelt with the nice connection to being peer-to-peer. It is pronounced peer-goss, as in gossip. 
 
-**WARNING:** Peergos is still alpha software, and needs an independent security audit. Don't use it for data you can't afford to lose or expose, yet. Some of the features in this documentation are yet to be imlemented, in particular, Tor is not used yet.
+**WARNING:** Peergos has had an audit by Cure53, but is still in active development. Some of the features in this documentation are yet to be imlemented, in particular, Tor is not used yet.
 
 ## Aims
 
