@@ -5,6 +5,7 @@
 - [Features](./features/features.md)
     - [Self hosting](./features/self.md)
     - [Peer-to-peer](./features/p2p.md)
+    - [Trust free server](./features/trust.md)
     - [Multi-device login](./features/multi.md)
     - [Web interface](./features/web.md)
     - [Social](./features/social.md)
@@ -28,6 +29,7 @@
     - [Follow requests](./architecture/follow.md)
 
 - [Security](./security/security.md)
+    - [Trust free layers](./security/trust.md)
     - [Threat models](./security/threats.md)
     - [Login](./security/login.md)
     - [Encryption](./security/encryption.md)
@@ -35,7 +37,7 @@
     - [Metadata](./security/meta.md)
     - [Quantum resistance](./security/quantum.md)
     - [Social graph](./security/social.md)
-    - [TOFU](./security/tofu.md)
+    - [PKI](./security/pki.md)
 
 - [How does it work?](./dev/details.md)
     - [Signing up](./dev/signup.md)
