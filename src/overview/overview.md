@@ -2,7 +2,7 @@
 
 Peergos is building the next web - the private web, where end users are in control. Imagine web apps being secure by default and unable to track you. Imagine being able to control exactly what personal data each web app can see. Imagine never having to log in to an app ever again. You own your data and decide where it is stored and who can see it. At Peergos, we believe that privacy is a fundamental human right and we want to make it easy for everyone to interact online in ways that respect this right. 
 
-Peergos is a peer-to-peer encrypted global filesystem with fine grained access control designed to be resistant to surveillance of data content or friendship graphs. It will have a secure email replacement, with some interoperability with email. There will also be a totally private and secure social network, where users are in control of who sees what (executed cryptographically).
+Peergos is a peer-to-peer encrypted global filesystem with fine-grained access control designed to be resistant to surveillance of data content or friendship graphs. It will have a secure messenger, with optional interoperability with email. There will also be a totally private and secure social network, where users are in control of who sees what (executed cryptographically).
 
 The name Peergos comes from the Greek word Πύργος (Pyrgos), which means stronghold or tower, but phonetically spelt with the nice connection to being peer-to-peer. It is pronounced peer-goss, as in gossip. 
 
@@ -17,9 +17,9 @@ The name Peergos comes from the Greek word Πύργος (Pyrgos), which means st
  - **Secure messaging**, with optional interop with actual email
  - **Independent** of the central SSL CA trust architecture, and the domain name system
  - **Self hostable** - A user should be able to easily run Peergos on a machine in their home and get their own Peergos storage space, and social communication platform from it 
- - Secure web interface as well as desktop clients, native folder sync, and a command line interface
+ - Secure *web interface* as well as desktop clients, native folder sync, and a command line interface
  - Do not rely on any cryptocurrency
- - Enable users to collaborate, editing a document in place concurrently
- - Secure real time chat, and video conferencing able to handle 100s of participants, fully end-to-end encrypted
- - Social account recovery - designate N of M friends who can collaborate to recover your account if you lose your password
+ - Enable users to *collaborate*, editing a document in place concurrently
+ - Secure real time chat, and *video conferencing* able to handle 100s of participants, fully end-to-end encrypted
+ - Social *account recovery* - designate N of M friends who can collaborate to recover your account if you lose your password
  - Optional use of U2F for securing login
