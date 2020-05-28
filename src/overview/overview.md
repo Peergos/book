@@ -17,7 +17,7 @@ The name Peergos comes from the Greek word Πύργος (Pyrgos), which means st
  - **Secure messaging**, with optional interop with actual email
  - **Independent** of the central SSL CA trust architecture, and the domain name system
  - **Self hostable** - A user should be able to easily run Peergos on a machine in their home and get their own Peergos storage space, and social communication platform from it
- - Allow users to run web apps within Peergos (and served directly from Peerogs) which are totally sandboxed and unable to track users or exfiltrate data
+ - Allow users to run web apps within Peergos (and served directly from Peergos) which are totally sandboxed and unable to track users or exfiltrate data
  - Secure *web interface* as well as desktop clients, native folder sync, and a command line interface
  - Do not rely on any cryptocurrency
  - Enable users to *collaborate*, editing a document in place concurrently
