@@ -258,7 +258,7 @@
 </ol>
 <p><img alt="Logical Architecture" src="/img/logical-arch.svg" class="center" style="width: 100%;" /></p>
 <a class="header" href="#physical" id="physical"><h1>Physical</h1></a>
-<p>Each user must have at least one Peergos server (which includes an instance of IPFS). This server stores their data, their mutable pointers and any pending follow requests for them. There is also the global append only log for the PKI which is mirrored on every node. Communication between IPFS instances is done over encrypted secio streams. <a href="https://github.com/libp2p/go-libp2p-secio">secio</a> is like TLS but with a different handshake.</p>
+<p>Each user must have at least one Peergos server (which includes an instance of IPFS). This server stores their data, their mutable pointers and any pending follow requests for them. There is also the global append only log for the PKI which is mirrored on every node. Communication between IPFS instances is done over encrypted TLS 1.3 streams.</p>
 <p><img alt="The physical architecture" src="/img/physical-arch.svg" class="center" style="width: 100%;" /></p>
 <a class="header" href="#immutable-data" id="immutable-data"><h1>Immutable data</h1></a>
 <p>The immutable data store is provided by IPFS and allows anyone to retrieve any cipher text from its hash through any Peergos node. Note that IPFS is used in a fully trustless manner. Every single hash and signature is checked client side during reads and writes. The underlying storage can be provided by the local harddisk or any cloud provider without loss of privacy.</p>
