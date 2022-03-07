@@ -166,7 +166,7 @@ Structure for storing BATs in the prefix of a raw block
 <p><center>
 BAT derivation for subsequent chunks of a file
 </center></p>
-<p>Each 5 MiB chunk of a file or directory has its own unique BAT, so the server still cannot link the different blocks of a file to deduce the padded size of the file. Subsequent chunk BATs within a file are <a href="/posts/fast-seeking">derived</a> in the same way as we do the CHAMP labels, by hashing the current chunk BAT with a stream-secret, stored encrypted in the first chunk. This maintains our ability to seek within arbitrarily large files without any IO operations (just local hashing and then a final lookup of the requested chunk). When someone's access to a file or directory is revoked, the BATs are also changed, making it impossible to retrieve the new ciphertext even with previous access.</p>
+<p>Each 5 MiB chunk of a file or directory has its own unique BAT, so the server still cannot link the different blocks of a file to deduce the padded size of the file. Subsequent chunk BATs within a file are derived in the same way as we do the CHAMP labels, by hashing the current chunk BAT with a stream-secret, stored encrypted in the first chunk. This maintains our ability to seek within arbitrarily large files without any IO operations (just local hashing and then a final lookup of the requested chunk). When someone's access to a file or directory is revoked, the BATs are also changed, making it impossible to retrieve the new ciphertext even with previous access.</p>
 
                     </main>
 
