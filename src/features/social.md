@@ -4,4 +4,4 @@ Peergos users can send follow requests to each other. If accepted, the other use
 
 Your friend list is kept encrypted in your own Peergos space, hidden from other users and the server. 
 
-There is also a public link mechanism for sharing files with people who do not have peergos accounts. 
+There is also a secret link mechanism for sharing files with people who do not have peergos accounts. 

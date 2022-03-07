@@ -1,9 +1,11 @@
 # The Peergos book
 A detailed description of Peergos from the ground up
 
-View at https://peergos.github.io/book
+View at https://book.peergos.org
+
 
 ## How to build the book ?
+> ./mdBook build
 
 You can use any _Markdown to PDF_ tool to build the book.  
 We recommend [mdBook](https://github.com/azerupi/mdBook), a Rust tool to create online books from Markdown.

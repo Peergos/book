@@ -9,7 +9,7 @@
 - Large files
 - Streaming
 - File viewers
-- Public links
+- Secret links
 - Migration
 - Folder Sync
 - Open source
