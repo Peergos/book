@@ -1,5 +1,5 @@
 # Login
 
-Decentralised login is achieved using a capability based system. Your identity key pairs and root encryption key are derived from your password salted with your username and passed through the [scrypt](https://en.wikipedia.org/wiki/Scrypt) hashing function (with parameters 17, 8, 1, 96). By virtue of being decentralised, we cannot rate limit attempts to crack your password, so choosing a good passord is imperative. We recommend at least 14 random alphanumeric characters.
+To login your password + username + public salt are hashed using [scrypt](https://en.wikipedia.org/wiki/Scrypt) hashing function (with parameters 17, 8, 1, 64). The output of this is your login keypair and a symmetric key. The login keypair is used to auth with your server and retrieve your encrypted login data, which is decrypted using the aforementioned symmetric key. The login data contains your identity keypair, social keypair, and the root capability to your filesystem.
 
-<img alt="Login key derivation" src="/img/scrypt.svg" class="center" style="width: 70%;" />
+<img alt="Login key derivation" src="/img/login.png" class="center" style="width: 70%;" />
