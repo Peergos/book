@@ -13,3 +13,4 @@
 - Migration
 - Folder Sync
 - Open source
+- Custom Apps
