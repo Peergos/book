@@ -42,7 +42,7 @@ version			- Format of Major.Minor.Patch-Suffix. Example: 0.0.1-initial
 
 description		- Text. Length must not exceed 100 characters
 
-supportAddress	- Text. Length must not exceed 100 characters
+author			- Text. Length must not exceed 25 characters
     		
 fileExtensions	- Array of target file extensions e.g. ["jpg","png","gif"]
 
@@ -71,9 +71,9 @@ READ_CHOSEN_FOLDER – Can read contents of folder chosen by user
 
 The following endpoints are available:
 
-/peergos-api/data/path.to.file – The data folder is where the App can store and retrieve files
+/peergos-api/v0/data/path.to.file – The data folder is where the App can store and retrieve files
 
-/peergos-api/form/path.to.file – An app can POST a HTML Form to /form/somefile.txt and have the results stored in a file of the same name in the data folder.
+/peergos-api/v0/form/path.to.file – An app can POST a HTML Form and have the results stored in a file of the same name in the data folder.
 
 If an App is launched from a file/folder context menu item, the path of the file/folder will be available via:
 
@@ -82,6 +82,12 @@ let url = new URL(window.location.href);
 let filePath = url.searchParams.get("path");
 ```
 
+ Dark mode can be detected via the theme param
+ 
+ ```js
+ let theme = url.searchParams.get("theme");// curent values: ['dark-mode', '']
+ ```
+ 
 ### The following HTTP actions are supported:
 
 GET – Retrieve a resource. Can be a file or folder
