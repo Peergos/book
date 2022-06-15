@@ -2,6 +2,9 @@
 
 Peergos Apps are a way to extend the Peergos platform to add custom functionality
 
+When an app is run, its HTML5 assets are rendered in a unique sobdomain (sha256(app path)) of the peergos server. The subdomain is isolated from the main peergos domain in a separate OS process, and from other apps. The subdomain is also locked down with CSP so it cannot make any external requests which could be used to exfilrate data [0]. Requests made by the app are intercepted in a service worker and translated to post messages which are sent to the main peergos tab. That is where the requests are checked for validity and permissions are enforced. By default, an app has no permissions and can only read its own assets. 
+
+[0] This is currently not true until browsers implement the prefetch-src CSP directive to allow blocking DNS prefetch, and enforce connect-src CSP against webrtc. So only install apps from authors you trust for now.
 
 ## Use cases:
 1. Media Player App. The App should appear as a context menu item when a media file is selected on the Drive screen.
@@ -66,6 +69,7 @@ EDIT_CHOSEN_FILE – Can modify file chosen by user
 
 READ_CHOSEN_FOLDER – Can read contents of folder chosen by user
 
+These are already quite powerful, but we plan to add more permissions as we see more use cases.
 
 ## Peergos REST API
 
