@@ -42,7 +42,7 @@ version			- Format of Major.Minor.Patch-Suffix. Example: 0.0.1-initial
 
 description		- Text. Length must not exceed 100 characters
 
-author			- Text. Length must not exceed 25 characters
+author			- Text. Length must not exceed 32 characters
     		
 fileExtensions	- Array of target file extensions e.g. ["jpg","png","gif"]
 
