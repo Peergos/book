@@ -18,6 +18,7 @@
     - [File Sync](./features/sync.md)
     - [Open source](./features/open.md)
     - [Custom Apps](./features/apps.md)
+    - [Private websites](./features/private-web.md)
 
 - [Architecture](./architecture/architecture.md)
     - [Logical](./architecture/logical.md)
