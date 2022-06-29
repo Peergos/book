@@ -15,6 +15,8 @@ When an app is run, its HTML5 assets are rendered in a unique hostname (sha256(a
 
 1. White Board App. App will appear on the Launcher page. App can create, retrieve, update, append and delete files within it’s own App space.
     
+## Example apps
+You can find some example apps here: [https://github.com/Peergos/example-apps](https://github.com/Peergos/example-apps)
 
 ## Anatomy of a Peergos App
 
