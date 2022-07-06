@@ -81,6 +81,8 @@ The following endpoints are available:
 
 /peergos-api/v0/form/path.to.file – An app can POST a HTML Form and have the results stored in a file of the same name in the data folder.
 
+/peergos-api/v0/chat/ - An app can use the chat api for communication between friends.
+
 If an App is launched from a file/folder context menu item, the path of the file/folder will be available via:
 
 ```js
@@ -94,7 +96,7 @@ let filePath = url.searchParams.get("path");
  let theme = url.searchParams.get("theme");// curent values: ['dark-mode', '']
  ```
  
-### The following HTTP actions are supported:
+### Drive - The following HTTP actions are supported:
 
 GET – Retrieve a resource. Can be a file or folder
 
@@ -136,9 +138,81 @@ PATCH – append to a file only supported
 
 400 – request failed
 
+### Chat - The following HTTP actions are supported (see chat-api in example-apps):
+
+GET – Retrieve a list of all chats created by this App
+
+/peergos-api/v0/chat/
+
+Response code: 200 – success. 
+
+Response:
+
+{chatId: chatId, title: title}
+
+
+
+GET – Retrieve chat messages
+
+/peergos-api/v0/chat/:chatId
+
+Url Parameters:
+
+from - paging from index
+
+to - paging to index
+
+Response code: 200 – success.
+
+Response:
+
+{messages:[], count: messagesRead}
+
+Contents of messages array:
+
+{type: 'Application', id: messageHash, text: text, author: author, timestamp: timestamp}
+
+{type: 'Join', username: username, timestamp: timestamp}
+
+
+POST - create chat
+
+/peergos-api/v0/chat/
+
+Request FormData
+
+parameters:
+
+maxInvites - Numeric
+
+Response code: 201 – success.
+
+Response header:
+
+Location - chatId
+
+
+
+PUT - send message
+
+/peergos-api/v0/chat/:chatId
+
+Request FormData
+
+parameters:
+
+text - Contents of message
+
+Response code: 201 – success.
+
+
+
 ## Developing a Peergos App
 
 Select the peergos-app.json file and choose ‘Run App’ to launch the app from the current directory. 
+This is only available for launchable apps.
+
+Tip: During development, set the launchable property to get the fast dev cycle feedback. 
 
 The install process will detect if an existing App has the same name. 
 It will display the version of the already installed App. 
@@ -146,4 +220,5 @@ It will display the version of the already installed App.
 During install the App's files are copied to an internal folder. Any existing contents in the assets folder will be replaced. 
 The contents of the data folder will be added to.  
 The previously installed peergos-app.json file is copied to the App’s data directory as ‘peergos-app-previous.json’. 
+
 
