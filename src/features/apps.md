@@ -71,6 +71,9 @@ EDIT_CHOSEN_FILE – Can modify file chosen by user
 
 READ_CHOSEN_FOLDER – Can read contents of folder chosen by user
 
+EXCHANGE_MESSAGES_WITH_FRIENDS - Can exchange messages with friends
+
+
 These are already quite powerful, but we plan to add more permissions as we see more use cases.
 
 ## Peergos REST API
