@@ -183,11 +183,13 @@
 <p>STORE_APP_DATA  - Can store and read files in a folder private to the app</p>
 <p>EDIT_CHOSEN_FILE – Can modify file chosen by user</p>
 <p>READ_CHOSEN_FOLDER – Can read contents of folder chosen by user</p>
+<p>EXCHANGE_MESSAGES_WITH_FRIENDS - Can exchange messages with friends</p>
 <p>These are already quite powerful, but we plan to add more permissions as we see more use cases.</p>
 <a class="header" href="#peergos-rest-api" id="peergos-rest-api"><h2>Peergos REST API</h2></a>
 <p>The following endpoints are available:</p>
 <p>/peergos-api/v0/data/path.to.file – The data folder is where the App can store and retrieve files</p>
 <p>/peergos-api/v0/form/path.to.file – An app can POST a HTML Form and have the results stored in a file of the same name in the data folder.</p>
+<p>/peergos-api/v0/chat/ - An app can use the chat api for communication between friends.</p>
 <p>If an App is launched from a file/folder context menu item, the path of the file/folder will be available via:</p>
 <pre><code class="language-js">let url = new URL(window.location.href);
 let filePath = url.searchParams.get(&quot;path&quot;);
@@ -195,7 +197,7 @@ let filePath = url.searchParams.get(&quot;path&quot;);
 <p>Dark mode can be detected via the theme param</p>
 <pre><code class="language-js">let theme = url.searchParams.get(&quot;theme&quot;);// curent values: ['dark-mode', '']
 </code></pre>
-<a class="header" href="#the-following-http-actions-are-supported" id="the-following-http-actions-are-supported"><h3>The following HTTP actions are supported:</h3></a>
+<a class="header" href="#drive---the-following-http-actions-are-supported" id="drive---the-following-http-actions-are-supported"><h3>Drive - The following HTTP actions are supported:</h3></a>
 <p>GET – Retrieve a resource. Can be a file or folder</p>
 <p>Response code: 200 – success.</p>
 <p>404, 400 – request failed</p>
@@ -222,8 +224,41 @@ let filePath = url.searchParams.get(&quot;path&quot;);
 <p>PATCH – append to a file only supported</p>
 <p>204 – Append success. See Response header field: Content-Location</p>
 <p>400 – request failed</p>
+<a class="header" href="#chat---the-following-http-actions-are-supported-see-chat-api-in-example-apps" id="chat---the-following-http-actions-are-supported-see-chat-api-in-example-apps"><h3>Chat - The following HTTP actions are supported (see chat-api in example-apps):</h3></a>
+<p>GET – Retrieve a list of all chats created by this App</p>
+<p>/peergos-api/v0/chat/</p>
+<p>Response code: 200 – success.</p>
+<p>Response:</p>
+<p>{chatId: chatId, title: title}</p>
+<p>GET – Retrieve chat messages</p>
+<p>/peergos-api/v0/chat/:chatId</p>
+<p>Url Parameters:</p>
+<p>from - paging from index</p>
+<p>to - paging to index</p>
+<p>Response code: 200 – success.</p>
+<p>Response:</p>
+<p>{messages:[], count: messagesRead}</p>
+<p>Contents of messages array:</p>
+<p>{type: 'Application', id: messageHash, text: text, author: author, timestamp: timestamp}</p>
+<p>{type: 'Join', username: username, timestamp: timestamp}</p>
+<p>POST - create chat</p>
+<p>/peergos-api/v0/chat/</p>
+<p>Request FormData</p>
+<p>parameters:</p>
+<p>maxInvites - Numeric</p>
+<p>Response code: 201 – success.</p>
+<p>Response header:</p>
+<p>Location - chatId</p>
+<p>PUT - send message</p>
+<p>/peergos-api/v0/chat/:chatId</p>
+<p>Request FormData</p>
+<p>parameters:</p>
+<p>text - Contents of message</p>
+<p>Response code: 201 – success.</p>
 <a class="header" href="#developing-a-peergos-app" id="developing-a-peergos-app"><h2>Developing a Peergos App</h2></a>
-<p>Select the peergos-app.json file and choose ‘Run App’ to launch the app from the current directory.</p>
+<p>Select the peergos-app.json file and choose ‘Run App’ to launch the app from the current directory.
+This is only available for launchable apps.</p>
+<p>Tip: During development, set the launchable property to get the fast dev cycle feedback.</p>
 <p>The install process will detect if an existing App has the same name.
 It will display the version of the already installed App.</p>
 <p>During install the App's files are copied to an internal folder. Any existing contents in the assets folder will be replaced.
