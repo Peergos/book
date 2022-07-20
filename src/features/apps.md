@@ -101,6 +101,8 @@ let filePath = url.searchParams.get("path");
  
 ### Drive - The following HTTP actions are supported:
 
+Note: /peergos-api/v0/data/ is only relevant for the App's data folder. It is not necessary when referencing a file in the App's assets folder or the folder/file selected by the user. 
+
 GET – Retrieve a resource. Can be a file or folder
 
 Response code: 200 – success. 
