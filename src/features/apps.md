@@ -73,6 +73,17 @@ READ_CHOSEN_FOLDER – Can read contents of folder chosen by user
 
 EXCHANGE_MESSAGES_WITH_FRIENDS - Can exchange messages with friends
 
+CSP_UNSAFE_EVAL - Allow app to modify its own code via calls to eval()
+
+A minimal peergos-app.json file would look like:
+
+```js
+{
+    "displayName": "App",
+    "description": "does something",
+    "launchable": true  	
+}
+```
 
 These are already quite powerful, but we plan to add more permissions as we see more use cases.
 
