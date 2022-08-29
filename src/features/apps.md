@@ -75,6 +75,8 @@ EXCHANGE_MESSAGES_WITH_FRIENDS - Can exchange messages with friends
 
 CSP_UNSAFE_EVAL - Allow app to modify its own code via calls to eval()
 
+SAVE_FILE - Allow app to save a file
+
 A minimal peergos-app.json file would look like:
 
 ```js
