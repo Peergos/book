@@ -223,6 +223,14 @@ text - Contents of message
 Response code: 201 – success.
 
 
+PUT|POST - save a file (launches a dialog)
+
+/peergos-api/v0/save/
+
+Request body set to contents of file to save
+
+Response code: 200 or 201 – success.
+
 
 ## Developing a Peergos App
 
