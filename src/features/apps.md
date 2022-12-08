@@ -225,7 +225,7 @@ Response code: 201 – success.
 
 PUT|POST - save a file (launches a dialog)
 
-/peergos-api/v0/save/
+/peergos-api/v0/save/filename.txt
 
 Request body set to contents of file to save
 
