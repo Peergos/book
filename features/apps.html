@@ -184,6 +184,14 @@
 <p>EDIT_CHOSEN_FILE – Can modify file chosen by user</p>
 <p>READ_CHOSEN_FOLDER – Can read contents of folder chosen by user</p>
 <p>EXCHANGE_MESSAGES_WITH_FRIENDS - Can exchange messages with friends</p>
+<p>CSP_UNSAFE_EVAL - Allow app to modify its own code via calls to eval()</p>
+<p>A minimal peergos-app.json file would look like:</p>
+<pre><code class="language-js">{
+    &quot;displayName&quot;: &quot;App&quot;,
+    &quot;description&quot;: &quot;does something&quot;,
+    &quot;launchable&quot;: true  	
+}
+</code></pre>
 <p>These are already quite powerful, but we plan to add more permissions as we see more use cases.</p>
 <a class="header" href="#peergos-rest-api" id="peergos-rest-api"><h2>Peergos REST API</h2></a>
 <p>The following endpoints are available:</p>
@@ -198,6 +206,7 @@ let filePath = url.searchParams.get(&quot;path&quot;);
 <pre><code class="language-js">let theme = url.searchParams.get(&quot;theme&quot;);// curent values: ['dark-mode', '']
 </code></pre>
 <a class="header" href="#drive---the-following-http-actions-are-supported" id="drive---the-following-http-actions-are-supported"><h3>Drive - The following HTTP actions are supported:</h3></a>
+<p>Note: /peergos-api/v0/data/ is only relevant for the App's data folder. It is not necessary when referencing a file in the App's assets folder or the folder/file selected by the user.</p>
 <p>GET – Retrieve a resource. Can be a file or folder</p>
 <p>Response code: 200 – success.</p>
 <p>404, 400 – request failed</p>
@@ -255,6 +264,10 @@ let filePath = url.searchParams.get(&quot;path&quot;);
 <p>parameters:</p>
 <p>text - Contents of message</p>
 <p>Response code: 201 – success.</p>
+<p>PUT|POST - save a file (launches a dialog)</p>
+<p>/peergos-api/v0/save/filename.txt</p>
+<p>Request body set to contents of file to save</p>
+<p>Response code: 200 or 201 – success.</p>
 <a class="header" href="#developing-a-peergos-app" id="developing-a-peergos-app"><h2>Developing a Peergos App</h2></a>
 <p>Select the peergos-app.json file and choose ‘Run App’ to launch the app from the current directory.
 This is only available for launchable apps.</p>
