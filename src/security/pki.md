@@ -1,5 +1,5 @@
 # Public Key Infrastructure
 
-All users have a public identity key, and these are stored in a merkle-champ. This structure is mirrored by all nodes (and will eventually be sharded). This includes the user's claim to a username along with an expiry, and their current storage server. The effect is similar to certificate transparency logs. 
+All users have a public identity key, and these are stored in a merkle-champ. This structure is mirrored by all nodes (and will eventually be sharded). This includes the user's claim to a username along with an expiry, and their current storage server. The effect is similar to certificate or key transparency logs. In contrast though, key transparency logs are not normally used as the source of truth, but only checked retrospectively, occasionally for some users. So this gives much strong guarantees whilst maintaining the append-only nature. 
 
-This allows users to do public key lookups without leaking to the network who they are looking up. Users also store the keys of their friends in their own filesystem in a TOFU setup. This means that ordinary usage doesn't involve looking up keys from the public blockchain. 
+This allows users to do public key lookups without leaking to the network who they are looking up. Users also store the keys of their friends in their own filesystem in a TOFU setup. This means that ordinary usage doesn't involve looking up keys from the public pki servers. 
