@@ -346,6 +346,13 @@ let filePath = url.searchParams.get(&quot;path&quot;);
 <p>PATCH – append to a file only supported</p>
 <p>204 – Append success. See Response header field: Content-Location</p>
 <p>400 – request failed</p>
+<p>PUT|POST - save a file (launches a dialog)</p>
+<p>/peergos-api/v0/save/filename.txt</p>
+<p>Request body set to contents of file to save</p>
+<p>Response code: 200 or 201 – success.</p>
+<p>GET - launch folder picker</p>
+<p>/peergos-api/v0/folders</p>
+<p>Response code: 200 and an array of the selected paths.</p>
 <a class="header" href="#chat---the-following-http-actions-are-supported-see-chat-api-in-example-apps" id="chat---the-following-http-actions-are-supported-see-chat-api-in-example-apps"><h3>Chat - The following HTTP actions are supported (see chat-api in example-apps):</h3></a>
 <p>GET – Retrieve a list of all chats created by this App</p>
 <p>/peergos-api/v0/chat/</p>
@@ -377,10 +384,6 @@ let filePath = url.searchParams.get(&quot;path&quot;);
 <p>parameters:</p>
 <p>text - Contents of message</p>
 <p>Response code: 201 – success.</p>
-<p>PUT|POST - save a file (launches a dialog)</p>
-<p>/peergos-api/v0/save/filename.txt</p>
-<p>Request body set to contents of file to save</p>
-<p>Response code: 200 or 201 – success.</p>
 <a class="header" href="#developing-a-peergos-app" id="developing-a-peergos-app"><h2>Developing a Peergos App</h2></a>
 <p>Select the peergos-app.json file and choose ‘Run App’ to launch the app from the current directory.
 This is only available for launchable apps.</p>
