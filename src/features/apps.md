@@ -155,6 +155,24 @@ PATCH – append to a file only supported
 
 400 – request failed
 
+
+PUT|POST - save a file (launches a dialog)
+
+/peergos-api/v0/save/filename.txt
+
+Request body set to contents of file to save
+
+Response code: 200 or 201 – success.
+
+
+GET - launch folder picker
+
+/peergos-api/v0/folders
+
+Response code: 200 and an array of the selected paths.
+
+
+
 ### Chat - The following HTTP actions are supported (see chat-api in example-apps):
 
 GET – Retrieve a list of all chats created by this App
@@ -222,14 +240,6 @@ text - Contents of message
 
 Response code: 201 – success.
 
-
-PUT|POST - save a file (launches a dialog)
-
-/peergos-api/v0/save/filename.txt
-
-Request body set to contents of file to save
-
-Response code: 200 or 201 – success.
 
 
 ## Developing a Peergos App
