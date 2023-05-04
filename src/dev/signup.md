@@ -3,7 +3,8 @@
 The steps involved in signing up are:
 
 1) Register the username
-   - Hash the password and username through scrypt to get the identity key pair, following key pair and symmetric root key.
+   - Hash the password and username through scrypt to get the auth key pair, and symmetric root key.
+   - Generate a random identity keypair
    - Generate a signed username claim including an expiry, and the ipfs node id of the storage server (the server we are signing up through) This is just identity.sign(username, expiry, [storage id])
    - Send this claim to the pki node for confirmation
 
@@ -16,5 +17,5 @@ The steps involved in signing up are:
 
 3) Set up your filesystem
    - Create a DirAccess [cryptree](/security/cryptree.html) node for the user's root directory, and add this to the champ of the filesystem key pair.
-   - Add a write capability (encrypted) to the static data section of the identity key pair's WriterData
+   - Add a write capability to your root dir to your login data (encrypted with the symmetric root key, and only retrievable with the auth key pair)
    - Create the /username/shared directory which is used when sending follow requests

@@ -8,4 +8,4 @@ A private website can also link to any other websites in Peergos, including thos
 
 The possibilities are huge here for a better, more private web that protects people from surveillance. You can also edit your website's directly in Peergos. It has never been easier to host your own website securely!
 
-[0] This is currently not true until browsers implement the [prefetch-src](https://caniuse.com/mdn-http_headers_csp_content-security-policy_prefetch-src) CSP directive to allow blocking DNS prefetch, and implement [webrtc CSP](https://github.com/w3c/webappsec-csp/issues/92) which blocks any webrtc connections. 
+[0] This is currently not true until browsers implement the [webrtc CSP](https://github.com/w3c/webappsec-csp/issues/92) which allows us to block any webrtc connections which can be used to exfiltrate data. 

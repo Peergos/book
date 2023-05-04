@@ -23,3 +23,5 @@ CompletableFuture<Boolean> setPointer(PublicKeyHash owner, PublicKeyHash writer,
  */
 CompletableFuture<Optional<byte[]>> getPointer(PublicKeyHash owner, PublicKeyHash writer);
 ```
+
+Each signed update is actually a pair of hashes (previous, current) and a monotonically increasing sequence number. This means the server can reject invalid updates, and that the updates form a total order. The ordering means clients can cache the most recent version of a pointer to defend against being served stale older versions. 

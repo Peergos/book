@@ -12,4 +12,4 @@ Sending a follow request proceeds in the following steps:
 
 The target can then either allow and reciprocate (full bi-directional friendship), allow (you are following them), reciprocate (they are following you) or deny. If they have reciprocated then you can grant read or write access to any file or folder by adding a read or write capability in their directory in your space.
 
-When you receive a follow request and either allow or reciprocate it then you add the capability in the request to your static data on your identity WriterData, so you can find it again later, before deleting the follow request from your server. 
+When you receive a follow request and either allow or reciprocate it then you add the capability in the request to a file in your home dir (/you-username/.from-friends.cborstream), before deleting the follow request from your server. 
