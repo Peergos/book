@@ -242,7 +242,7 @@
 <p><a href="https://peergos.net/#%7B%22secretLink%22:true%2c%22link%22:%22#6MDZhRRPT4ugkJuUfcWtaZodN5QYzkZKJtHpDHomFJrVhNSZysiFYimpgtcA2F/6MDZhRRPT4ugkJuUfcRzRbPpFimcBNJx2N9TJDnL4W3ETYhwdsWdvgCkXkwipF/FCYSFhpQ1xD2cydr6CFQ6UwFkgB82pWReAUzKVDxe4KA/5Pf7SvCG1mMtui2aPd9F3SH2wdwsPro1GxTa7VfxkWrj9XQGAUB%22%2c%22open%22:true%2c%22path%22:%22/demo/%22%7D">https://peergos.net/#%7B%22secretLink%22:true%2c%22link%22:%22#6MDZhRRPT4ugkJuUfcWtaZodN5QYzkZKJtHpDHomFJrVhNSZysiFYimpgtcA2F/6MDZhRRPT4ugkJuUfcRzRbPpFimcBNJx2N9TJDnL4W3ETYhwdsWdvgCkXkwipF/FCYSFhpQ1xD2cydr6CFQ6UwFkgB82pWReAUzKVDxe4KA/5Pf7SvCG1mMtui2aPd9F3SH2wdwsPro1GxTa7VfxkWrj9XQGAUB%22%2c%22open%22:true%2c%22path%22:%22/demo/%22%7D</a></p>
 <a class="header" href="#migration" id="migration"><h1>Migration</h1></a>
 <p>Your identity in Peergos is not tied to any particular server. Compared to other federated social networks where moving server typically involves losing your social network and meta-data, if not data too, Peergos allows you to transparently migrate between servers and storage providers without any action required from your friends and without any data loss.</p>
-<p>This means, for example, you could start out by creating an account on our demo server which gives you a small amount of storage, then effortlessly migrate to a paid server, or to your own server when you realise how awesome Peergos is. </p>
+<p>This means, for example, you could start out by creating an account on your device which gives you limited storage and uptime, then effortlessly migrate to a paid server, or to your own server, when you realise how awesome Peergos is. </p>
 <a class="header" href="#file-sync" id="file-sync"><h1>File Sync</h1></a>
 <p>Peergos has the ability to do standard directory syncing and transparently mount a folder to your host operating system. This is achieved with a FUSE binding (or equivalent for Windows and MacOS). </p>
 <a class="header" href="#open-source" id="open-source"><h1>Open source</h1></a>
@@ -398,7 +398,7 @@ The previously installed peergos-app.json file is copied to the App’s data dir
 <p>You can share websites privately with friends on peergos the same way you share any file or folder. You can even share them with anyone via a secret link!</p>
 <p>A private website can also link to any other websites in Peergos, including those owned by others, by the human readable path in the Peergos global filesystem. Following such a link will only work if you also have read access to the destination.</p>
 <p>The possibilities are huge here for a better, more private web that protects people from surveillance. You can also edit your website's directly in Peergos. It has never been easier to host your own website securely!</p>
-<p>[0] This is currently not true until browsers implement the <a href="https://caniuse.com/mdn-http_headers_csp_content-security-policy_prefetch-src">prefetch-src</a> CSP directive to allow blocking DNS prefetch, and implement <a href="https://github.com/w3c/webappsec-csp/issues/92">webrtc CSP</a> which blocks any webrtc connections. </p>
+<p>[0] This is currently not true until browsers implement the <a href="https://github.com/w3c/webappsec-csp/issues/92">webrtc CSP</a> which allows us to block any webrtc connections which can be used to exfiltrate data. </p>
 <a class="header" href="#peergos-architecture" id="peergos-architecture"><h1>Peergos architecture</h1></a>
 <a class="header" href="#logical" id="logical"><h1>Logical</h1></a>
 <p>The logical architecture of Peergos consists of the following:</p>
