@@ -146,12 +146,16 @@
 <p>Create a transaction file with a plan for the upload</p>
 </li>
 <li>
+<p>Generate a stream secret for the file (32 random bytes) which is stored in the encrypted file metadata</p>
+</li>
+<li>
 <p>For every section of the file which is up to 5 MiB:</p>
 <ul>
-<li>Encrypt the 5 MiB file section with a random symmetric key</li>
-<li>Split the cipher text into 128 KiB fragments</li>
-<li>Create a FileAccess cryptree node with merkle links to all the resulting fragments and an encrypted link to the next section (even if there isn't a next section)</li>
-<li>Add the FileAccess to the champ of the writing key pair under a random 32 byte label</li>
+<li>Pad plaintext to a multiple of 4096 bytes.</li>
+<li>Encrypt the padded 5 MiB file section with a random symmetric key</li>
+<li>Split the cipher text into 1 MiB fragments</li>
+<li>Create a FileAccess cryptree node with merkle links to all the resulting fragments</li>
+<li>Add the FileAccess to the champ of the writing key pair (under a random 32 byte label for initial chunks, or sha256(stream secret + previous label))</li>
 </ul>
 </li>
 <li>

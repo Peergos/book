@@ -142,7 +142,8 @@
 <li>
 <p>Register the username</p>
 <ul>
-<li>Hash the password and username through scrypt to get the identity key pair, following key pair and symmetric root key.</li>
+<li>Hash the password and username through scrypt to get the auth key pair, and symmetric root key.</li>
+<li>Generate a random identity keypair</li>
 <li>Generate a signed username claim including an expiry, and the ipfs node id of the storage server (the server we are signing up through) This is just identity.sign(username, expiry, [storage id])</li>
 <li>Send this claim to the pki node for confirmation</li>
 </ul>
@@ -161,7 +162,7 @@
 <p>Set up your filesystem</p>
 <ul>
 <li>Create a DirAccess <a href="/security/cryptree.html">cryptree</a> node for the user's root directory, and add this to the champ of the filesystem key pair.</li>
-<li>Add a write capability (encrypted) to the static data section of the identity key pair's WriterData</li>
+<li>Add a write capability to your root dir to your login data (encrypted with the symmetric root key, and only retrievable with the auth key pair)</li>
 <li>Create the /username/shared directory which is used when sending follow requests</li>
 </ul>
 </li>

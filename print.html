@@ -686,7 +686,8 @@ BAT derivation for subsequent chunks of a file
 <li>
 <p>Register the username</p>
 <ul>
-<li>Hash the password and username through scrypt to get the identity key pair, following key pair and symmetric root key.</li>
+<li>Hash the password and username through scrypt to get the auth key pair, and symmetric root key.</li>
+<li>Generate a random identity keypair</li>
 <li>Generate a signed username claim including an expiry, and the ipfs node id of the storage server (the server we are signing up through) This is just identity.sign(username, expiry, [storage id])</li>
 <li>Send this claim to the pki node for confirmation</li>
 </ul>
@@ -705,7 +706,7 @@ BAT derivation for subsequent chunks of a file
 <p>Set up your filesystem</p>
 <ul>
 <li>Create a DirAccess <a href="/security/cryptree.html">cryptree</a> node for the user's root directory, and add this to the champ of the filesystem key pair.</li>
-<li>Add a write capability (encrypted) to the static data section of the identity key pair's WriterData</li>
+<li>Add a write capability to your root dir to your login data (encrypted with the symmetric root key, and only retrievable with the auth key pair)</li>
 <li>Create the /username/shared directory which is used when sending follow requests</li>
 </ul>
 </li>
@@ -720,12 +721,16 @@ BAT derivation for subsequent chunks of a file
 <p>Create a transaction file with a plan for the upload</p>
 </li>
 <li>
+<p>Generate a stream secret for the file (32 random bytes) which is stored in the encrypted file metadata</p>
+</li>
+<li>
 <p>For every section of the file which is up to 5 MiB:</p>
 <ul>
-<li>Encrypt the 5 MiB file section with a random symmetric key</li>
-<li>Split the cipher text into 128 KiB fragments</li>
-<li>Create a FileAccess cryptree node with merkle links to all the resulting fragments and an encrypted link to the next section (even if there isn't a next section)</li>
-<li>Add the FileAccess to the champ of the writing key pair under a random 32 byte label</li>
+<li>Pad plaintext to a multiple of 4096 bytes.</li>
+<li>Encrypt the padded 5 MiB file section with a random symmetric key</li>
+<li>Split the cipher text into 1 MiB fragments</li>
+<li>Create a FileAccess cryptree node with merkle links to all the resulting fragments</li>
+<li>Add the FileAccess to the champ of the writing key pair (under a random 32 byte label for initial chunks, or sha256(stream secret + previous label))</li>
 </ul>
 </li>
 <li>
@@ -753,7 +758,7 @@ BAT derivation for subsequent chunks of a file
 </li>
 </ol>
 <p>The target can then either allow and reciprocate (full bi-directional friendship), allow (you are following them), reciprocate (they are following you) or deny. If they have reciprocated then you can grant read or write access to any file or folder by adding a read or write capability in their directory in your space.</p>
-<p>When you receive a follow request and either allow or reciprocate it then you add the capability in the request to your static data on your identity WriterData, so you can find it again later, before deleting the follow request from your server. </p>
+<p>When you receive a follow request and either allow or reciprocate it then you add the capability in the request to a file in your home dir (/you-username/.from-friends.cborstream), before deleting the follow request from your server. </p>
 <a class="header" href="#proxying-requests" id="proxying-requests"><h1>Proxying requests</h1></a>
 <p>Any modifying request needs to be proxied to the correct destination server. This could be signing up, uploading a file, or sending a follow request. This is achieved using an ipfs p2p stream. In particular, because all these requests are http requests, we use the http p2p proxy exposed locally on the ipfs gateway. It means we can send any request to</p>
 <p>http://localhost:8080/p2p/$target_node_id/http/$path</p>
