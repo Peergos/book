@@ -137,7 +137,7 @@
                 <div id="content" class="content">
                     <main>
                         <a class="header" href="#encryption" id="encryption"><h1>Encryption</h1></a>
-<p>All your files are encrypted symmetrically with a random 256-bit key using salsa20+poly1305 (from TweetNaCl). These keys are not derived from the contents of the file (as some services do) because this leaks to the network which files you are storing. Files are split into chunks of up to 5 MiB and each chunk is independently encrypted, and optionally erasure coded. The link from one chunk of a file to the next is also encrypted so that the network cannot deduce how big an individual file is from the data at rest. </p>
+<p>All your files are encrypted symmetrically with a random 256-bit key using salsa20+poly1305 (from TweetNaCl). These keys are not derived from the contents of the file (as some services do) because this leaks to the network which files you are storing. Files are split into chunks of up to 5 MiB, padded to a multiple of 4 KiB, and each chunk is independently encrypted. Different chunks of a file are not linkable unless you have a read capabiltity for that file.</p>
 
                     </main>
 
