@@ -4,7 +4,9 @@ Peergos Apps are a way to extend the Peergos platform to add custom functionalit
 
 When an app is run, its HTML5 assets are rendered in a unique hostname (sha256(app path).$peergos-domain) of the peergos server, e.g. https://bciqjmdntozhuanb2c3ka5vtqpux75j5symbyomhkpnilndngl6iaspy.peergos.net. The app domain is isolated from the main peergos domain in a separate OS process, and from other apps. The app domain is also locked down with CSP http headers so it cannot make any external requests which could be used to exfilrate data [0]. Requests made by the app are intercepted in a service worker and translated to post messages which are sent to the main peergos tab. That is where the requests are checked for validity and permissions are enforced. By default, an app has no permissions and can only read its own assets. Running an app also doesn't reveal its assets to the server - they are served via a service worker and post messages to the main peergos tab, and thus benefit from all the existing privacy protections in Peergos.
 
-[0] This is currently not true until browsers implement [webrtc CSP](https://github.com/w3c/webappsec-csp/issues/92) which blocks any webrtc connections. Issue for this are [firefox](https://bugzilla.mozilla.org/show_bug.cgi?id=1783489), [Chrome](https://bugs.chromium.org/p/chromium/issues/detail?id=1225968). So only install apps from authors you trust for now, unless they don't require any permissions which is safe.
+<img alt="App sandbox" src="/img/sandbox.jpeg" class="center" style="width: 100%;" />
+
+[0] This is currently not true until browsers implement [webrtc CSP](https://github.com/w3c/webappsec-csp/issues/92) which blocks any webrtc connections. Browser issues for this are [firefox](https://bugzilla.mozilla.org/show_bug.cgi?id=1783489), [Chrome](https://bugs.chromium.org/p/chromium/issues/detail?id=1225968). So only install apps from authors you trust for now, unless they don't require any permissions which is safe.
 
 ## Use cases:
 1. Media Player App. The App should appear as a context menu item when a media file is selected on the Drive screen.
