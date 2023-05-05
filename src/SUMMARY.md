@@ -38,6 +38,7 @@
     - [Encryption](./security/encryption.md)
     - [Block access control](./security/bats.md)
     - [File access control](./security/cryptree.md)
+    - [Capabilities](./security/capabilities.md)
     - [Metadata](./security/meta.md)
     - [Quantum resistance](./security/quantum.md)
     - [Social graph](./security/social.md)
