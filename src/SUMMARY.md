@@ -12,6 +12,7 @@
     - [Sharing](./features/sharing.md)
     - [Large files](./features/large.md)
     - [Streaming](./features/streaming.md)
+    - [Fast seeking](./features/fast-seeking.md)
     - [File viewers](./features/viewers.md)
     - [Secret links](./features/secret.md)
     - [Migration](./features/migration.md)

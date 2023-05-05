@@ -8,6 +8,7 @@
 - Sharing
 - Large files
 - Streaming
+- Fast seeking
 - File viewers
 - Secret links
 - Migration
