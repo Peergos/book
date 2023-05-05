@@ -9,6 +9,7 @@
 - Large files
 - Streaming
 - Fast seeking
+- Resumable uploads
 - File viewers
 - Secret links
 - Migration
