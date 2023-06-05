@@ -14,17 +14,15 @@ Optional<SecretGenerationAlgorithm> generationAlgorithm;
 // This is the root of a champ containing publicly shared files and folders (a lookup from path to capability)
 Optional<Multihash> publicData;
 
-// The public boxing key to encrypt follow requests to
+// The public encryption key to encrypt follow requests to
 Optional<PublicKeyHash> followRequestReceiver;
 
 // Any keys directly owned by the controller, that aren't named
 Set<PublicKeyHash> ownedKeys;
 
 // Any keys directly owned by the controller that have specific labels
+// only used for the PKI
 Map<String, PublicKeyHash> namedOwnedKeys;
-
-// Encrypted entry points to our and our friends file systems (present on owner keys)
-Optional<UserStaticData> staticData;
 
 // This is the root of a champ containing the controller's filesystem (present on writer keys)
 Optional<Multihash> tree;

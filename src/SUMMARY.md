@@ -31,6 +31,7 @@
     - [Merkle-CHAMP](./architecture/champ.md)
     - [Usernames](./architecture/pki.md)
     - [Follow requests](./architecture/follow.md)
+    - [Specification](./architecture/spec.md)
 
 - [Security](./security/security.md)
     - [Trust free layers](./security/trust.md)
