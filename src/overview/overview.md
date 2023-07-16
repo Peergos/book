@@ -6,6 +6,8 @@ The foundation of Peergos is a peer-to-peer encrypted global filesystem with fin
 
 The name Peergos comes from the Greek word Πύργος (Pyrgos), which means stronghold or tower, but phonetically spelt with the nice connection to being peer-to-peer. It is pronounced peer-goss, as in gossip. 
 
+For a less technical introduction see [peergos.org](https://peergos.org), or to dive right into the source code, see [github](https://github.com/peergos/peergos).
+
 **WARNING:** Peergos has had an audit by Cure53, but is still in active development. Some of the features in this documentation are yet to be implemented, in particular, onion routing is not used yet.
 
 ## Aims
