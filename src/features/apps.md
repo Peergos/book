@@ -174,6 +174,13 @@ GET - launch folder picker
 Response code: 200 and an array of the selected paths.
 
 
+GET - launch file picker
+
+/peergos-api/v0/file-picker
+Optional url parameter ?extension="json" to filter files shown in picker.
+
+Response code: 200 and an array containing the selected file path.
+
 
 ### Chat - The following HTTP actions are supported (see chat-api in example-apps):
 
