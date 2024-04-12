@@ -182,7 +182,10 @@ Optional url parameter ?extension="json" to filter files shown in picker.
 Response code: 200 and an array containing the selected file path.
 
 
-### Chat - The following HTTP actions are supported (see chat-api in example-apps):
+### Chat V0 - The following HTTP actions are supported (see chat-api in example-apps):
+
+See Chat V1 below for a more comprehensive API to support more complex apps
+
 
 GET – Retrieve a list of all chats created by this App
 
@@ -248,6 +251,200 @@ parameters:
 text - Contents of message
 
 Response code: 201 – success.
+
+
+### Chat V1 - The following HTTP actions are supported (see chat folder in example-apps):
+
+GET – Retrieve chats for current App
+
+/peergos-api/v1/chat/
+
+
+Response code: 200 – success.
+
+Response:
+
+{chats: [], latestMessages: []}
+
+Contents of chats array:
+
+{chatId: string, title: string, members: [usernames], admins: [usernames] }
+
+Contents of latestMessages array (array entries match corresponding chats array):
+
+{message: string, creationTime: timestamp (localdatetime)}
+
+
+GET – Retrieve chat messages
+
+/peergos-api/v1/chat/:chatId
+
+Url Parameters:
+
+startIndex - message index
+
+Response code: 200 – success.
+
+Response:
+
+{chatId: string, startIndex: url param from request, messages: array of message json,
+  hasFriendsInChat: number of friends in current chat membership}
+
+Where message is 
+
+{ messageRef: string uuid, author: username, timestamp: localdatetime, 
+
+type: can be one of RemoveMember|Invite|Join|GroupState|ReplyTo|Delete|Edit|Application ,
+
+removeUsername: set if type is RemoveMember, inviteUsername: set if type is Invite, joinUsername: set if type is Join,
+
+editPriorVersion: set if type is Edit, deleteTarget: set if type is Delete, replyToParent: set if type is ReplyTo,
+
+text: set if type is Application|Edit|ReplyTo, envelope: base64 encoded opaque object,
+
+groupState: set if type is GroupState, attachments : array of attachment json}
+
+Where GroupState is
+
+{ key: payload.key, value: payload.value}
+
+Where attachment is
+
+{fileRef: FileRef json, mimeType: mimeType of file, fileType: audio|video|image, thumbnail: base64 encoded thumbnail for file}
+
+see FileRef description in API call for /attachment response)
+
+
+DELETE - delete a chat
+
+/peergos-api/v1/chat/:chatId
+
+Response code: 204 – success.
+
+
+DELETE - delete an attachment
+
+/peergos-api/v1/chat/filePath
+
+Response code: 204 – success.
+
+
+POST - launch chat group membership modal in order to create a new chat
+
+/peergos-api/v1/chat/
+
+Response code: 201 – success. 400 - failure or modal closed
+
+Response (location response header field):
+
+{chatId: string, title: string, members: [username], admins: [username]};
+
+
+POST - launch chat group membership modal in order to modify membership of existing chat
+
+/peergos-api/v1/chat/:chatId
+
+Response code: 200 – success. 400 - failure or modal closed
+
+
+POST - launch gallery modal to display media attachment
+
+/peergos-api/v1/chat/?view=true
+
+Request body:
+
+byte[] of FileRef json (see fileRef field in API call /attachment response)
+
+Response code: 200
+
+
+POST - download a media attachment
+
+/peergos-api/v1/chat/?download=true
+
+Request body:
+
+byte[] of FileRef json (see fileRef field in API call /attachment response)
+
+Response code: 200
+
+
+POST - upload a media attachment
+
+/peergos-api/v1/chat/attachment?filename=filename-of-file-to-upload
+
+Request body:
+
+byte[] of attachment's content
+
+Response code: 201
+
+Response (location response header field):
+
+{fileRef: FileRef json, hasMediaFile: boolean, hasThumbnail: boolean, thumbnail: base64 string of thumbnail image,
+
+fileType: file type string ie audio, image, video, mimeType: mimeType string, size: number }
+
+where FileRef is
+
+{path: absolute path to file, cap: opaque capability object, contentHash: hash of file contents}
+
+PUT - send a message
+
+/peergos-api/v1/chat/:chatId
+
+Request body:
+
+to create message 
+
+{ createMessage : { text: string, attachments: array of FileRef json} }
+
+to edit existing message
+
+{ editMessage : { text: string, messageRef: uuid of message to edit} }
+
+to reply to an existing message
+
+{ replyMessage : { text: string, attachments: array of FileRef json, replyTo: envelope of message to reply to} }
+
+to delete an existing message
+
+{ deleteMessage : { messageRef: uuid of message to delete} }
+
+Response code: 201
+                    
+
+### Profile:
+
+GET – Launch the profile modal for the requested Peergos user (must be friend of current user)
+
+/peergos-api/v0/profile/:username
+
+Response code: 200 – success.  400 - failure.
+
+
+GET – Retrieve the profile thumbnail image for the requested Peergos user (must be friend of current user)
+
+/peergos-api/v0/profile/:username?thumbnail=true
+
+Response code: 200 – success.  400 - failure.
+
+Response:
+
+{profileThumbnail: base64 data}
+
+
+### Account:
+
+GET – Get the available space for the current user
+
+/peergos-api/v0/account/available-space
+
+Response code: 200 – success.  400 - failure.
+
+Response:
+
+{availableSpace: totalInBytes}
 
 
 
