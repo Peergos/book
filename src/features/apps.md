@@ -75,6 +75,8 @@ READ_CHOSEN_FOLDER – Can read contents of folder chosen by user
 
 EXCHANGE_MESSAGES_WITH_FRIENDS - Can exchange messages with friends
 
+ACCESS_PROFILE_PHOTO - Can retrieve profile photos shared with you
+
 CSP_UNSAFE_EVAL - Allow app to modify its own code via calls to eval()
 
 
@@ -423,7 +425,7 @@ GET – Launch the profile modal for the requested Peergos user (must be friend 
 Response code: 200 – success.  400 - failure.
 
 
-GET – Retrieve the profile thumbnail image for the requested Peergos user (must be friend of current user)
+GET – Retrieve the profile thumbnail image for the requested Peergos user (must be friend of current user + app has permission ACCESS_PROFILE_PHOTO)
 
 /peergos-api/v0/profile/:username?thumbnail=true
 
@@ -432,19 +434,6 @@ Response code: 200 – success.  400 - failure.
 Response:
 
 {profileThumbnail: base64 data}
-
-
-### Account:
-
-GET – Get the available space for the current user
-
-/peergos-api/v0/account/available-space
-
-Response code: 200 – success.  400 - failure.
-
-Response:
-
-{availableSpace: totalInBytes}
 
 
 
