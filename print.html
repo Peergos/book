@@ -308,6 +308,7 @@
 <p>EDIT_CHOSEN_FILE – Can modify file chosen by user</p>
 <p>READ_CHOSEN_FOLDER – Can read contents of folder chosen by user</p>
 <p>EXCHANGE_MESSAGES_WITH_FRIENDS - Can exchange messages with friends</p>
+<p>ACCESS_PROFILE_PHOTO - Can retrieve profile photos shared with you</p>
 <p>CSP_UNSAFE_EVAL - Allow app to modify its own code via calls to eval()</p>
 <p>A minimal peergos-app.json file would look like:</p>
 <pre><code class="language-js">{
@@ -364,7 +365,12 @@ let filePath = url.searchParams.get(&quot;path&quot;);
 <p>GET - launch folder picker</p>
 <p>/peergos-api/v0/folders</p>
 <p>Response code: 200 and an array of the selected paths.</p>
-<a class="header" href="#chat---the-following-http-actions-are-supported-see-chat-api-in-example-apps" id="chat---the-following-http-actions-are-supported-see-chat-api-in-example-apps"><h3>Chat - The following HTTP actions are supported (see chat-api in example-apps):</h3></a>
+<p>GET - launch file picker</p>
+<p>/peergos-api/v0/file-picker
+Optional url parameter ?extension=&quot;json&quot; to filter files shown in picker.</p>
+<p>Response code: 200 and an array containing the selected file path.</p>
+<a class="header" href="#chat-v0---the-following-http-actions-are-supported-see-chat-api-in-example-apps" id="chat-v0---the-following-http-actions-are-supported-see-chat-api-in-example-apps"><h3>Chat V0 - The following HTTP actions are supported (see chat-api in example-apps):</h3></a>
+<p>See Chat V1 below for a more comprehensive API to support more complex apps</p>
 <p>GET – Retrieve a list of all chats created by this App</p>
 <p>/peergos-api/v0/chat/</p>
 <p>Response code: 200 – success.</p>
@@ -395,6 +401,91 @@ let filePath = url.searchParams.get(&quot;path&quot;);
 <p>parameters:</p>
 <p>text - Contents of message</p>
 <p>Response code: 201 – success.</p>
+<a class="header" href="#chat-v1---the-following-http-actions-are-supported-see-chat-folder-in-example-apps" id="chat-v1---the-following-http-actions-are-supported-see-chat-folder-in-example-apps"><h3>Chat V1 - The following HTTP actions are supported (see chat folder in example-apps):</h3></a>
+<p>GET – Retrieve chats for current App</p>
+<p>/peergos-api/v1/chat/</p>
+<p>Response code: 200 – success.</p>
+<p>Response:</p>
+<p>{chats: [], latestMessages: []}</p>
+<p>Contents of chats array:</p>
+<p>{chatId: string, title: string, members: [usernames], admins: [usernames] }</p>
+<p>Contents of latestMessages array (array entries match corresponding chats array):</p>
+<p>{message: string, creationTime: timestamp (localdatetime)}</p>
+<p>GET – Retrieve chat messages</p>
+<p>/peergos-api/v1/chat/:chatId</p>
+<p>Url Parameters:</p>
+<p>startIndex - message index</p>
+<p>Response code: 200 – success.</p>
+<p>Response:</p>
+<p>{chatId: string, startIndex: url param from request, messages: array of message json,
+hasFriendsInChat: number of friends in current chat membership}</p>
+<p>Where message is</p>
+<p>{ messageRef: string uuid, author: username, timestamp: localdatetime,</p>
+<p>type: can be one of RemoveMember|Invite|Join|GroupState|ReplyTo|Delete|Edit|Application ,</p>
+<p>removeUsername: set if type is RemoveMember, inviteUsername: set if type is Invite, joinUsername: set if type is Join,</p>
+<p>editPriorVersion: set if type is Edit, deleteTarget: set if type is Delete, replyToParent: set if type is ReplyTo,</p>
+<p>text: set if type is Application|Edit|ReplyTo, envelope: base64 encoded opaque object,</p>
+<p>groupState: set if type is GroupState, attachments : array of attachment json}</p>
+<p>Where GroupState is</p>
+<p>{ key: payload.key, value: payload.value}</p>
+<p>Where attachment is</p>
+<p>{fileRef: FileRef json, mimeType: mimeType of file, fileType: audio|video|image, thumbnail: base64 encoded thumbnail for file}</p>
+<p>see FileRef description in API call for /attachment response)</p>
+<p>DELETE - delete a chat</p>
+<p>/peergos-api/v1/chat/:chatId</p>
+<p>Response code: 204 – success.</p>
+<p>DELETE - delete an attachment</p>
+<p>/peergos-api/v1/chat/filePath</p>
+<p>Response code: 204 – success.</p>
+<p>POST - launch chat group membership modal in order to create a new chat</p>
+<p>/peergos-api/v1/chat/</p>
+<p>Response code: 201 – success. 400 - failure or modal closed</p>
+<p>Response (location response header field):</p>
+<p>{chatId: string, title: string, members: [username], admins: [username]};</p>
+<p>POST - launch chat group membership modal in order to modify membership of existing chat</p>
+<p>/peergos-api/v1/chat/:chatId</p>
+<p>Response code: 200 – success. 400 - failure or modal closed</p>
+<p>POST - launch gallery modal to display media attachment</p>
+<p>/peergos-api/v1/chat/?view=true</p>
+<p>Request body:</p>
+<p>byte[] of FileRef json (see fileRef field in API call /attachment response)</p>
+<p>Response code: 200</p>
+<p>POST - download a media attachment</p>
+<p>/peergos-api/v1/chat/?download=true</p>
+<p>Request body:</p>
+<p>byte[] of FileRef json (see fileRef field in API call /attachment response)</p>
+<p>Response code: 200</p>
+<p>POST - upload a media attachment</p>
+<p>/peergos-api/v1/chat/attachment?filename=filename-of-file-to-upload</p>
+<p>Request body:</p>
+<p>byte[] of attachment's content</p>
+<p>Response code: 201</p>
+<p>Response (location response header field):</p>
+<p>{fileRef: FileRef json, hasMediaFile: boolean, hasThumbnail: boolean, thumbnail: base64 string of thumbnail image,</p>
+<p>fileType: file type string ie audio, image, video, mimeType: mimeType string, size: number }</p>
+<p>where FileRef is</p>
+<p>{path: absolute path to file, cap: opaque capability object, contentHash: hash of file contents}</p>
+<p>PUT - send a message</p>
+<p>/peergos-api/v1/chat/:chatId</p>
+<p>Request body:</p>
+<p>to create message</p>
+<p>{ createMessage : { text: string, attachments: array of FileRef json} }</p>
+<p>to edit existing message</p>
+<p>{ editMessage : { text: string, messageRef: uuid of message to edit} }</p>
+<p>to reply to an existing message</p>
+<p>{ replyMessage : { text: string, attachments: array of FileRef json, replyTo: envelope of message to reply to} }</p>
+<p>to delete an existing message</p>
+<p>{ deleteMessage : { messageRef: uuid of message to delete} }</p>
+<p>Response code: 201</p>
+<a class="header" href="#profile" id="profile"><h3>Profile:</h3></a>
+<p>GET – Launch the profile modal for the requested Peergos user (must be friend of current user)</p>
+<p>/peergos-api/v0/profile/:username</p>
+<p>Response code: 200 – success.  400 - failure.</p>
+<p>GET – Retrieve the profile thumbnail image for the requested Peergos user (must be friend of current user + app has permission ACCESS_PROFILE_PHOTO)</p>
+<p>/peergos-api/v0/profile/:username?thumbnail=true</p>
+<p>Response code: 200 – success.  400 - failure.</p>
+<p>Response:</p>
+<p>{profileThumbnail: base64 data}</p>
 <a class="header" href="#developing-a-peergos-app" id="developing-a-peergos-app"><h2>Developing a Peergos App</h2></a>
 <p>Select the peergos-app.json file and choose ‘Run App’ to launch the app from the current directory.
 This is only available for launchable apps.</p>
