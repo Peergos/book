@@ -1,14 +1,19 @@
 <!DOCTYPE HTML>
-<html lang="en" class="sidebar-visible no-js">
+<html lang="en" class="light" dir="ltr">
     <head>
         <!-- Book generated using mdBook -->
         <meta charset="UTF-8">
         <title></title>
-        <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
+        <meta name="robots" content="noindex">
+
+
+        <!-- Custom HTML head -->
+        
         <meta name="description" content="">
         <meta name="viewport" content="width=device-width, initial-scale=1">
-        <meta name="theme-color" content="#ffffff" />
+        <meta name="theme-color" content="#ffffff">
 
+        <link rel="icon" href="favicon.svg">
         <link rel="shortcut icon" href="favicon.png">
         <link rel="stylesheet" href="css/variables.css">
         <link rel="stylesheet" href="css/general.css">
@@ -17,8 +22,7 @@
 
         <!-- Fonts -->
         <link rel="stylesheet" href="FontAwesome/css/font-awesome.css">
-        <link href="https://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800" rel="stylesheet" type="text/css">
-        <link href="https://fonts.googleapis.com/css?family=Source+Code+Pro:500" rel="stylesheet" type="text/css">
+        <link rel="stylesheet" href="fonts/fonts.css">
 
         <!-- Highlight.js Stylesheets -->
         <link rel="stylesheet" href="highlight.css">
@@ -26,16 +30,18 @@
         <link rel="stylesheet" href="ayu-highlight.css">
 
         <!-- Custom theme stylesheets -->
-        
 
-        
     </head>
-    <body class="light">
+    <body class="sidebar-visible no-js">
+    <div id="body-container">
         <!-- Provide site root to javascript -->
-        <script type="text/javascript">var path_to_root = "";</script>
+        <script>
+            var path_to_root = "";
+            var default_theme = window.matchMedia("(prefers-color-scheme: dark)").matches ? "navy" : "light";
+        </script>
 
         <!-- Work around some values being stored in localStorage wrapped in quotes -->
-        <script type="text/javascript">
+        <script>
             try {
                 var theme = localStorage.getItem('mdbook-theme');
                 var sidebar = localStorage.getItem('mdbook-sidebar');
@@ -51,71 +57,104 @@
         </script>
 
         <!-- Set the theme before any content is loaded, prevents flash -->
-        <script type="text/javascript">
+        <script>
             var theme;
-            try { theme = localStorage.getItem('mdbook-theme'); } catch(e) { } 
-            if (theme === null || theme === undefined) { theme = 'light'; }
-            document.body.className = theme;
-            document.querySelector('html').className = theme + ' js';
+            try { theme = localStorage.getItem('mdbook-theme'); } catch(e) { }
+            if (theme === null || theme === undefined) { theme = default_theme; }
+            var html = document.querySelector('html');
+            html.classList.remove('light')
+            html.classList.add(theme);
+            var body = document.querySelector('body');
+            body.classList.remove('no-js')
+            body.classList.add('js');
         </script>
 
+        <input type="checkbox" id="sidebar-toggle-anchor" class="hidden">
+
         <!-- Hide / unhide sidebar before it is displayed -->
-        <script type="text/javascript">
-            var html = document.querySelector('html');
-            var sidebar = 'hidden';
+        <script>
+            var body = document.querySelector('body');
+            var sidebar = null;
+            var sidebar_toggle = document.getElementById("sidebar-toggle-anchor");
             if (document.body.clientWidth >= 1080) {
                 try { sidebar = localStorage.getItem('mdbook-sidebar'); } catch(e) { }
                 sidebar = sidebar || 'visible';
+            } else {
+                sidebar = 'hidden';
             }
-            html.classList.remove('sidebar-visible');
-            html.classList.add("sidebar-" + sidebar);
+            sidebar_toggle.checked = sidebar === 'visible';
+            body.classList.remove('sidebar-visible');
+            body.classList.add("sidebar-" + sidebar);
         </script>
 
         <nav id="sidebar" class="sidebar" aria-label="Table of contents">
-            <ol class="chapter"><li><a href="overview/overview.html"><strong aria-hidden="true">1.</strong> Overview</a></li><li><a href="features/features.html"><strong aria-hidden="true">2.</strong> Features</a></li><li><ol class="section"><li><a href="features/self.html"><strong aria-hidden="true">2.1.</strong> Self hosting</a></li><li><a href="features/p2p.html"><strong aria-hidden="true">2.2.</strong> Peer-to-peer</a></li><li><a href="features/trust.html"><strong aria-hidden="true">2.3.</strong> Trust free server</a></li><li><a href="features/multi.html"><strong aria-hidden="true">2.4.</strong> Multi-device login</a></li><li><a href="features/web.html"><strong aria-hidden="true">2.5.</strong> Web interface</a></li><li><a href="features/social.html"><strong aria-hidden="true">2.6.</strong> Social</a></li><li><a href="features/sharing.html"><strong aria-hidden="true">2.7.</strong> Sharing</a></li><li><a href="features/large.html"><strong aria-hidden="true">2.8.</strong> Large files</a></li><li><a href="features/streaming.html"><strong aria-hidden="true">2.9.</strong> Streaming</a></li><li><a href="features/fast-seeking.html"><strong aria-hidden="true">2.10.</strong> Fast seeking</a></li><li><a href="features/resumable-uploads.html"><strong aria-hidden="true">2.11.</strong> Resumable uploads</a></li><li><a href="features/viewers.html"><strong aria-hidden="true">2.12.</strong> File viewers</a></li><li><a href="features/secret.html"><strong aria-hidden="true">2.13.</strong> Secret links</a></li><li><a href="features/migration.html"><strong aria-hidden="true">2.14.</strong> Migration</a></li><li><a href="features/sync.html"><strong aria-hidden="true">2.15.</strong> File Sync</a></li><li><a href="features/open.html"><strong aria-hidden="true">2.16.</strong> Open source</a></li><li><a href="features/apps.html"><strong aria-hidden="true">2.17.</strong> Custom Apps</a></li><li><a href="features/private-web.html"><strong aria-hidden="true">2.18.</strong> Private websites</a></li></ol></li><li><a href="architecture/architecture.html"><strong aria-hidden="true">3.</strong> Architecture</a></li><li><ol class="section"><li><a href="architecture/logical.html"><strong aria-hidden="true">3.1.</strong> Logical</a></li><li><a href="architecture/physical.html"><strong aria-hidden="true">3.2.</strong> Physical</a></li><li><a href="architecture/immutable.html"><strong aria-hidden="true">3.3.</strong> Immutable data</a></li><li><a href="architecture/mutable.html"><strong aria-hidden="true">3.4.</strong> Mutable pointers</a></li><li><a href="architecture/writer.html"><strong aria-hidden="true">3.5.</strong> Writing subspaces</a></li><li><a href="architecture/champ.html"><strong aria-hidden="true">3.6.</strong> Merkle-CHAMP</a></li><li><a href="architecture/pki.html"><strong aria-hidden="true">3.7.</strong> Usernames</a></li><li><a href="architecture/follow.html"><strong aria-hidden="true">3.8.</strong> Follow requests</a></li><li><a href="architecture/spec.html"><strong aria-hidden="true">3.9.</strong> Specification</a></li></ol></li><li><a href="security/security.html"><strong aria-hidden="true">4.</strong> Security</a></li><li><ol class="section"><li><a href="security/trust.html"><strong aria-hidden="true">4.1.</strong> Trust free layers</a></li><li><a href="security/threats.html"><strong aria-hidden="true">4.2.</strong> Threat models</a></li><li><a href="security/login.html"><strong aria-hidden="true">4.3.</strong> Login</a></li><li><a href="security/encryption.html"><strong aria-hidden="true">4.4.</strong> Encryption</a></li><li><a href="security/bats.html"><strong aria-hidden="true">4.5.</strong> Block access control</a></li><li><a href="security/cryptree.html"><strong aria-hidden="true">4.6.</strong> File access control</a></li><li><a href="security/capabilities.html"><strong aria-hidden="true">4.7.</strong> Capabilities</a></li><li><a href="security/meta.html"><strong aria-hidden="true">4.8.</strong> Metadata</a></li><li><a href="security/quantum.html"><strong aria-hidden="true">4.9.</strong> Quantum resistance</a></li><li><a href="security/social.html"><strong aria-hidden="true">4.10.</strong> Social graph</a></li><li><a href="security/pki.html"><strong aria-hidden="true">4.11.</strong> PKI</a></li></ol></li><li><a href="dev/details.html"><strong aria-hidden="true">5.</strong> How does it work?</a></li><li><ol class="section"><li><a href="dev/signup.html"><strong aria-hidden="true">5.1.</strong> Signing up</a></li><li><a href="dev/upload.html"><strong aria-hidden="true">5.2.</strong> Uploading a file</a></li><li><a href="dev/follow.html"><strong aria-hidden="true">5.3.</strong> Sending a follow request</a></li><li><a href="dev/proxy.html"><strong aria-hidden="true">5.4.</strong> Proxying requests</a></li></ol></li></ol>
+            <div class="sidebar-scrollbox">
+                <ol class="chapter"><li class="chapter-item expanded "><a href="overview/overview.html"><strong aria-hidden="true">1.</strong> Overview</a></li><li class="chapter-item expanded "><a href="features/features.html"><strong aria-hidden="true">2.</strong> Features</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="features/self.html"><strong aria-hidden="true">2.1.</strong> Self hosting</a></li><li class="chapter-item expanded "><a href="features/p2p.html"><strong aria-hidden="true">2.2.</strong> Peer-to-peer</a></li><li class="chapter-item expanded "><a href="features/trust.html"><strong aria-hidden="true">2.3.</strong> Trust free server</a></li><li class="chapter-item expanded "><a href="features/multi.html"><strong aria-hidden="true">2.4.</strong> Multi-device login</a></li><li class="chapter-item expanded "><a href="features/web.html"><strong aria-hidden="true">2.5.</strong> Web interface</a></li><li class="chapter-item expanded "><a href="features/social.html"><strong aria-hidden="true">2.6.</strong> Social</a></li><li class="chapter-item expanded "><a href="features/sharing.html"><strong aria-hidden="true">2.7.</strong> Sharing</a></li><li class="chapter-item expanded "><a href="features/large.html"><strong aria-hidden="true">2.8.</strong> Large files</a></li><li class="chapter-item expanded "><a href="features/streaming.html"><strong aria-hidden="true">2.9.</strong> Streaming</a></li><li class="chapter-item expanded "><a href="features/fast-seeking.html"><strong aria-hidden="true">2.10.</strong> Fast seeking</a></li><li class="chapter-item expanded "><a href="features/resumable-uploads.html"><strong aria-hidden="true">2.11.</strong> Resumable uploads</a></li><li class="chapter-item expanded "><a href="features/viewers.html"><strong aria-hidden="true">2.12.</strong> File viewers</a></li><li class="chapter-item expanded "><a href="features/secret.html"><strong aria-hidden="true">2.13.</strong> Secret links</a></li><li class="chapter-item expanded "><a href="features/migration.html"><strong aria-hidden="true">2.14.</strong> Migration</a></li><li class="chapter-item expanded "><a href="features/sync.html"><strong aria-hidden="true">2.15.</strong> File Sync</a></li><li class="chapter-item expanded "><a href="features/open.html"><strong aria-hidden="true">2.16.</strong> Open source</a></li><li class="chapter-item expanded "><a href="features/apps.html"><strong aria-hidden="true">2.17.</strong> Custom Apps</a></li><li class="chapter-item expanded "><a href="features/private-web.html"><strong aria-hidden="true">2.18.</strong> Private websites</a></li></ol></li><li class="chapter-item expanded "><a href="architecture/architecture.html"><strong aria-hidden="true">3.</strong> Architecture</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="architecture/logical.html"><strong aria-hidden="true">3.1.</strong> Logical</a></li><li class="chapter-item expanded "><a href="architecture/physical.html"><strong aria-hidden="true">3.2.</strong> Physical</a></li><li class="chapter-item expanded "><a href="architecture/immutable.html"><strong aria-hidden="true">3.3.</strong> Immutable data</a></li><li class="chapter-item expanded "><a href="architecture/mutable.html"><strong aria-hidden="true">3.4.</strong> Mutable pointers</a></li><li class="chapter-item expanded "><a href="architecture/writer.html"><strong aria-hidden="true">3.5.</strong> Writing subspaces</a></li><li class="chapter-item expanded "><a href="architecture/champ.html"><strong aria-hidden="true">3.6.</strong> Merkle-CHAMP</a></li><li class="chapter-item expanded "><a href="architecture/pki.html"><strong aria-hidden="true">3.7.</strong> Usernames</a></li><li class="chapter-item expanded "><a href="architecture/follow.html"><strong aria-hidden="true">3.8.</strong> Follow requests</a></li><li class="chapter-item expanded "><a href="architecture/spec.html"><strong aria-hidden="true">3.9.</strong> Specification</a></li></ol></li><li class="chapter-item expanded "><a href="security/security.html"><strong aria-hidden="true">4.</strong> Security</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="security/trust.html"><strong aria-hidden="true">4.1.</strong> Trust free layers</a></li><li class="chapter-item expanded "><a href="security/threats.html"><strong aria-hidden="true">4.2.</strong> Threat models</a></li><li class="chapter-item expanded "><a href="security/login.html"><strong aria-hidden="true">4.3.</strong> Login</a></li><li class="chapter-item expanded "><a href="security/encryption.html"><strong aria-hidden="true">4.4.</strong> Encryption</a></li><li class="chapter-item expanded "><a href="security/bats.html"><strong aria-hidden="true">4.5.</strong> Block access control</a></li><li class="chapter-item expanded "><a href="security/cryptree.html"><strong aria-hidden="true">4.6.</strong> File access control</a></li><li class="chapter-item expanded "><a href="security/capabilities.html"><strong aria-hidden="true">4.7.</strong> Capabilities</a></li><li class="chapter-item expanded "><a href="security/meta.html"><strong aria-hidden="true">4.8.</strong> Metadata</a></li><li class="chapter-item expanded "><a href="security/quantum.html"><strong aria-hidden="true">4.9.</strong> Quantum resistance</a></li><li class="chapter-item expanded "><a href="security/social.html"><strong aria-hidden="true">4.10.</strong> Social graph</a></li><li class="chapter-item expanded "><a href="security/pki.html"><strong aria-hidden="true">4.11.</strong> PKI</a></li></ol></li><li class="chapter-item expanded "><a href="dev/details.html"><strong aria-hidden="true">5.</strong> How does it work?</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="dev/signup.html"><strong aria-hidden="true">5.1.</strong> Signing up</a></li><li class="chapter-item expanded "><a href="dev/upload.html"><strong aria-hidden="true">5.2.</strong> Uploading a file</a></li><li class="chapter-item expanded "><a href="dev/follow.html"><strong aria-hidden="true">5.3.</strong> Sending a follow request</a></li><li class="chapter-item expanded "><a href="dev/proxy.html"><strong aria-hidden="true">5.4.</strong> Proxying requests</a></li></ol></li></ol>
+            </div>
+            <div id="sidebar-resize-handle" class="sidebar-resize-handle">
+                <div class="sidebar-resize-indicator"></div>
+            </div>
         </nav>
+
+        <!-- Track and set sidebar scroll position -->
+        <script>
+            var sidebarScrollbox = document.querySelector('#sidebar .sidebar-scrollbox');
+            sidebarScrollbox.addEventListener('click', function(e) {
+                if (e.target.tagName === 'A') {
+                    sessionStorage.setItem('sidebar-scroll', sidebarScrollbox.scrollTop);
+                }
+            }, { passive: true });
+            var sidebarScrollTop = sessionStorage.getItem('sidebar-scroll');
+            sessionStorage.removeItem('sidebar-scroll');
+            if (sidebarScrollTop) {
+                // preserve sidebar scroll position when navigating via links within sidebar
+                sidebarScrollbox.scrollTop = sidebarScrollTop;
+            } else {
+                // scroll sidebar to current active section when navigating via "next/previous chapter" buttons
+                var activeSection = document.querySelector('#sidebar .active');
+                if (activeSection) {
+                    activeSection.scrollIntoView({ block: 'center' });
+                }
+            }
+        </script>
 
         <div id="page-wrapper" class="page-wrapper">
 
             <div class="page">
-                
-                <div id="menu-bar" class="menu-bar">
-                    <div id="menu-bar-sticky-container">
-                        <div class="left-buttons">
-                            <button id="sidebar-toggle" class="icon-button" type="button" title="Toggle Table of Contents" aria-label="Toggle Table of Contents" aria-controls="sidebar">
-                                <i class="fa fa-bars"></i>
-                            </button>
-                            <button id="theme-toggle" class="icon-button" type="button" title="Change theme" aria-label="Change theme" aria-haspopup="true" aria-expanded="false" aria-controls="theme-list">
-                                <i class="fa fa-paint-brush"></i>
-                            </button>
-                            <ul id="theme-list" class="theme-popup" aria-label="Themes" role="menu">
-                                <li role="none"><button role="menuitem" class="theme" id="light">Light <span class="default">(default)</span></button></li>
-                                <li role="none"><button role="menuitem" class="theme" id="rust">Rust</button></li>
-                                <li role="none"><button role="menuitem" class="theme" id="coal">Coal</button></li>
-                                <li role="none"><button role="menuitem" class="theme" id="navy">Navy</button></li>
-                                <li role="none"><button role="menuitem" class="theme" id="ayu">Ayu</button></li>
-                            </ul>
-                            
-                            <button id="search-toggle" class="icon-button" type="button" title="Search. (Shortkey: s)" aria-label="Toggle Searchbar" aria-expanded="false" aria-keyshortcuts="S" aria-controls="searchbar">
-                                <i class="fa fa-search"></i>
-                            </button>
-                            
-                        </div>
+                                <div id="menu-bar-hover-placeholder"></div>
+                <div id="menu-bar" class="menu-bar sticky">
+                    <div class="left-buttons">
+                        <label id="sidebar-toggle" class="icon-button" for="sidebar-toggle-anchor" title="Toggle Table of Contents" aria-label="Toggle Table of Contents" aria-controls="sidebar">
+                            <i class="fa fa-bars"></i>
+                        </label>
+                        <button id="theme-toggle" class="icon-button" type="button" title="Change theme" aria-label="Change theme" aria-haspopup="true" aria-expanded="false" aria-controls="theme-list">
+                            <i class="fa fa-paint-brush"></i>
+                        </button>
+                        <ul id="theme-list" class="theme-popup" aria-label="Themes" role="menu">
+                            <li role="none"><button role="menuitem" class="theme" id="light">Light</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="rust">Rust</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="coal">Coal</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="navy">Navy</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="ayu">Ayu</button></li>
+                        </ul>
+                        <button id="search-toggle" class="icon-button" type="button" title="Search. (Shortkey: s)" aria-label="Toggle Searchbar" aria-expanded="false" aria-keyshortcuts="S" aria-controls="searchbar">
+                            <i class="fa fa-search"></i>
+                        </button>
+                    </div>
 
-                        <h1 class="menu-title"></h1> 
+                    <h1 class="menu-title"></h1>
 
-                        <div class="right-buttons">
-                            <a href="print.html" title="Print this book" aria-label="Print this book">
-                                <i id="print-button" class="fa fa-print"></i>
-                            </a>
-                        </div>
+                    <div class="right-buttons">
+                        <a href="print.html" title="Print this book" aria-label="Print this book">
+                            <i id="print-button" class="fa fa-print"></i>
+                        </a>
+
                     </div>
                 </div>
 
-                
                 <div id="search-wrapper" class="hidden">
                     <form id="searchbar-outer" class="searchbar-outer">
-                        <input type="search" name="search" id="searchbar" name="searchbar" placeholder="Search this book ..." aria-controls="searchresults-outer" aria-describedby="searchresults-header">
+                        <input type="search" id="searchbar" name="searchbar" placeholder="Search this book ..." aria-controls="searchresults-outer" aria-describedby="searchresults-header">
                     </form>
                     <div id="searchresults-outer" class="searchresults-outer hidden">
                         <div id="searchresults-header" class="searchresults-header"></div>
@@ -123,10 +162,9 @@
                         </ul>
                     </div>
                 </div>
-                
 
                 <!-- Apply ARIA attributes after the sidebar and the sidebar toggle button are added to the DOM -->
-                <script type="text/javascript">
+                <script>
                     document.getElementById('sidebar-toggle').setAttribute('aria-expanded', sidebar === 'visible');
                     document.getElementById('sidebar').setAttribute('aria-hidden', sidebar !== 'visible');
                     Array.from(document.querySelectorAll('#sidebar a')).forEach(function(link) {
@@ -136,13 +174,13 @@
 
                 <div id="content" class="content">
                     <main>
-                        <a class="header" href="#peergos---your-private-online-space" id="peergos---your-private-online-space"><h1>Peergos - your private online space</h1></a>
+                        <h1 id="peergos---your-private-online-space"><a class="header" href="#peergos---your-private-online-space">Peergos - your private online space</a></h1>
 <p>Peergos is building the next web - the private web, where end users are in control. Imagine web apps being secure by default and unable to track you. Imagine being able to control exactly what personal data each web app can see. Imagine never having to log in to an app ever again. You own your data and decide where it is stored and who can see it. At Peergos, we believe that privacy is a fundamental human right and we want to make it easy for everyone to interact online in ways that respect this right.</p>
-<p>The foundation of Peergos is a peer-to-peer encrypted global filesystem with fine-grained access control designed to be resistant to surveillance of data content or friendship graphs. It will have a secure messenger, with optional interoperability with email, and a totally private and secure social network, where users are in control of who sees what (executed cryptographically). Our motto at Peergos is, <strong>&quot;Control your data, control your destiny.&quot;</strong></p>
+<p>The foundation of Peergos is a peer-to-peer encrypted global filesystem with fine-grained access control designed to be resistant to surveillance of data content or friendship graphs. It will have a secure messenger, with optional interoperability with email, and a totally private and secure social network, where users are in control of who sees what (executed cryptographically). Our motto at Peergos is, <strong>"Control your data, control your destiny."</strong></p>
 <p>The name Peergos comes from the Greek word Πύργος (Pyrgos), which means stronghold or tower, but phonetically spelt with the nice connection to being peer-to-peer. It is pronounced peer-goss, as in gossip.</p>
 <p>For a less technical introduction see <a href="https://peergos.org">peergos.org</a>, or to dive right into the source code, see <a href="https://github.com/peergos/peergos">github</a>.</p>
 <p><strong>WARNING:</strong> Peergos has had an audit by Cure53, but is still in active development. Some of the features in this documentation are yet to be implemented, in particular, onion routing is not used yet.</p>
-<a class="header" href="#aims" id="aims"><h2>Aims</h2></a>
+<h2 id="aims"><a class="header" href="#aims">Aims</a></h2>
 <ul>
 <li><strong>Securely</strong> and <strong>privately</strong> store files in a peer to peer network which has no central node and is generally difficult to disrupt or surveil</li>
 <li><strong>Secure sharing</strong> of such files with other users of the network without visible meta-data (who shares with who)</li>
@@ -159,7 +197,7 @@
 <li>Social <em>account recovery</em> - designate N of M friends who can collaborate to recover your account if you lose your password</li>
 <li>Optional use of U2F for securing login</li>
 </ul>
-<a class="header" href="#features" id="features"><h1>Features</h1></a>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="features"><a class="header" href="#features">Features</a></h1>
 <ul>
 <li>Self hosting</li>
 <li>Peer-to-peer</li>
@@ -179,38 +217,35 @@
 <li>Custom Apps</li>
 <li>Private Websites</li>
 </ul>
-<a class="header" href="#self-hosting" id="self-hosting"><h1>Self hosting</h1></a>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="self-hosting"><a class="header" href="#self-hosting">Self hosting</a></h1>
 <p>Peergos is fully self hostable. You can run peergos from your own home or server to obtain as much storage and bandwidth as you need, whilst still transparently interacting with anyone using any other server. Because the server only ever sees encrypted data you can also tell it to directly store your data in a standard cloud storage provider like Backblaze or Amazon without any loss of privacy.</p>
-<p><img alt="Self host at home or on your own server" src="/img/self-host.svg" class="center" style="width: 100%;" /></p>
-<a class="header" href="#peer-to-peer" id="peer-to-peer"><h1>Peer-to-peer</h1></a>
+<img alt="Self host at home or on your own server" src="features//img/self-host.svg" class="center" style="width: 100%;" /><div style="break-before: page; page-break-before: always;"></div><h1 id="peer-to-peer"><a class="header" href="#peer-to-peer">Peer-to-peer</a></h1>
 <p>Peergos is built with a peer-to-peer architecture to protect against censorship and surveillance and to improve resiliency. There is no central surveillance point that an attacker could monitor all file transfers through. There is also no central dns name or TLS certificate authority that could be used to attack the network.</p>
-<p><img alt="Peergos has a peer-to-peer architecture" src="/img/p2p.svg" class="center" style="width: 100%;" /></p>
-<a class="header" href="#trust-free-servers" id="trust-free-servers"><h1>Trust free servers</h1></a>
-<p>Peergos is designed so that clients do no need to trust the Peergos server they are talking to. Hashes and signatures are all verified client side for reads and writes. Data can also be mirrored to transparently provide redundancy. </p>
-<a class="header" href="#multi-device-login" id="multi-device-login"><h1>Multi-device login</h1></a>
+<img alt="Peergos has a peer-to-peer architecture" src="features//img/p2p.svg" class="center" style="width: 100%;" /><div style="break-before: page; page-break-before: always;"></div><h1 id="trust-free-servers"><a class="header" href="#trust-free-servers">Trust free servers</a></h1>
+<p>Peergos is designed so that clients do no need to trust the Peergos server they are talking to. Hashes and signatures are all verified client side for reads and writes. Data can also be mirrored to transparently provide redundancy.</p>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="multi-device-login"><a class="header" href="#multi-device-login">Multi-device login</a></h1>
 <p>Peergos is naturally mutli-device. You can log in to your account from any device, and through any Peergos server. It is not tied to any other data like your phone number or email address. All you need is your username and your password. Any modern browser will suffice, including mobile.</p>
-<p><img alt="Login through any device with a web browser" src="/img/multi-device.svg" class="center" style="width: 100%;" /></p>
-<a class="header" href="#web-interface" id="web-interface"><h1>Web interface</h1></a>
+<img alt="Login through any device with a web browser" src="features//img/multi-device.svg" class="center" style="width: 100%;" /><div style="break-before: page; page-break-before: always;"></div><h1 id="web-interface"><a class="header" href="#web-interface">Web interface</a></h1>
 <p>In keeping with our aim to be as convenient to use as existing centralised services, Peergos has a web interface which can be used instead of a native application. This interface does not require any special knowledge, especially not of cryptography or keys, but should none-the-less encourage/enforce safe practices. The web interface does not load any code from third-party servers and is entirely self hosted. You even load it directly from ipfs and log in!</p>
-<p>The web interface can be accessed from a public server over https or from your machine if you run Peergos locally. </p>
-<a class="header" href="#social" id="social"><h1>Social</h1></a>
+<p>The web interface can be accessed from a public server over https or from your machine if you run Peergos locally.</p>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="social"><a class="header" href="#social">Social</a></h1>
 <p>Peergos users can send follow requests to each other. If accepted, the other user can then share files or send messages with you. Following is a one-way mechanism: If Agata follows Bartek then Bartek can share files with Agata. If Bartek is also following Agata, then she can also share files with Bartek. Following can be revoked by either user at any point.</p>
 <p>Your friend list is kept encrypted in your own Peergos space, hidden from other users and the server.</p>
-<p>There is also a secret link mechanism for sharing files with people who do not have peergos accounts. </p>
-<a class="header" href="#sharing" id="sharing"><h1>Sharing</h1></a>
-<p>A file or folder can be shared with any user who is following you. This access can be read only or writable. Access can be revoked at any time whilst maintaining access to anyone else the item is shared with. This is all achieved cryptographically with capabilities and lazy re-encryption. </p>
-<a class="header" href="#large-files" id="large-files"><h1>Large files</h1></a>
-<p>There is no file size limit in Peergos apart from what will fit in your storage quota. Despite doing client side encryption/decryption we can still upload or download arbitrarily large files sending directly from/to the filesystem. </p>
-<a class="header" href="#streaming" id="streaming"><h1>Streaming</h1></a>
-<p>Peergos is naturally streaming and despite having to decrypt files in the client we can still stream large files directly with low ram usage. This allows us to stream large videos in the browser directly to a html5 video element. </p>
-<a class="header" href="#fast-seeking" id="fast-seeking"><h1>Fast seeking</h1></a>
+<p>There is also a secret link mechanism for sharing files with people who do not have peergos accounts.</p>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="sharing"><a class="header" href="#sharing">Sharing</a></h1>
+<p>A file or folder can be shared with any user who is following you. This access can be read only or writable. Access can be revoked at any time whilst maintaining access to anyone else the item is shared with. This is all achieved cryptographically with capabilities and lazy re-encryption.</p>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="large-files"><a class="header" href="#large-files">Large files</a></h1>
+<p>There is no file size limit in Peergos apart from what will fit in your storage quota. Despite doing client side encryption/decryption we can still upload or download arbitrarily large files sending directly from/to the filesystem.</p>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="streaming"><a class="header" href="#streaming">Streaming</a></h1>
+<p>Peergos is naturally streaming and despite having to decrypt files in the client we can still stream large files directly with low ram usage. This allows us to stream large videos in the browser directly to a html5 video element.</p>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="fast-seeking"><a class="header" href="#fast-seeking">Fast seeking</a></h1>
 <p>Seeking forward or backward in huge files is both very fast (O(1) in I/O requests) and fully authenticated. When you start to retrieve a file from a capability you first retrieve the cryptree node (encrypted metadata) of the first chunk, which is located at the given champ key (32 random bytes).</p>
 <p>In the FileProperties there is a stream secret (32 random bytes). To find the next chunk you calculate sha256(stream secret + current champ key). This means to skip forward X bytes you repeat this, doing X/5MiB sha256 hashes locally. Then finally do a champ lookup at the end to retrieve the chunk you asked for. To seek backward you just keep a reference to the start and seek forwards.</p>
-<p>This seeking is both very fast, and doesn't leak to the server which chunks are part of the same file. </p>
-<a class="header" href="#resumable-uploads" id="resumable-uploads"><h1>Resumable Uploads</h1></a>
+<p>This seeking is both very fast, and doesn't leak to the server which chunks are part of the same file.</p>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="resumable-uploads"><a class="header" href="#resumable-uploads">Resumable Uploads</a></h1>
 <p>It can be a pain if you're uploading a huge file to some service and then your internet cuts out half way and you need to start again. Peergos avoids this by implementing resumable uploads. If you try and upload a file that failed halfway for whatever reason, then it will ask you if you want to continue the upload. This even works if you're uploading from a different device!</p>
-<p>We achieve this by storing an upload transaction file with details of the upload in your peergos space during the upload. </p>
-<a class="header" href="#file-viewers" id="file-viewers"><h1>File viewers</h1></a>
+<p>We achieve this by storing an upload transaction file with details of the upload in your peergos space during the upload.</p>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="file-viewers"><a class="header" href="#file-viewers">File viewers</a></h1>
 <p>There are several built-in file viewers in Peergos. We have viewers for the following file types:</p>
 <ul>
 <li>images</li>
@@ -246,25 +281,25 @@
 <li>xml</li>
 <li>yaml</li>
 </ul>
-<a class="header" href="#secret-links" id="secret-links"><h1>Secret links</h1></a>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="secret-links"><a class="header" href="#secret-links">Secret links</a></h1>
 <p>A secret link can be generated to point to any file or folder. Anyone with a (Javascript enabled) web browser can view such a link. This is a capability based link which includes the necessary key in the hash fragment of the url. A secret link doesn't expose the file to the network, or indeed to anyone who doesn't have the link itself because the key material isn't sent to the server.</p>
 <p>An example of a secret link to a folder is:</p>
 <p><a href="https://peergos.net/#%7B%22secretLink%22:true%2c%22link%22:%22#6MDZhRRPT4ugkJuUfcWtaZodN5QYzkZKJtHpDHomFJrVhNSZysiFYimpgtcA2F/6MDZhRRPT4ugkJuUfcRzRbPpFimcBNJx2N9TJDnL4W3ETYhwdsWdvgCkXkwipF/FCYSFhpQ1xD2cydr6CFQ6UwFkgB82pWReAUzKVDxe4KA/5Pf7SvCG1mMtui2aPd9F3SH2wdwsPro1GxTa7VfxkWrj9XQGAUB%22%2c%22open%22:true%2c%22path%22:%22/demo/%22%7D">https://peergos.net/#%7B%22secretLink%22:true%2c%22link%22:%22#6MDZhRRPT4ugkJuUfcWtaZodN5QYzkZKJtHpDHomFJrVhNSZysiFYimpgtcA2F/6MDZhRRPT4ugkJuUfcRzRbPpFimcBNJx2N9TJDnL4W3ETYhwdsWdvgCkXkwipF/FCYSFhpQ1xD2cydr6CFQ6UwFkgB82pWReAUzKVDxe4KA/5Pf7SvCG1mMtui2aPd9F3SH2wdwsPro1GxTa7VfxkWrj9XQGAUB%22%2c%22open%22:true%2c%22path%22:%22/demo/%22%7D</a></p>
-<a class="header" href="#migration" id="migration"><h1>Migration</h1></a>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="migration"><a class="header" href="#migration">Migration</a></h1>
 <p>Your identity in Peergos is not tied to any particular server. Compared to other federated social networks where moving server typically involves losing your social network and meta-data, if not data too, Peergos allows you to transparently migrate between servers and storage providers without any action required from your friends and without any data loss.</p>
-<p>This means, for example, you could start out by creating an account on your device which gives you limited storage and uptime, then effortlessly migrate to a paid server, or to your own server, when you realise how awesome Peergos is. </p>
-<a class="header" href="#file-sync" id="file-sync"><h1>File Sync</h1></a>
-<p>Peergos has the ability to do standard directory syncing and transparently mount a folder to your host operating system. This is achieved with a FUSE binding (or equivalent for Windows and MacOS). </p>
-<a class="header" href="#open-source" id="open-source"><h1>Open source</h1></a>
+<p>This means, for example, you could start out by creating an account on your device which gives you limited storage and uptime, then effortlessly migrate to a paid server, or to your own server, when you realise how awesome Peergos is.</p>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="file-sync"><a class="header" href="#file-sync">File Sync</a></h1>
+<p>Peergos has the ability to do standard directory syncing and transparently mount a folder to your host operating system. This is achieved with a FUSE binding (or equivalent for Windows and MacOS).</p>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="open-source"><a class="header" href="#open-source">Open source</a></h1>
 <p>Peergos is fully open-source, both clients, and server (incuding the web-interface). The main interface is a web-ui, but Peergos can also be accessed using a Java client on the command line, or with a FUSE mount of your Peergos filesystem.</p>
 <p>No part of our infrastructure, apart from TLS and Peergos private keys, are secret. We also have reproducible builds (we don't use npm or browserify etc.) We also vendor all dependencies so any historic git commit should be buildable without any external data.</p>
-<p>Eventually we want to self host our git repos in Peergos itself. </p>
-<a class="header" href="#custom-apps" id="custom-apps"><h1>Custom Apps</h1></a>
+<p>Eventually we want to self host our git repos in Peergos itself.</p>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="custom-apps"><a class="header" href="#custom-apps">Custom Apps</a></h1>
 <p>Peergos Apps are a way to extend the Peergos platform to add custom functionality</p>
 <p>When an app is run, its HTML5 assets are rendered in a unique hostname (sha256(app path).$peergos-domain) of the peergos server, e.g. https://bciqjmdntozhuanb2c3ka5vtqpux75j5symbyomhkpnilndngl6iaspy.peergos.net. The app domain is isolated from the main peergos domain in a separate OS process, and from other apps. The app domain is also locked down with CSP http headers so it cannot make any external requests which could be used to exfilrate data [0]. Requests made by the app are intercepted in a service worker and translated to post messages which are sent to the main peergos tab. That is where the requests are checked for validity and permissions are enforced. By default, an app has no permissions and can only read its own assets. Running an app also doesn't reveal its assets to the server - they are served via a service worker and post messages to the main peergos tab, and thus benefit from all the existing privacy protections in Peergos.</p>
-<p><img alt="App sandbox" src="/img/sandbox.jpeg" class="center" style="width: 100%;" /></p>
+<img alt="App sandbox" src="features//img/sandbox.jpeg" class="center" style="width: 100%;" />
 <p>[0] This is currently not true until browsers implement <a href="https://github.com/w3c/webappsec-csp/issues/92">webrtc CSP</a> which blocks any webrtc connections. Browser issues for this are <a href="https://bugzilla.mozilla.org/show_bug.cgi?id=1783489">firefox</a>, <a href="https://bugs.chromium.org/p/chromium/issues/detail?id=1225968">Chrome</a>. So only install apps from authors you trust for now, unless they don't require any permissions which is safe.</p>
-<a class="header" href="#use-cases" id="use-cases"><h2>Use cases:</h2></a>
+<h2 id="use-cases"><a class="header" href="#use-cases">Use cases:</a></h2>
 <ol>
 <li>
 <p>Media Player App. The App should appear as a context menu item when a media file is selected on the Drive screen.</p>
@@ -279,32 +314,32 @@
 <p>White Board App. App will appear on the Launcher page. App can create, retrieve, update, append and delete files within it’s own App space.</p>
 </li>
 </ol>
-<a class="header" href="#example-apps" id="example-apps"><h2>Example apps</h2></a>
+<h2 id="example-apps"><a class="header" href="#example-apps">Example apps</a></h2>
 <p>You can find some example apps here: <a href="https://github.com/Peergos/example-apps">https://github.com/Peergos/example-apps</a></p>
-<a class="header" href="#anatomy-of-a-peergos-app" id="anatomy-of-a-peergos-app"><h2>Anatomy of a Peergos App</h2></a>
+<h2 id="anatomy-of-a-peergos-app"><a class="header" href="#anatomy-of-a-peergos-app">Anatomy of a Peergos App</a></h2>
 <p>An app consists of plain HTML/Javascript/CSS packaged in a folder</p>
 <p>The App is described by a mandatory manifest file called peergos-app.json</p>
-<a class="header" href="#app-folder-structure" id="app-folder-structure"><h3>App Folder Structure</h3></a>
-<p>asssets                 - Must contain index.html as an entry point</p>
-<p>data                    - Files under the control of the App</p>
-<p>peergos-app.json        - manifest file</p>
-<a class="header" href="#peergos-appjson" id="peergos-appjson"><h3>Peergos-app.json</h3></a>
+<h3 id="app-folder-structure"><a class="header" href="#app-folder-structure">App Folder Structure</a></h3>
+<p>asssets					- Must contain index.html as an entry point</p>
+<p>data					- Files under the control of the App</p>
+<p>peergos-app.json		- manifest file</p>
+<h3 id="peergos-appjson"><a class="header" href="#peergos-appjson">Peergos-app.json</a></h3>
 <p>This file describes the App. It also indicates the permissions required for the App to function</p>
 <p>Fields:</p>
-<p>schemaVersion   - Currently always set to 1</p>
-<p>displayName     - Used for display.  Limited to 25 characters. (alphanumeric plus dash and underscore).</p>
-<p>version         - Format of Major.Minor.Patch-Suffix. Example: 0.0.1-initial</p>
-<p>description     - Text. Length must not exceed 100 characters</p>
-<p>author          - Text. Length must not exceed 32 characters</p>
-<p>fileExtensions  - Array of target file extensions e.g. [&quot;jpg&quot;,&quot;png&quot;,&quot;gif&quot;]</p>
-<p>mimeTypes       - Array of target mime types e.g. [&quot;application/zip&quot;,&quot;application/vnd.peergos-todo&quot;,&quot;video/quicktime&quot;]</p>
-<p>fileTypes       - Another way to target files e.g. [“image”, “video”, “audio”, “text”]</p>
-<p>launchable      - Indicates App can be opened on the Launcher page</p>
-<p>folderAction    - Indicates App acts on folders</p>
-<p>appIcon         - filename of image to use as icon on launcher page. Must be available in assets folder</p>
-<p>permissions     - see below</p>
+<p>schemaVersion	- Currently always set to 1</p>
+<p>displayName		- Used for display.  Limited to 25 characters. (alphanumeric plus dash and underscore).</p>
+<p>version			- Format of Major.Minor.Patch-Suffix. Example: 0.0.1-initial</p>
+<p>description		- Text. Length must not exceed 100 characters</p>
+<p>author			- Text. Length must not exceed 32 characters</p>
+<p>fileExtensions	- Array of target file extensions e.g. ["jpg","png","gif"]</p>
+<p>mimeTypes		- Array of target mime types e.g. ["application/zip","application/vnd.peergos-todo","video/quicktime"]</p>
+<p>fileTypes		- Another way to target files e.g. [“image”, “video”, “audio”, “text”]</p>
+<p>launchable		- Indicates App can be opened on the Launcher page</p>
+<p>folderAction	- Indicates App acts on folders</p>
+<p>appIcon			- filename of image to use as icon on launcher page. Must be available in assets folder</p>
+<p>permissions		- see below</p>
 <p>Permissions:</p>
-<p>STORE_APP_DATA  - Can store and read files in a folder private to the app</p>
+<p>STORE_APP_DATA	- Can store and read files in a folder private to the app</p>
 <p>EDIT_CHOSEN_FILE – Can modify file chosen by user</p>
 <p>READ_CHOSEN_FOLDER – Can read contents of folder chosen by user</p>
 <p>EXCHANGE_MESSAGES_WITH_FRIENDS - Can exchange messages with friends</p>
@@ -312,25 +347,25 @@
 <p>CSP_UNSAFE_EVAL - Allow app to modify its own code via calls to eval()</p>
 <p>A minimal peergos-app.json file would look like:</p>
 <pre><code class="language-js">{
-    &quot;displayName&quot;: &quot;App&quot;,
-    &quot;description&quot;: &quot;does something&quot;,
-    &quot;launchable&quot;: true  	
+    "displayName": "App",
+    "description": "does something",
+    "launchable": true  	
 }
 </code></pre>
 <p>These are already quite powerful, but we plan to add more permissions as we see more use cases.</p>
-<a class="header" href="#peergos-rest-api" id="peergos-rest-api"><h2>Peergos REST API</h2></a>
+<h2 id="peergos-rest-api"><a class="header" href="#peergos-rest-api">Peergos REST API</a></h2>
 <p>The following endpoints are available:</p>
 <p>/peergos-api/v0/data/path.to.file – The data folder is where the App can store and retrieve files</p>
 <p>/peergos-api/v0/form/path.to.file – An app can POST a HTML Form and have the results stored in a file of the same name in the data folder.</p>
 <p>/peergos-api/v0/chat/ - An app can use the chat api for communication between friends.</p>
 <p>If an App is launched from a file/folder context menu item, the path of the file/folder will be available via:</p>
 <pre><code class="language-js">let url = new URL(window.location.href);
-let filePath = url.searchParams.get(&quot;path&quot;);
+let filePath = url.searchParams.get("path");
 </code></pre>
 <p>Dark mode can be detected via the theme param</p>
-<pre><code class="language-js">let theme = url.searchParams.get(&quot;theme&quot;);// curent values: ['dark-mode', '']
+<pre><code class="language-js">let theme = url.searchParams.get("theme");// curent values: ['dark-mode', '']
 </code></pre>
-<a class="header" href="#drive---the-following-http-actions-are-supported" id="drive---the-following-http-actions-are-supported"><h3>Drive - The following HTTP actions are supported:</h3></a>
+<h3 id="drive---the-following-http-actions-are-supported"><a class="header" href="#drive---the-following-http-actions-are-supported">Drive - The following HTTP actions are supported:</a></h3>
 <p>Note: /peergos-api/v0/data/ is only relevant for the App's data folder. It is not necessary when referencing a file in the App's assets folder or the folder/file selected by the user.</p>
 <p>GET – Retrieve a resource. Can be a file or folder</p>
 <p>Response code: 200 – success.</p>
@@ -367,9 +402,9 @@ let filePath = url.searchParams.get(&quot;path&quot;);
 <p>Response code: 200 and an array of the selected paths.</p>
 <p>GET - launch file picker</p>
 <p>/peergos-api/v0/file-picker
-Optional url parameter ?extension=&quot;json&quot; to filter files shown in picker.</p>
+Optional url parameter ?extension="json" to filter files shown in picker.</p>
 <p>Response code: 200 and an array containing the selected file path.</p>
-<a class="header" href="#chat-v0---the-following-http-actions-are-supported-see-chat-api-in-example-apps" id="chat-v0---the-following-http-actions-are-supported-see-chat-api-in-example-apps"><h3>Chat V0 - The following HTTP actions are supported (see chat-api in example-apps):</h3></a>
+<h3 id="chat-v0---the-following-http-actions-are-supported-see-chat-api-in-example-apps"><a class="header" href="#chat-v0---the-following-http-actions-are-supported-see-chat-api-in-example-apps">Chat V0 - The following HTTP actions are supported (see chat-api in example-apps):</a></h3>
 <p>See Chat V1 below for a more comprehensive API to support more complex apps</p>
 <p>GET – Retrieve a list of all chats created by this App</p>
 <p>/peergos-api/v0/chat/</p>
@@ -401,7 +436,7 @@ Optional url parameter ?extension=&quot;json&quot; to filter files shown in pick
 <p>parameters:</p>
 <p>text - Contents of message</p>
 <p>Response code: 201 – success.</p>
-<a class="header" href="#chat-v1---the-following-http-actions-are-supported-see-chat-folder-in-example-apps" id="chat-v1---the-following-http-actions-are-supported-see-chat-folder-in-example-apps"><h3>Chat V1 - The following HTTP actions are supported (see chat folder in example-apps):</h3></a>
+<h3 id="chat-v1---the-following-http-actions-are-supported-see-chat-folder-in-example-apps"><a class="header" href="#chat-v1---the-following-http-actions-are-supported-see-chat-folder-in-example-apps">Chat V1 - The following HTTP actions are supported (see chat folder in example-apps):</a></h3>
 <p>GET – Retrieve chats for current App</p>
 <p>/peergos-api/v1/chat/</p>
 <p>Response code: 200 – success.</p>
@@ -477,7 +512,7 @@ hasFriendsInChat: number of friends in current chat membership}</p>
 <p>to delete an existing message</p>
 <p>{ deleteMessage : { messageRef: uuid of message to delete} }</p>
 <p>Response code: 201</p>
-<a class="header" href="#profile" id="profile"><h3>Profile:</h3></a>
+<h3 id="profile"><a class="header" href="#profile">Profile:</a></h3>
 <p>GET – Launch the profile modal for the requested Peergos user (must be friend of current user)</p>
 <p>/peergos-api/v0/profile/:username</p>
 <p>Response code: 200 – success.  400 - failure.</p>
@@ -486,7 +521,7 @@ hasFriendsInChat: number of friends in current chat membership}</p>
 <p>Response code: 200 – success.  400 - failure.</p>
 <p>Response:</p>
 <p>{profileThumbnail: base64 data}</p>
-<a class="header" href="#developing-a-peergos-app" id="developing-a-peergos-app"><h2>Developing a Peergos App</h2></a>
+<h2 id="developing-a-peergos-app"><a class="header" href="#developing-a-peergos-app">Developing a Peergos App</a></h2>
 <p>Select the peergos-app.json file and choose ‘Run App’ to launch the app from the current directory.
 This is only available for launchable apps.</p>
 <p>Tip: During development, set the launchable property to get the fast dev cycle feedback.</p>
@@ -495,14 +530,14 @@ It will display the version of the already installed App.</p>
 <p>During install the App's files are copied to an internal folder. Any existing contents in the assets folder will be replaced.
 The contents of the data folder will be added to.<br />
 The previously installed peergos-app.json file is copied to the App’s data directory as ‘peergos-app-previous.json’.</p>
-<a class="header" href="#private-websites" id="private-websites"><h1>Private Websites</h1></a>
-<p>You can turn any folder in Peergos into a private website, benefitting from the built-in access control and privacy. Such websites can be viewed using a built-in browser <a href="./apps.html">app</a>. This browser isolates websites from different owners using different sub domains just as different apps are themselves isolated. Such websites are locked down such that external communication is impossible [0]. This means that 3rd party tracking is impossible. The beautiful thing here is that 1st party tracking is also not easy (and can be made impossible) because the paths are resolved locally in the browser and all requests go through the peergos server you are connecting to. This means browser fingerprinting is irrelevant for such websites because no information can be exfiltrated!</p>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="private-websites"><a class="header" href="#private-websites">Private Websites</a></h1>
+<p>You can turn any folder in Peergos into a private website, benefitting from the built-in access control and privacy. Such websites can be viewed using a built-in browser <a href="features/./apps.html">app</a>. This browser isolates websites from different owners using different sub domains just as different apps are themselves isolated. Such websites are locked down such that external communication is impossible [0]. This means that 3rd party tracking is impossible. The beautiful thing here is that 1st party tracking is also not easy (and can be made impossible) because the paths are resolved locally in the browser and all requests go through the peergos server you are connecting to. This means browser fingerprinting is irrelevant for such websites because no information can be exfiltrated!</p>
 <p>You can share websites privately with friends on peergos the same way you share any file or folder. You can even share them with anyone via a secret link!</p>
 <p>A private website can also link to any other websites in Peergos, including those owned by others, by the human readable path in the Peergos global filesystem. Following such a link will only work if you also have read access to the destination.</p>
 <p>The possibilities are huge here for a better, more private web that protects people from surveillance. You can also edit your website's directly in Peergos. It has never been easier to host your own website securely!</p>
-<p>[0] This is currently not true until browsers implement the <a href="https://github.com/w3c/webappsec-csp/issues/92">webrtc CSP</a> which allows us to block any webrtc connections which can be used to exfiltrate data. </p>
-<a class="header" href="#peergos-architecture" id="peergos-architecture"><h1>Peergos architecture</h1></a>
-<a class="header" href="#logical" id="logical"><h1>Logical</h1></a>
+<p>[0] This is currently not true until browsers implement the <a href="https://github.com/w3c/webappsec-csp/issues/92">webrtc CSP</a> which allows us to block any webrtc connections which can be used to exfiltrate data.</p>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="peergos-architecture"><a class="header" href="#peergos-architecture">Peergos architecture</a></h1>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="logical"><a class="header" href="#logical">Logical</a></h1>
 <p>The logical architecture of Peergos consists of the following:</p>
 <ol>
 <li>Content addressed storage: a data store with a mapping from the hash of a block of data to the data itself</li>
@@ -510,12 +545,10 @@ The previously installed peergos-app.json file is copied to the App’s data dir
 <li>PKI: a global append only log for the username &lt;==&gt; {identity public key, storage public key} mappings</li>
 <li>Social: each user designates a server for sending follow requests for users to (the server can't see the source user). This is the same as the storage server for that user and is identified and contacted via its public key.</li>
 </ol>
-<p><img alt="Logical Architecture" src="/img/logical-arch.svg" class="center" style="width: 100%;" /></p>
-<a class="header" href="#physical" id="physical"><h1>Physical</h1></a>
+<img alt="Logical Architecture" src="architecture//img/logical-arch.svg" class="center" style="width: 100%;" /><div style="break-before: page; page-break-before: always;"></div><h1 id="physical"><a class="header" href="#physical">Physical</a></h1>
 <p>Each user must have at least one Peergos server (which includes an instance of IPFS). This server stores their data, their mutable pointers and any pending follow requests for them. There is also the global append only log for the PKI which is mirrored on every node. Communication between IPFS instances is done over encrypted TLS 1.3 streams.</p>
-<p><img alt="The physical architecture" src="/img/physical-arch.svg" class="center" style="width: 100%;" /></p>
-<a class="header" href="#immutable-data" id="immutable-data"><h1>Immutable data</h1></a>
-<p>The immutable data store is provided by IPFS and allows anyone authorised to retrieve cipher text from its hash through any Peergos node. Note that IPFS is used in a fully trustless manner. Every hash and signature is checked client side during reads and writes. The underlying storage can be provided by the local harddisk or any S3 compatible object storage without loss of privacy. Access to raw blocks is controlled using S3 V4 signatures from an allowed <a href="/security/bats.html">Block Access Token</a> (BAT). Each block specifies which BATs are allowed to retrieve it. Any node that retrieves such a block enforces the same auth on it.</p>
+<img alt="The physical architecture" src="architecture//img/physical-arch.svg" class="center" style="width: 100%;" /><div style="break-before: page; page-break-before: always;"></div><h1 id="immutable-data"><a class="header" href="#immutable-data">Immutable data</a></h1>
+<p>The immutable data store is provided by IPFS and allows anyone authorised to retrieve cipher text from its hash through any Peergos node. Note that IPFS is used in a fully trustless manner. Every hash and signature is checked client side during reads and writes. The underlying storage can be provided by the local harddisk or any S3 compatible object storage without loss of privacy. Access to raw blocks is controlled using S3 V4 signatures from an allowed <a href="architecture//security/bats.html">Block Access Token</a> (BAT). Each block specifies which BATs are allowed to retrieve it. Any node that retrieves such a block enforces the same auth on it.</p>
 <p>The interface for this storage is ContentAddressedStorage, with the following methods:</p>
 <pre><code class="language-java">
      /**
@@ -590,7 +623,7 @@ The previously installed peergos-app.json file is copied to the App’s data dir
 
     CompletableFuture&lt;List&lt;byte[]&gt;&gt; getChampLookup(PublicKeyHash owner, Cid root, byte[] champKey, Optional&lt;BatWithId&gt; bat);
 </code></pre>
-<a class="header" href="#mutable" id="mutable"><h1>Mutable</h1></a>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="mutable"><a class="header" href="#mutable">Mutable</a></h1>
 <p>Mutable pointers in Peergos are just a mapping from a public key to a root hash. Clearly, being mutable, they need some kind of synchronization or concurrent data structure. Each user lists an ipfs node id (the hash of its public key) which is responsible for synchronising their writes and publishing the latest root hashes. This means the global filesystem is sharded by username and each user can use an ipfs instance (or cluster) with sufficient capability for their bandwidth requirements.</p>
 <p>Initially each user's file system is under a single public key. Additional keys are generated when granting write access.</p>
 <p>The interface for MutablePointers has the following methods:</p>
@@ -611,8 +644,7 @@ CompletableFuture&lt;Boolean&gt; setPointer(PublicKeyHash owner, PublicKeyHash w
 CompletableFuture&lt;Optional&lt;byte[]&gt;&gt; getPointer(PublicKeyHash owner, PublicKeyHash writer);
 </code></pre>
 <p>Each signed update is actually a pair of hashes (previous, current) and a monotonically increasing sequence number. This means the server can reject invalid updates, and that the updates form a total order. The ordering means clients can cache the most recent version of a pointer to defend against being served stale older versions.</p>
-<p><img alt="A Mutable pointer" src="/img/mutable.png" class="center" style="width: 100%;" /></p>
-<a class="header" href="#writing-subspaces" id="writing-subspaces"><h1>Writing subspaces</h1></a>
+<img alt="A Mutable pointer" src="architecture//img/mutable.png" class="center" style="width: 100%;" /><div style="break-before: page; page-break-before: always;"></div><h1 id="writing-subspaces"><a class="header" href="#writing-subspaces">Writing subspaces</a></h1>
 <p>Each user has a randomly generated writing key pair which controls writes to their filesystem. They can create new writing key pairs for any subtree, for example when granting write access to a file or folder. If desired, a given writing key can be quota controlled, to prevent users to which you've granted write access to a file from filling your data store.</p>
 <p>Every signing keypair, including your identity keypair, and your root writing keypair, map to a data structure called WriterData. A WriterData can contain merkle links to roots of merkle champs and various public keys. The full data structure is listed below. If any of the properties are empty they do not contribute to the size of the serialized WriterData.</p>
 <pre><code class="language-java">// the public signing key controlling this subspace
@@ -637,10 +669,9 @@ Map&lt;String, PublicKeyHash&gt; namedOwnedKeys;
 // This is the root of a champ containing the controller's filesystem (present on writer keys)
 Optional&lt;Multihash&gt; tree;
 </code></pre>
-<a class="header" href="#merkle-champ" id="merkle-champ"><h1>Merkle-CHAMP</h1></a>
-<p>The main network visible data structure in Peergos is a merkle compressed hash array mapped trie, or merkle-champ. This data structure is explained in the next section. All the data under a given writing keypair has its own merkle-champ. This is just a mapping from random 32 byte labels to cipher-text blobs. These blobs are <a href="/security/cryptree.html">cryptree</a> nodes containing the cryptree data structure, and, in the case of a file section, up to 5 merkle links to encrypted file fragments (Max 1 MiB each). A merkle-link is just a hash that references another ipfs object. Each 5 MiB section of a file is stored under a different random label in the champ, and similarly with large directories.</p>
-<p><img alt="the network visible merkle-champ" src="/img/champ.svg" class="center" style="width: 100%;" /></p>
-<a class="header" href="#usernames" id="usernames"><h1>Usernames</h1></a>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="merkle-champ"><a class="header" href="#merkle-champ">Merkle-CHAMP</a></h1>
+<p>The main network visible data structure in Peergos is a merkle compressed hash array mapped trie, or merkle-champ. This data structure is explained in the next section. All the data under a given writing keypair has its own merkle-champ. This is just a mapping from random 32 byte labels to cipher-text blobs. These blobs are <a href="architecture//security/cryptree.html">cryptree</a> nodes containing the cryptree data structure, and, in the case of a file section, up to 5 merkle links to encrypted file fragments (Max 1 MiB each). A merkle-link is just a hash that references another ipfs object. Each 5 MiB section of a file is stored under a different random label in the champ, and similarly with large directories.</p>
+<img alt="the network visible merkle-champ" src="architecture//img/champ.svg" class="center" style="width: 100%;" /><div style="break-before: page; page-break-before: always;"></div><h1 id="usernames"><a class="header" href="#usernames">Usernames</a></h1>
 <p>The public keys and usernames are stored in a global append only data structure, with names taken on a first come first served basis. This needs consensus to ensure uniqueness of usernames. This is also where the ipfs node id of the server(s) responsible for synchronising the user's writes is stored. The public key infrastructure (pki) server is called the Corenode, and its interface is the following.</p>
 <pre><code class="language-java">/**
  *
@@ -671,7 +702,7 @@ CompletableFuture&lt;String&gt; getUsername(PublicKeyHash key);
  */
 CompletableFuture&lt;List&lt;String&gt;&gt; getUsernames(String prefix);
 </code></pre>
-<a class="header" href="#follow-requests" id="follow-requests"><h1>Follow requests</h1></a>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="follow-requests"><a class="header" href="#follow-requests">Follow requests</a></h1>
 <p>A user's storage server stores their pending follow requests until they are retrieved and deleted. These are not actually stored in ipfs itself, and reading them is guarded by a challenge protocol to mitigate against someone logging them alll now and decrypting them with a large quantum computer when one is built.</p>
 <p>Follow requests contain no unencrypted data visible to the network, or server, apart from the target user. Only the target user can decrypt the follow request to see the sender.</p>
 <p>The interface for sending, receiving and removing follow requests is called SocialNetwork and has the following methods:</p>
@@ -699,7 +730,7 @@ CompletableFuture&lt;byte[]&gt; getFollowRequests(PublicKeyHash owner, byte[] si
  */
 CompletableFuture&lt;Boolean&gt; removeFollowRequest(PublicKeyHash owner, byte[] data);
 </code></pre>
-<a class="header" href="#specification" id="specification"><h1>Specification</h1></a>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="specification"><a class="header" href="#specification">Specification</a></h1>
 <p>The wire protocol is standard libp2p. This is specified <a href="https://github.com/libp2p/specs">here</a>.</p>
 <p>The serialization format for blocks is <a href="https://ipld.io/specs/codecs/dag-cbor/spec/">dag-cbor</a>, or raw (unformatted).</p>
 <p>Merkle links are encoded as Cids, whose specification is <a href="https://github.com/multiformats/cid">here</a>.</p>
@@ -708,96 +739,136 @@ CompletableFuture&lt;Boolean&gt; removeFollowRequest(PublicKeyHash owner, byte[]
 <p>The cryptree+ structure is specified <a href="https://github.com/Peergos/Peergos/blob/master/src/peergos/shared/user/fs/cryptree/CryptreeNode.java">here</a>.</p>
 <p>The server API is specified <a href="https://github.com/Peergos/Peergos/tree/master/src/peergos/server/net">here</a></p>
 <p>The Compressed Hash-Array Mapped Prefix-Tree (CHAMP) structure is specified and implemented <a href="https://github.com/Peergos/Peergos/blob/master/src/peergos/shared/hamt/Champ.java">here</a>.</p>
-<p>The local (service worker based) REST API for applications is described <a href="/features/apps.html">here</a>.</p>
-<a class="header" href="#security" id="security"><h1>Security</h1></a>
+<p>The local (service worker based) REST API for applications is described <a href="architecture//features/apps.html">here</a>.</p>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="security"><a class="header" href="#security">Security</a></h1>
 <p>Peergos' primary focus is security.</p>
-<a class="header" href="#trust-free-levels" id="trust-free-levels"><h1>Trust free levels</h1></a>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="trust-free-levels"><a class="header" href="#trust-free-levels">Trust free levels</a></h1>
 <p>Peergos is designed at every level to minimise or remove entirely any need for trust.</p>
 <p>The first trust barrier is between Peergos and IPFS. A Peergos server verifies the hash of everything written to or read from IPFS. This removes the possibility of tampering at the ipfs level.</p>
-<p>The second trust free barrier is between a Peergos client and a Peergos server. A Peergos client verifies the hash of every block read from or written to a Peergos server. Peergos clients also verify the signature of every signed piece of data received from Peergos. This means that once you have obtained a trustworthy copy of a Peergos client you do not need to trust a server to interact with it. </p>
-<a class="header" href="#threat-models" id="threat-models"><h1>Threat models</h1></a>
+<p>The second trust free barrier is between a Peergos client and a Peergos server. A Peergos client verifies the hash of every block read from or written to a Peergos server. Peergos clients also verify the signature of every signed piece of data received from Peergos. This means that once you have obtained a trustworthy copy of a Peergos client you do not need to trust a server to interact with it.</p>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="threat-models"><a class="header" href="#threat-models">Threat models</a></h1>
 <p>Peergos supports several threat models depending on the user and their situation.</p>
-<a class="header" href="#casual-user" id="casual-user"><h2>Casual user:</h2></a>
+<h2 id="casual-user"><a class="header" href="#casual-user">Casual user:</a></h2>
 <ul>
 <li>Trusts the SSL certificate hierarchy and the domain name system</li>
 <li>Is happy to run Javascript in their browser</li>
 <li>Trusts TLS and their browser (and OS and CPU ;-) )</li>
 </ul>
 <p>Such a user can interact with peergos purely through a public web server that they trust over TLS.</p>
-<a class="header" href="#slightly-paranoid-user" id="slightly-paranoid-user"><h2>Slightly paranoid user:</h2></a>
+<h2 id="slightly-paranoid-user"><a class="header" href="#slightly-paranoid-user">Slightly paranoid user:</a></h2>
 <ul>
 <li>Doesn't trust DNS or SSL certificates</li>
 <li>Is happy to run Javascript served from localhost in their browser</li>
 </ul>
 <p>This class of user can download and run the Peergos application and access the web interface through their browser over localhost.</p>
-<a class="header" href="#more-paranoid-user" id="more-paranoid-user"><h2>More paranoid user:</h2></a>
+<h2 id="more-paranoid-user"><a class="header" href="#more-paranoid-user">More paranoid user:</a></h2>
 <ul>
 <li>Doesn't not trust the SSL certificate system</li>
 <li>Doesn't trust DNS</li>
 <li>Doesn't trust javascript</li>
 </ul>
-<p>This class of user can download the Peergos application (or otherwise obtain a signed copy), or build it from source. They can then run Peergos locally and use the native user interface, either the comand line or a FUSE mount. Once they have obtained or built a copy they trust, then they need trust only the integrity of TweetNacl cryptography (or our post-quantum upgrade) and the Tor architecture.  </p>
-<a class="header" href="#login" id="login"><h1>Login</h1></a>
+<p>This class of user can download the Peergos application (or otherwise obtain a signed copy), or build it from source. They can then run Peergos locally and use the native user interface, either the comand line or a FUSE mount. Once they have obtained or built a copy they trust, then they need trust only the integrity of TweetNacl cryptography (or our post-quantum upgrade) and the Tor architecture.</p>
+<h1 id="general-threat-model"><a class="header" href="#general-threat-model">General Threat model</a></h1>
+<h2 id="actors-and-capabilities"><a class="header" href="#actors-and-capabilities">Actors and capabilities</a></h2>
+<h3 id="device-with-logged-out-client"><a class="header" href="#device-with-logged-out-client">Device with logged out client</a></h3>
+<p>CAN See:</p>
+<ul>
+<li>any cached ciphertext blocks and mutable pointers</li>
+</ul>
+<p>CANNOT see:</p>
+<ul>
+<li>any plaintext of any files or directories or their metadata.</li>
+</ul>
+<h3 id="home-server"><a class="header" href="#home-server">Home server</a></h3>
+<p>CAN see:</p>
+<ul>
+<li>total space used (rounded up due to padding before encryption).</li>
+<li>total number of secret links and any expiry, use limit and use count</li>
+</ul>
+<p>CANNOT see:</p>
+<ul>
+<li>file/directory names</li>
+<li>file/directory sizes</li>
+<li>file thumbnails</li>
+<li>whether a chunk is part of a directory or file</li>
+<li>how many files or folders there are</li>
+<li>who has access to a file or folder</li>
+<li>what file/dir or chunk a secret link points to</li>
+<li>your friend or followers list</li>
+</ul>
+<h3 id="mirror-servers"><a class="header" href="#mirror-servers">Mirror servers</a></h3>
+<p>CAN see the same things as your home server</p>
+<h3 id="friends-or-followers"><a class="header" href="#friends-or-followers">Friends or followers</a></h3>
+<p>CAN</p>
+<ul>
+<li>retrieve ciphertext for things they have been granted access to.</li>
+<li>read or modify files or directories they have been granted access to.</li>
+</ul>
+<h3 id="global-active-network-adversary"><a class="header" href="#global-active-network-adversary">Global active network adversary</a></h3>
+<p>CANNOT</p>
+<ul>
+<li>MITM connetions</li>
+<li>MITM friends</li>
+</ul>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="login"><a class="header" href="#login">Login</a></h1>
 <p>To login your password + username + public salt are hashed using <a href="https://en.wikipedia.org/wiki/Scrypt">scrypt</a> hashing function (with parameters 17, 8, 1, 64). The output of this is your login keypair and a symmetric key. The login keypair is used to auth with your home server and retrieve your encrypted login data, which is decrypted using the aforementioned symmetric key. Alternatively client can cache the encrypted login data to allow offline login. The login data contains your identity keypair, social keypair, and the root capability to your filesystem. The public salt and encrypted login data are stored on your home server, and any mirror your have authorised.</p>
-<p><img alt="Login key derivation" src="/img/login.png" class="center" style="width: 70%;" /></p>
-<a class="header" href="#encryption" id="encryption"><h1>Encryption</h1></a>
+<img alt="Login key derivation" src="security//img/login.png" class="center" style="width: 70%;" /><div style="break-before: page; page-break-before: always;"></div><h1 id="encryption"><a class="header" href="#encryption">Encryption</a></h1>
 <p>All your files are encrypted symmetrically with a random 256-bit key using salsa20+poly1305 (from TweetNaCl). These keys are not derived from the contents of the file (as some services do) because this leaks to the network which files you are storing. Files are split into chunks of up to 5 MiB, padded to a multiple of 4 KiB, and each chunk is independently encrypted. Different chunks of a file are not linkable unless you have a read capability for that file.</p>
-<a class="header" href="#block-access-control" id="block-access-control"><h1>Block Access Control</h1></a>
-<p>When an app on IPFS wants a block of data, it asks IPFS for the data corresponding to its content identifier, or <a href="https://docs.ipfs.io/concepts/content-addressing/#identifier-formats">CID</a> (basically, a hash of the data). IPFS will then search the global IPFS network for nodes that have this CID. At the same time, it will ask any nodes it's already in contact with: &quot;Do you have this CID?&quot;. Any contacted node that has the block can respond with the data. A nice property of this is that any node that has the content can serve it up, which means that it autoscales to demand.</p>
-<p><center>
-<img src="/img/bitswap-authed.png" alt="authed" />
+<div style="break-before: page; page-break-before: always;"></div><h1 id="block-access-control"><a class="header" href="#block-access-control">Block Access Control</a></h1>
+<p>When an app on IPFS wants a block of data, it asks IPFS for the data corresponding to its content identifier, or <a href="https://docs.ipfs.io/concepts/content-addressing/#identifier-formats">CID</a> (basically, a hash of the data). IPFS will then search the global IPFS network for nodes that have this CID. At the same time, it will ask any nodes it's already in contact with: "Do you have this CID?". Any contacted node that has the block can respond with the data. A nice property of this is that any node that has the content can serve it up, which means that it autoscales to demand.</p>
+<center>
+![authed](/img/bitswap-authed.png)
 <br/>
 Authed bitswap retrieving a block.
-</center></p>
+</center>
 <p>We have extended this protocol to have an optional auth string paired with every CID. In Peergos, this auth string is an <a href="https://docs.aws.amazon.com/AmazonS3/latest/API/sig-v4-header-based-auth.html">S3 V4 signature</a>, which is time-limited, includes the CID, and is tied to the requesting node's public key (to prevent replay attacks). A replay attack would be if it were possible for someone without the block, who we had sent a valid auth token, to retrieve the block themselves directly using the token. As an anology, consider a ticketed event. If someone buys a ticket, and then a friend of theirs copies the ticket and uses that to gain entry, that is a replay attack. If, however, the tickets included the buyer's name on the ticket (they were non-transferable) and the event verified the holder's name on entry then the friend couldn't get in, even with the original ticket.</p>
 <p>We do a similar thing to avoid this by using the source node's public key as the domain in the S3 request. This way we can broadcast a cid and auth string to the network and no one but us can use that auth string. The S3 V4 signature scheme is essentially repeated <a href="https://en.wikipedia.org/wiki/HMAC">hmac-sha256</a> and needs a secret key to function. Such a secret key would grant the holder access to the block, so we call it a Block Access Token or BAT for short, and each is 32 bytes long. Since it only depends on hmac-sha256, which itself only depends on sha256, it is post-quantum - a large quantum computer does not break it.</p>
 <p>The primary BAT used for this authentication is derived from the block itself. This means any instance that retrieves such a block (after being authorised) can continue to serve it up and enforce the same access control, thus maintaining the autoscaling properties in a privacy-preserving way.</p>
-<p>There are two formats of blocks in Peergos, cbor and raw. Raw blocks are the most sensitive (they hold users' encrypted data) and are just fragments of ciphertext with no additional structure. Cbor blocks are valid <a href="https://ipld.io/docs/codecs/known/dag-cbor/">dag-cbor</a> structured IPLD objects which can reference other blocks. How could we put a BAT in these blocks? In a cbor block, it is easy to choose a canonical place to put a list of BATs. If the cbor is a map object, we put a list of BATs at the top level under the key &quot;bats&quot;.</p>
-<p><center>
-<img src="/img/cbor-bats.png" alt="cbor-block-auth" />
+<p>There are two formats of blocks in Peergos, cbor and raw. Raw blocks are the most sensitive (they hold users' encrypted data) and are just fragments of ciphertext with no additional structure. Cbor blocks are valid <a href="https://ipld.io/docs/codecs/known/dag-cbor/">dag-cbor</a> structured IPLD objects which can reference other blocks. How could we put a BAT in these blocks? In a cbor block, it is easy to choose a canonical place to put a list of BATs. If the cbor is a map object, we put a list of BATs at the top level under the key "bats".</p>
+<center>
+![cbor-block-auth](/img/cbor-bats.png)
 <br/>
 Structure for storing BATs in cbor blocks
-</center></p>
+</center>
 <p>For raw objects, it is a little more difficult, as we also need to support raw blocks that do not have a BAT (either legacy blocks or ones specifically made public). Our design uses a detectable prefix of 8 FIXED bytes followed by a cbor list of BATs before the actual ciphertext of the block.</p>
-<p><center>
-<img src="/img/raw-bats.png" alt="raw-bock-auth" />
+<center>
+![raw-bock-auth](/img/raw-bats.png)
 <br/>
 Structure for storing BATs in the prefix of a raw block
-</center></p>
-<p>We normally have two bats per block. One is inline - and specific to that block only. The other is a user wide &quot;mirror&quot; BAT - and referenced in the block by its hash. The mirror BAT is for when a user wants to mirror all their data on another instance, or migrate to another instance.</p>
-<table><thead><tr><th> </th><th> Chunk 1                </th><th>  Chunk 2     </th><th> Chunk 3 </th></tr></thead><tbody>
-<tr><td> BAT stream secret </td><td> Sb (encrypted in base data)  </td><td>                    </td><td>    </td></tr>
-<tr><td> BAT[] (unencrypted in root cbor object under &quot;bats&quot;) </td><td> B1=randomBytes(32)                </td><td> B2=hash(Sb + B1) </td><td> B3=hash(Sb + B2) </td></tr>
+</center>
+<p>We normally have two bats per block. One is inline - and specific to that block only. The other is a user wide "mirror" BAT - and referenced in the block by its hash. The mirror BAT is for when a user wants to mirror all their data on another instance, or migrate to another instance.</p>
+<div class="table-wrapper"><table><thead><tr><th></th><th>Chunk 1</th><th>Chunk 2</th><th>Chunk 3</th></tr></thead><tbody>
+<tr><td>BAT stream secret</td><td>Sb (encrypted in base data)</td><td></td><td></td></tr>
+<tr><td>BAT[] (unencrypted in root cbor object under "bats")</td><td>B1=randomBytes(32)</td><td>B2=hash(Sb + B1)</td><td>B3=hash(Sb + B2)</td></tr>
 </tbody></table>
-<p><center>
+</div><center>
 BAT derivation for subsequent chunks of a file
-</center></p>
+</center>
 <p>Each 5 MiB chunk of a file or directory has its own unique BAT, so the server still cannot link the different blocks of a file to deduce the padded size of the file. Subsequent chunk BATs within a file are derived in the same way as we do the CHAMP labels, by hashing the current chunk BAT with a stream-secret, stored encrypted in the first chunk. This maintains our ability to seek within arbitrarily large files without any IO operations (just local hashing and then a final lookup of the requested chunk). When someone's access to a file or directory is revoked, the BATs are also changed, making it impossible to retrieve the new ciphertext even with previous access.</p>
-<a class="header" href="#access-control" id="access-control"><h1>Access control</h1></a>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="access-control"><a class="header" href="#access-control">Access control</a></h1>
 <p>Read access to your files is controlled by a data structure called cryptree, which is essentially a tree of symmetric keys, where the holder of one key can decrypt all the descendant keys. The result is extremely fine grained access control. You can grant access to someone to a file and that user won't be able to see any of the sibling files in the same folder (or even their names - or even their labels in the champ). Granting read access to a folder implies granting read access to all the contents of the folder recursively.</p>
-<p><img alt="Read access capability tree" src="/img/cryptreeplus-read.jpeg" class="center" style="width: 100%;" /></p>
+<img alt="Read access capability tree" src="security//img/cryptreeplus-read.jpeg" class="center" style="width: 100%;" />
 <p>Write access is independently controlled by a similar, but simpler cryptree. All updates to a given subtree are signed by a corresponding writing key pair. When you grant write access to a file or folder then that item is moved to a new writing key pair, to keep the fine grained access control applicable to write access too. This operates independently of the read access control cryptree.</p>
-<p><img alt="Write access capability tree" src="/img/cryptreeplus-write.jpeg" class="center" style="width: 100%;" /></p>
-<a class="header" href="#capabilities" id="capabilities"><h1>Capabilities</h1></a>
+<img alt="Write access capability tree" src="security//img/cryptreeplus-write.jpeg" class="center" style="width: 100%;" /><div style="break-before: page; page-break-before: always;"></div><h1 id="capabilities"><a class="header" href="#capabilities">Capabilities</a></h1>
 <p>There are three kinds of capabilities in Peergos: Mirror, Read and Write.</p>
-<p><img alt="Capability types" src="/img/cap-types.png" class="center" style="width: 70%;" /></p>
+<img alt="Capability types" src="security//img/cap-types.png" class="center" style="width: 70%;" />
 <p>The owner is a public key, which is used to lookup the host public key from the PKI. The writer is a public key for the mutable pointer. The map key is 32 bytes which form the lookup key in the champ, the BAT is 32 bytes which are used to control access to the ciphertext by the server. The read and write keys are 256 bit symmetric keys.</p>
-<p>With a mirror capability you are able to retrieve the raw ciphertext of a chunk. The read capability allows you to decrypt and read the chunk, and the write key allows you to modify the file/directory. </p>
-<a class="header" href="#metadata" id="metadata"><h1>Metadata</h1></a>
+<p>With a mirror capability you are able to retrieve the raw ciphertext of a chunk. The read capability allows you to decrypt and read the chunk, and the write key allows you to modify the file/directory.</p>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="metadata"><a class="header" href="#metadata">Metadata</a></h1>
 <p>All of the metadata for a given file is encrypted, with a different symmetric key from the file itself. This includes the name for directories and also the filesize, modification time, any thumbnail and mime type for files. The size of files is further hidden by splitting files into 5MiB chunks, which are padded to a multiple of 4 KiB, and storing each chunk under a random label (along with those for all other files owned by the same user and controlled by the same writing key pair).</p>
-<p>The metadata around access patterns will be hidden by hosting files behind a tor hidden service once Tor is integrated. This will ensure that when one user reads a file shared with them by a friend this access does not leak to the network the fact that they are friends. </p>
-<a class="header" href="#quantum-resistance" id="quantum-resistance"><h1>Quantum resistance</h1></a>
+<p>The metadata around access patterns will be hidden by hosting files behind a tor hidden service once Tor is integrated. This will ensure that when one user reads a file shared with them by a friend this access does not leak to the network the fact that they are friends.</p>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="quantum-resistance"><a class="header" href="#quantum-resistance">Quantum resistance</a></h1>
 <p>Peergos aims to be a long term secure file storage system, and hence we have architected it with an awareness of quantum computer based attacks (many of us are ex physicists).</p>
 <p>Files that you store but don't share with anyone are already resistant to quantum computer based attacks. This is because the process from logging in to decrypting them only involves hashing and symmetric encryption, neither of which are significantly weakened by a quantum computer.</p>
-<p>Files that have been shared are currently vulnerable to a quantum computer attack because they use asymmetric elliptic curve cryptography (Curve25519) to share the decryption capability. However, we plan to upgade to a suitable post-quantum algorithm soon. </p>
-<a class="header" href="#social-graph" id="social-graph"><h1>Social graph</h1></a>
-<p>Following a user is implemented by them sharing read access to a directory in their filesystem. The read capability is sent encrypted from a random single use keypair to the target user's public key. These requests will be sent over Tor to that user's hidden service to hide the metadata from the network. Once retrieved, the receiving user stores the capability in their own storage, symmetrically encrypted and deletes the follow request from their server. </p>
-<a class="header" href="#public-key-infrastructure" id="public-key-infrastructure"><h1>Public Key Infrastructure</h1></a>
+<p>Files that have been shared are currently vulnerable to a quantum computer attack because they use asymmetric elliptic curve cryptography (Curve25519) to share the decryption capability. However, we plan to upgade to a suitable post-quantum algorithm soon.</p>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="social-graph"><a class="header" href="#social-graph">Social graph</a></h1>
+<p>Following a user is implemented by them sharing read access to a directory in their filesystem. The read capability is sent encrypted from a random single use keypair to the target user's public key. These requests will be sent over Tor to that user's hidden service to hide the metadata from the network. Once retrieved, the receiving user stores the capability in their own storage, symmetrically encrypted and deletes the follow request from their server.</p>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="public-key-infrastructure"><a class="header" href="#public-key-infrastructure">Public Key Infrastructure</a></h1>
 <p>All users have a public identity key, and these are stored in a merkle-champ. This structure is mirrored by all nodes (or you can delegate to a mirror you trust). This includes the user's claim to a username along with an expiry, and their current storage server's public key. The effect is similar to certificate or key transparency logs. In contrast though, key transparency logs are not normally used as the source of truth, but only checked retrospectively, occasionally for some users. So this gives much stronger guarantees whilst maintaining the append-only nature. Mirrors reject updates that are not append-only, so the pki cannot tamper with the mappings.</p>
-<p>This allows users to do public key lookups without leaking to the network who they are looking up. Users also store the keys of their friends in their own filesystem in a TOFU setup, which also rejects invalid updates. This means that ordinary usage doesn't involve looking up keys from the public pki servers. </p>
-<a class="header" href="#how-does-it-work" id="how-does-it-work"><h1>How does it work?</h1></a>
-<p>This section goes into technical detail about how different operations work in Peerogs. </p>
-<a class="header" href="#signing-up" id="signing-up"><h1>Signing up</h1></a>
+<p>This allows users to do public key lookups without leaking to the network who they are looking up. Users also store the keys of their friends in their own filesystem in a TOFU setup, which also rejects invalid updates. This means that ordinary usage doesn't involve looking up keys from the public pki servers.</p>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="how-does-it-work"><a class="header" href="#how-does-it-work">How does it work?</a></h1>
+<p>This section goes into technical detail about how different operations work in Peerogs.</p>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="signing-up"><a class="header" href="#signing-up">Signing up</a></h1>
 <p>The steps involved in signing up are:</p>
 <ol>
 <li>
@@ -814,7 +885,7 @@ BAT derivation for subsequent chunks of a file
 <ul>
 <li>Write the public identity key to ipfs</li>
 <li>Write the public following key to ipfs</li>
-<li>Create a <a href="/architecture/writer.html">WriterData</a> for the identity key pair with the two resulting public key hashes</li>
+<li>Create a <a href="dev//architecture/writer.html">WriterData</a> for the identity key pair with the two resulting public key hashes</li>
 <li>Generate a random key pair to control writes to the users filesystem. Add this key pair as an owned key to the identity WriterData.</li>
 <li>Commit the identity WriterData (write it to ipfs and set the mutable pointer for the identity key pair to the resulting hash).</li>
 </ul>
@@ -822,13 +893,13 @@ BAT derivation for subsequent chunks of a file
 <li>
 <p>Set up your filesystem</p>
 <ul>
-<li>Create a DirAccess <a href="/security/cryptree.html">cryptree</a> node for the user's root directory, and add this to the champ of the filesystem key pair.</li>
+<li>Create a DirAccess <a href="dev//security/cryptree.html">cryptree</a> node for the user's root directory, and add this to the champ of the filesystem key pair.</li>
 <li>Add a write capability to your root dir to your login data (encrypted with the symmetric root key, and only retrievable with the auth key pair)</li>
 <li>Create the /username/shared directory which is used when sending follow requests</li>
 </ul>
 </li>
 </ol>
-<a class="header" href="#uploading-a-file" id="uploading-a-file"><h1>Uploading a file</h1></a>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="uploading-a-file"><a class="header" href="#uploading-a-file">Uploading a file</a></h1>
 <p>A file upload proceeds in the following steps</p>
 <ol>
 <li>
@@ -857,8 +928,8 @@ BAT derivation for subsequent chunks of a file
 <p>Delete the transaction file</p>
 </li>
 </ol>
-<p>A modification, such as uploading a file, can be done through any Peergos server as the writes are <a href="/dev/proxy.html">proxied</a> through an ipfs p2p stream to the owner's storage ipfs node.</p>
-<a class="header" href="#sending-a-follow-request" id="sending-a-follow-request"><h1>Sending a follow request</h1></a>
+<p>A modification, such as uploading a file, can be done through any Peergos server as the writes are <a href="dev//dev/proxy.html">proxied</a> through an ipfs p2p stream to the owner's storage ipfs node.</p>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="sending-a-follow-request"><a class="header" href="#sending-a-follow-request">Sending a follow request</a></h1>
 <p>Sending a follow request proceeds in the following steps:</p>
 <ol>
 <li>
@@ -875,22 +946,20 @@ BAT derivation for subsequent chunks of a file
 </li>
 </ol>
 <p>The target can then either allow and reciprocate (full bi-directional friendship), allow (you are following them), reciprocate (they are following you) or deny. If they have reciprocated then you can grant read or write access to any file or folder by adding a read or write capability in their directory in your space.</p>
-<p>When you receive a follow request and either allow or reciprocate it then you add the capability in the request to a file in your home dir (/you-username/.from-friends.cborstream), before deleting the follow request from your server. </p>
-<a class="header" href="#proxying-requests" id="proxying-requests"><h1>Proxying requests</h1></a>
+<p>When you receive a follow request and either allow or reciprocate it then you add the capability in the request to a file in your home dir (/you-username/.from-friends.cborstream), before deleting the follow request from your server.</p>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="proxying-requests"><a class="header" href="#proxying-requests">Proxying requests</a></h1>
 <p>Any modifying request needs to be proxied to the correct destination server. This could be signing up, uploading a file, or sending a follow request. This is achieved using an ipfs p2p stream. In particular, because all these requests are http requests, we use the http p2p proxy exposed locally on the ipfs gateway. It means we can send any request to</p>
 <p>http://localhost:8080/p2p/$target_node_id/http/$path</p>
 <p>and it will go through an end to end encrypted stream through the ipfs network to the destination node, which then sends it to the local Peergos server at:</p>
 <p>http://localhost:8000/$path</p>
 <p>This is illustrated below:
-<img alt="Proxying a request through ipfs" src="/img/proxy.svg" class="center" style="width: 100%;" /></p>
+<img alt="Proxying a request through ipfs" src="dev//img/proxy.svg" class="center" style="width: 100%;" /></p>
 
                     </main>
 
                     <nav class="nav-wrapper" aria-label="Page navigation">
                         <!-- Mobile navigation buttons -->
-                        
 
-                        
 
                         <div style="clear: both"></div>
                     </nav>
@@ -898,41 +967,35 @@ BAT derivation for subsequent chunks of a file
             </div>
 
             <nav class="nav-wide-wrapper" aria-label="Page navigation">
-                
 
-                
             </nav>
 
         </div>
 
-        
 
-        
 
-        
 
-        
-        <script src="elasticlunr.min.js" type="text/javascript" charset="utf-8"></script>
-        <script src="mark.min.js" type="text/javascript" charset="utf-8"></script>
-        <script src="searcher.js" type="text/javascript" charset="utf-8"></script>
-        
+        <script>
+            window.playground_copyable = true;
+        </script>
 
-        <script src="clipboard.min.js" type="text/javascript" charset="utf-8"></script>
-        <script src="highlight.js" type="text/javascript" charset="utf-8"></script>
-        <script src="book.js" type="text/javascript" charset="utf-8"></script>
+
+        <script src="elasticlunr.min.js"></script>
+        <script src="mark.min.js"></script>
+        <script src="searcher.js"></script>
+
+        <script src="clipboard.min.js"></script>
+        <script src="highlight.js"></script>
+        <script src="book.js"></script>
 
         <!-- Custom JS scripts -->
-        
 
-        
-        
-        <script type="text/javascript">
+        <script>
         window.addEventListener('load', function() {
             window.setTimeout(window.print, 100);
         });
         </script>
-        
-        
 
+    </div>
     </body>
 </html>

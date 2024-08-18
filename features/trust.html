@@ -1,14 +1,18 @@
 <!DOCTYPE HTML>
-<html lang="en" class="sidebar-visible no-js">
+<html lang="en" class="light" dir="ltr">
     <head>
         <!-- Book generated using mdBook -->
         <meta charset="UTF-8">
-        <title>Trust free server - </title>
-        <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
+        <title>Trust free server</title>
+
+
+        <!-- Custom HTML head -->
+        
         <meta name="description" content="">
         <meta name="viewport" content="width=device-width, initial-scale=1">
-        <meta name="theme-color" content="#ffffff" />
+        <meta name="theme-color" content="#ffffff">
 
+        <link rel="icon" href="../favicon.svg">
         <link rel="shortcut icon" href="../favicon.png">
         <link rel="stylesheet" href="../css/variables.css">
         <link rel="stylesheet" href="../css/general.css">
@@ -17,8 +21,7 @@
 
         <!-- Fonts -->
         <link rel="stylesheet" href="../FontAwesome/css/font-awesome.css">
-        <link href="https://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800" rel="stylesheet" type="text/css">
-        <link href="https://fonts.googleapis.com/css?family=Source+Code+Pro:500" rel="stylesheet" type="text/css">
+        <link rel="stylesheet" href="../fonts/fonts.css">
 
         <!-- Highlight.js Stylesheets -->
         <link rel="stylesheet" href="../highlight.css">
@@ -26,16 +29,18 @@
         <link rel="stylesheet" href="../ayu-highlight.css">
 
         <!-- Custom theme stylesheets -->
-        
 
-        
     </head>
-    <body class="light">
+    <body class="sidebar-visible no-js">
+    <div id="body-container">
         <!-- Provide site root to javascript -->
-        <script type="text/javascript">var path_to_root = "../";</script>
+        <script>
+            var path_to_root = "../";
+            var default_theme = window.matchMedia("(prefers-color-scheme: dark)").matches ? "navy" : "light";
+        </script>
 
         <!-- Work around some values being stored in localStorage wrapped in quotes -->
-        <script type="text/javascript">
+        <script>
             try {
                 var theme = localStorage.getItem('mdbook-theme');
                 var sidebar = localStorage.getItem('mdbook-sidebar');
@@ -51,71 +56,104 @@
         </script>
 
         <!-- Set the theme before any content is loaded, prevents flash -->
-        <script type="text/javascript">
+        <script>
             var theme;
-            try { theme = localStorage.getItem('mdbook-theme'); } catch(e) { } 
-            if (theme === null || theme === undefined) { theme = 'light'; }
-            document.body.className = theme;
-            document.querySelector('html').className = theme + ' js';
+            try { theme = localStorage.getItem('mdbook-theme'); } catch(e) { }
+            if (theme === null || theme === undefined) { theme = default_theme; }
+            var html = document.querySelector('html');
+            html.classList.remove('light')
+            html.classList.add(theme);
+            var body = document.querySelector('body');
+            body.classList.remove('no-js')
+            body.classList.add('js');
         </script>
 
+        <input type="checkbox" id="sidebar-toggle-anchor" class="hidden">
+
         <!-- Hide / unhide sidebar before it is displayed -->
-        <script type="text/javascript">
-            var html = document.querySelector('html');
-            var sidebar = 'hidden';
+        <script>
+            var body = document.querySelector('body');
+            var sidebar = null;
+            var sidebar_toggle = document.getElementById("sidebar-toggle-anchor");
             if (document.body.clientWidth >= 1080) {
                 try { sidebar = localStorage.getItem('mdbook-sidebar'); } catch(e) { }
                 sidebar = sidebar || 'visible';
+            } else {
+                sidebar = 'hidden';
             }
-            html.classList.remove('sidebar-visible');
-            html.classList.add("sidebar-" + sidebar);
+            sidebar_toggle.checked = sidebar === 'visible';
+            body.classList.remove('sidebar-visible');
+            body.classList.add("sidebar-" + sidebar);
         </script>
 
         <nav id="sidebar" class="sidebar" aria-label="Table of contents">
-            <ol class="chapter"><li><a href="../overview/overview.html"><strong aria-hidden="true">1.</strong> Overview</a></li><li><a href="../features/features.html"><strong aria-hidden="true">2.</strong> Features</a></li><li><ol class="section"><li><a href="../features/self.html"><strong aria-hidden="true">2.1.</strong> Self hosting</a></li><li><a href="../features/p2p.html"><strong aria-hidden="true">2.2.</strong> Peer-to-peer</a></li><li><a href="../features/trust.html" class="active"><strong aria-hidden="true">2.3.</strong> Trust free server</a></li><li><a href="../features/multi.html"><strong aria-hidden="true">2.4.</strong> Multi-device login</a></li><li><a href="../features/web.html"><strong aria-hidden="true">2.5.</strong> Web interface</a></li><li><a href="../features/social.html"><strong aria-hidden="true">2.6.</strong> Social</a></li><li><a href="../features/sharing.html"><strong aria-hidden="true">2.7.</strong> Sharing</a></li><li><a href="../features/large.html"><strong aria-hidden="true">2.8.</strong> Large files</a></li><li><a href="../features/streaming.html"><strong aria-hidden="true">2.9.</strong> Streaming</a></li><li><a href="../features/fast-seeking.html"><strong aria-hidden="true">2.10.</strong> Fast seeking</a></li><li><a href="../features/resumable-uploads.html"><strong aria-hidden="true">2.11.</strong> Resumable uploads</a></li><li><a href="../features/viewers.html"><strong aria-hidden="true">2.12.</strong> File viewers</a></li><li><a href="../features/secret.html"><strong aria-hidden="true">2.13.</strong> Secret links</a></li><li><a href="../features/migration.html"><strong aria-hidden="true">2.14.</strong> Migration</a></li><li><a href="../features/sync.html"><strong aria-hidden="true">2.15.</strong> File Sync</a></li><li><a href="../features/open.html"><strong aria-hidden="true">2.16.</strong> Open source</a></li><li><a href="../features/apps.html"><strong aria-hidden="true">2.17.</strong> Custom Apps</a></li><li><a href="../features/private-web.html"><strong aria-hidden="true">2.18.</strong> Private websites</a></li></ol></li><li><a href="../architecture/architecture.html"><strong aria-hidden="true">3.</strong> Architecture</a></li><li><ol class="section"><li><a href="../architecture/logical.html"><strong aria-hidden="true">3.1.</strong> Logical</a></li><li><a href="../architecture/physical.html"><strong aria-hidden="true">3.2.</strong> Physical</a></li><li><a href="../architecture/immutable.html"><strong aria-hidden="true">3.3.</strong> Immutable data</a></li><li><a href="../architecture/mutable.html"><strong aria-hidden="true">3.4.</strong> Mutable pointers</a></li><li><a href="../architecture/writer.html"><strong aria-hidden="true">3.5.</strong> Writing subspaces</a></li><li><a href="../architecture/champ.html"><strong aria-hidden="true">3.6.</strong> Merkle-CHAMP</a></li><li><a href="../architecture/pki.html"><strong aria-hidden="true">3.7.</strong> Usernames</a></li><li><a href="../architecture/follow.html"><strong aria-hidden="true">3.8.</strong> Follow requests</a></li><li><a href="../architecture/spec.html"><strong aria-hidden="true">3.9.</strong> Specification</a></li></ol></li><li><a href="../security/security.html"><strong aria-hidden="true">4.</strong> Security</a></li><li><ol class="section"><li><a href="../security/trust.html"><strong aria-hidden="true">4.1.</strong> Trust free layers</a></li><li><a href="../security/threats.html"><strong aria-hidden="true">4.2.</strong> Threat models</a></li><li><a href="../security/login.html"><strong aria-hidden="true">4.3.</strong> Login</a></li><li><a href="../security/encryption.html"><strong aria-hidden="true">4.4.</strong> Encryption</a></li><li><a href="../security/bats.html"><strong aria-hidden="true">4.5.</strong> Block access control</a></li><li><a href="../security/cryptree.html"><strong aria-hidden="true">4.6.</strong> File access control</a></li><li><a href="../security/capabilities.html"><strong aria-hidden="true">4.7.</strong> Capabilities</a></li><li><a href="../security/meta.html"><strong aria-hidden="true">4.8.</strong> Metadata</a></li><li><a href="../security/quantum.html"><strong aria-hidden="true">4.9.</strong> Quantum resistance</a></li><li><a href="../security/social.html"><strong aria-hidden="true">4.10.</strong> Social graph</a></li><li><a href="../security/pki.html"><strong aria-hidden="true">4.11.</strong> PKI</a></li></ol></li><li><a href="../dev/details.html"><strong aria-hidden="true">5.</strong> How does it work?</a></li><li><ol class="section"><li><a href="../dev/signup.html"><strong aria-hidden="true">5.1.</strong> Signing up</a></li><li><a href="../dev/upload.html"><strong aria-hidden="true">5.2.</strong> Uploading a file</a></li><li><a href="../dev/follow.html"><strong aria-hidden="true">5.3.</strong> Sending a follow request</a></li><li><a href="../dev/proxy.html"><strong aria-hidden="true">5.4.</strong> Proxying requests</a></li></ol></li></ol>
+            <div class="sidebar-scrollbox">
+                <ol class="chapter"><li class="chapter-item expanded "><a href="../overview/overview.html"><strong aria-hidden="true">1.</strong> Overview</a></li><li class="chapter-item expanded "><a href="../features/features.html"><strong aria-hidden="true">2.</strong> Features</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../features/self.html"><strong aria-hidden="true">2.1.</strong> Self hosting</a></li><li class="chapter-item expanded "><a href="../features/p2p.html"><strong aria-hidden="true">2.2.</strong> Peer-to-peer</a></li><li class="chapter-item expanded "><a href="../features/trust.html" class="active"><strong aria-hidden="true">2.3.</strong> Trust free server</a></li><li class="chapter-item expanded "><a href="../features/multi.html"><strong aria-hidden="true">2.4.</strong> Multi-device login</a></li><li class="chapter-item expanded "><a href="../features/web.html"><strong aria-hidden="true">2.5.</strong> Web interface</a></li><li class="chapter-item expanded "><a href="../features/social.html"><strong aria-hidden="true">2.6.</strong> Social</a></li><li class="chapter-item expanded "><a href="../features/sharing.html"><strong aria-hidden="true">2.7.</strong> Sharing</a></li><li class="chapter-item expanded "><a href="../features/large.html"><strong aria-hidden="true">2.8.</strong> Large files</a></li><li class="chapter-item expanded "><a href="../features/streaming.html"><strong aria-hidden="true">2.9.</strong> Streaming</a></li><li class="chapter-item expanded "><a href="../features/fast-seeking.html"><strong aria-hidden="true">2.10.</strong> Fast seeking</a></li><li class="chapter-item expanded "><a href="../features/resumable-uploads.html"><strong aria-hidden="true">2.11.</strong> Resumable uploads</a></li><li class="chapter-item expanded "><a href="../features/viewers.html"><strong aria-hidden="true">2.12.</strong> File viewers</a></li><li class="chapter-item expanded "><a href="../features/secret.html"><strong aria-hidden="true">2.13.</strong> Secret links</a></li><li class="chapter-item expanded "><a href="../features/migration.html"><strong aria-hidden="true">2.14.</strong> Migration</a></li><li class="chapter-item expanded "><a href="../features/sync.html"><strong aria-hidden="true">2.15.</strong> File Sync</a></li><li class="chapter-item expanded "><a href="../features/open.html"><strong aria-hidden="true">2.16.</strong> Open source</a></li><li class="chapter-item expanded "><a href="../features/apps.html"><strong aria-hidden="true">2.17.</strong> Custom Apps</a></li><li class="chapter-item expanded "><a href="../features/private-web.html"><strong aria-hidden="true">2.18.</strong> Private websites</a></li></ol></li><li class="chapter-item expanded "><a href="../architecture/architecture.html"><strong aria-hidden="true">3.</strong> Architecture</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../architecture/logical.html"><strong aria-hidden="true">3.1.</strong> Logical</a></li><li class="chapter-item expanded "><a href="../architecture/physical.html"><strong aria-hidden="true">3.2.</strong> Physical</a></li><li class="chapter-item expanded "><a href="../architecture/immutable.html"><strong aria-hidden="true">3.3.</strong> Immutable data</a></li><li class="chapter-item expanded "><a href="../architecture/mutable.html"><strong aria-hidden="true">3.4.</strong> Mutable pointers</a></li><li class="chapter-item expanded "><a href="../architecture/writer.html"><strong aria-hidden="true">3.5.</strong> Writing subspaces</a></li><li class="chapter-item expanded "><a href="../architecture/champ.html"><strong aria-hidden="true">3.6.</strong> Merkle-CHAMP</a></li><li class="chapter-item expanded "><a href="../architecture/pki.html"><strong aria-hidden="true">3.7.</strong> Usernames</a></li><li class="chapter-item expanded "><a href="../architecture/follow.html"><strong aria-hidden="true">3.8.</strong> Follow requests</a></li><li class="chapter-item expanded "><a href="../architecture/spec.html"><strong aria-hidden="true">3.9.</strong> Specification</a></li></ol></li><li class="chapter-item expanded "><a href="../security/security.html"><strong aria-hidden="true">4.</strong> Security</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../security/trust.html"><strong aria-hidden="true">4.1.</strong> Trust free layers</a></li><li class="chapter-item expanded "><a href="../security/threats.html"><strong aria-hidden="true">4.2.</strong> Threat models</a></li><li class="chapter-item expanded "><a href="../security/login.html"><strong aria-hidden="true">4.3.</strong> Login</a></li><li class="chapter-item expanded "><a href="../security/encryption.html"><strong aria-hidden="true">4.4.</strong> Encryption</a></li><li class="chapter-item expanded "><a href="../security/bats.html"><strong aria-hidden="true">4.5.</strong> Block access control</a></li><li class="chapter-item expanded "><a href="../security/cryptree.html"><strong aria-hidden="true">4.6.</strong> File access control</a></li><li class="chapter-item expanded "><a href="../security/capabilities.html"><strong aria-hidden="true">4.7.</strong> Capabilities</a></li><li class="chapter-item expanded "><a href="../security/meta.html"><strong aria-hidden="true">4.8.</strong> Metadata</a></li><li class="chapter-item expanded "><a href="../security/quantum.html"><strong aria-hidden="true">4.9.</strong> Quantum resistance</a></li><li class="chapter-item expanded "><a href="../security/social.html"><strong aria-hidden="true">4.10.</strong> Social graph</a></li><li class="chapter-item expanded "><a href="../security/pki.html"><strong aria-hidden="true">4.11.</strong> PKI</a></li></ol></li><li class="chapter-item expanded "><a href="../dev/details.html"><strong aria-hidden="true">5.</strong> How does it work?</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../dev/signup.html"><strong aria-hidden="true">5.1.</strong> Signing up</a></li><li class="chapter-item expanded "><a href="../dev/upload.html"><strong aria-hidden="true">5.2.</strong> Uploading a file</a></li><li class="chapter-item expanded "><a href="../dev/follow.html"><strong aria-hidden="true">5.3.</strong> Sending a follow request</a></li><li class="chapter-item expanded "><a href="../dev/proxy.html"><strong aria-hidden="true">5.4.</strong> Proxying requests</a></li></ol></li></ol>
+            </div>
+            <div id="sidebar-resize-handle" class="sidebar-resize-handle">
+                <div class="sidebar-resize-indicator"></div>
+            </div>
         </nav>
+
+        <!-- Track and set sidebar scroll position -->
+        <script>
+            var sidebarScrollbox = document.querySelector('#sidebar .sidebar-scrollbox');
+            sidebarScrollbox.addEventListener('click', function(e) {
+                if (e.target.tagName === 'A') {
+                    sessionStorage.setItem('sidebar-scroll', sidebarScrollbox.scrollTop);
+                }
+            }, { passive: true });
+            var sidebarScrollTop = sessionStorage.getItem('sidebar-scroll');
+            sessionStorage.removeItem('sidebar-scroll');
+            if (sidebarScrollTop) {
+                // preserve sidebar scroll position when navigating via links within sidebar
+                sidebarScrollbox.scrollTop = sidebarScrollTop;
+            } else {
+                // scroll sidebar to current active section when navigating via "next/previous chapter" buttons
+                var activeSection = document.querySelector('#sidebar .active');
+                if (activeSection) {
+                    activeSection.scrollIntoView({ block: 'center' });
+                }
+            }
+        </script>
 
         <div id="page-wrapper" class="page-wrapper">
 
             <div class="page">
-                
-                <div id="menu-bar" class="menu-bar">
-                    <div id="menu-bar-sticky-container">
-                        <div class="left-buttons">
-                            <button id="sidebar-toggle" class="icon-button" type="button" title="Toggle Table of Contents" aria-label="Toggle Table of Contents" aria-controls="sidebar">
-                                <i class="fa fa-bars"></i>
-                            </button>
-                            <button id="theme-toggle" class="icon-button" type="button" title="Change theme" aria-label="Change theme" aria-haspopup="true" aria-expanded="false" aria-controls="theme-list">
-                                <i class="fa fa-paint-brush"></i>
-                            </button>
-                            <ul id="theme-list" class="theme-popup" aria-label="Themes" role="menu">
-                                <li role="none"><button role="menuitem" class="theme" id="light">Light <span class="default">(default)</span></button></li>
-                                <li role="none"><button role="menuitem" class="theme" id="rust">Rust</button></li>
-                                <li role="none"><button role="menuitem" class="theme" id="coal">Coal</button></li>
-                                <li role="none"><button role="menuitem" class="theme" id="navy">Navy</button></li>
-                                <li role="none"><button role="menuitem" class="theme" id="ayu">Ayu</button></li>
-                            </ul>
-                            
-                            <button id="search-toggle" class="icon-button" type="button" title="Search. (Shortkey: s)" aria-label="Toggle Searchbar" aria-expanded="false" aria-keyshortcuts="S" aria-controls="searchbar">
-                                <i class="fa fa-search"></i>
-                            </button>
-                            
-                        </div>
+                                <div id="menu-bar-hover-placeholder"></div>
+                <div id="menu-bar" class="menu-bar sticky">
+                    <div class="left-buttons">
+                        <label id="sidebar-toggle" class="icon-button" for="sidebar-toggle-anchor" title="Toggle Table of Contents" aria-label="Toggle Table of Contents" aria-controls="sidebar">
+                            <i class="fa fa-bars"></i>
+                        </label>
+                        <button id="theme-toggle" class="icon-button" type="button" title="Change theme" aria-label="Change theme" aria-haspopup="true" aria-expanded="false" aria-controls="theme-list">
+                            <i class="fa fa-paint-brush"></i>
+                        </button>
+                        <ul id="theme-list" class="theme-popup" aria-label="Themes" role="menu">
+                            <li role="none"><button role="menuitem" class="theme" id="light">Light</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="rust">Rust</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="coal">Coal</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="navy">Navy</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="ayu">Ayu</button></li>
+                        </ul>
+                        <button id="search-toggle" class="icon-button" type="button" title="Search. (Shortkey: s)" aria-label="Toggle Searchbar" aria-expanded="false" aria-keyshortcuts="S" aria-controls="searchbar">
+                            <i class="fa fa-search"></i>
+                        </button>
+                    </div>
 
-                        <h1 class="menu-title"></h1> 
+                    <h1 class="menu-title"></h1>
 
-                        <div class="right-buttons">
-                            <a href="../print.html" title="Print this book" aria-label="Print this book">
-                                <i id="print-button" class="fa fa-print"></i>
-                            </a>
-                        </div>
+                    <div class="right-buttons">
+                        <a href="../print.html" title="Print this book" aria-label="Print this book">
+                            <i id="print-button" class="fa fa-print"></i>
+                        </a>
+
                     </div>
                 </div>
 
-                
                 <div id="search-wrapper" class="hidden">
                     <form id="searchbar-outer" class="searchbar-outer">
-                        <input type="search" name="search" id="searchbar" name="searchbar" placeholder="Search this book ..." aria-controls="searchresults-outer" aria-describedby="searchresults-header">
+                        <input type="search" id="searchbar" name="searchbar" placeholder="Search this book ..." aria-controls="searchresults-outer" aria-describedby="searchresults-header">
                     </form>
                     <div id="searchresults-outer" class="searchresults-outer hidden">
                         <div id="searchresults-header" class="searchresults-header"></div>
@@ -123,10 +161,9 @@
                         </ul>
                     </div>
                 </div>
-                
 
                 <!-- Apply ARIA attributes after the sidebar and the sidebar toggle button are added to the DOM -->
-                <script type="text/javascript">
+                <script>
                     document.getElementById('sidebar-toggle').setAttribute('aria-expanded', sidebar === 'visible');
                     document.getElementById('sidebar').setAttribute('aria-hidden', sidebar !== 'visible');
                     Array.from(document.querySelectorAll('#sidebar a')).forEach(function(link) {
@@ -136,24 +173,20 @@
 
                 <div id="content" class="content">
                     <main>
-                        <a class="header" href="#trust-free-servers" id="trust-free-servers"><h1>Trust free servers</h1></a>
-<p>Peergos is designed so that clients do no need to trust the Peergos server they are talking to. Hashes and signatures are all verified client side for reads and writes. Data can also be mirrored to transparently provide redundancy. </p>
+                        <h1 id="trust-free-servers"><a class="header" href="#trust-free-servers">Trust free servers</a></h1>
+<p>Peergos is designed so that clients do no need to trust the Peergos server they are talking to. Hashes and signatures are all verified client side for reads and writes. Data can also be mirrored to transparently provide redundancy.</p>
 
                     </main>
 
                     <nav class="nav-wrapper" aria-label="Page navigation">
                         <!-- Mobile navigation buttons -->
-                        
                             <a rel="prev" href="../features/p2p.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
                                 <i class="fa fa-angle-left"></i>
                             </a>
-                        
 
-                        
-                            <a rel="next" href="../features/multi.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                            <a rel="next prefetch" href="../features/multi.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
                                 <i class="fa fa-angle-right"></i>
                             </a>
-                        
 
                         <div style="clear: both"></div>
                     </nav>
@@ -161,41 +194,36 @@
             </div>
 
             <nav class="nav-wide-wrapper" aria-label="Page navigation">
-                
-                    <a href="../features/p2p.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                    <a rel="prev" href="../features/p2p.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
                         <i class="fa fa-angle-left"></i>
                     </a>
-                
 
-                
-                    <a href="../features/multi.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                    <a rel="next prefetch" href="../features/multi.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
                         <i class="fa fa-angle-right"></i>
                     </a>
-                
             </nav>
 
         </div>
 
-        
 
-        
 
-        
 
-        
-        <script src="../elasticlunr.min.js" type="text/javascript" charset="utf-8"></script>
-        <script src="../mark.min.js" type="text/javascript" charset="utf-8"></script>
-        <script src="../searcher.js" type="text/javascript" charset="utf-8"></script>
-        
+        <script>
+            window.playground_copyable = true;
+        </script>
 
-        <script src="../clipboard.min.js" type="text/javascript" charset="utf-8"></script>
-        <script src="../highlight.js" type="text/javascript" charset="utf-8"></script>
-        <script src="../book.js" type="text/javascript" charset="utf-8"></script>
+
+        <script src="../elasticlunr.min.js"></script>
+        <script src="../mark.min.js"></script>
+        <script src="../searcher.js"></script>
+
+        <script src="../clipboard.min.js"></script>
+        <script src="../highlight.js"></script>
+        <script src="../book.js"></script>
 
         <!-- Custom JS scripts -->
-        
 
-        
 
+    </div>
     </body>
 </html>

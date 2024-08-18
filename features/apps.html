@@ -1,14 +1,18 @@
 <!DOCTYPE HTML>
-<html lang="en" class="sidebar-visible no-js">
+<html lang="en" class="light" dir="ltr">
     <head>
         <!-- Book generated using mdBook -->
         <meta charset="UTF-8">
-        <title>Custom Apps - </title>
-        <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
+        <title>Custom Apps</title>
+
+
+        <!-- Custom HTML head -->
+        
         <meta name="description" content="">
         <meta name="viewport" content="width=device-width, initial-scale=1">
-        <meta name="theme-color" content="#ffffff" />
+        <meta name="theme-color" content="#ffffff">
 
+        <link rel="icon" href="../favicon.svg">
         <link rel="shortcut icon" href="../favicon.png">
         <link rel="stylesheet" href="../css/variables.css">
         <link rel="stylesheet" href="../css/general.css">
@@ -17,8 +21,7 @@
 
         <!-- Fonts -->
         <link rel="stylesheet" href="../FontAwesome/css/font-awesome.css">
-        <link href="https://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800" rel="stylesheet" type="text/css">
-        <link href="https://fonts.googleapis.com/css?family=Source+Code+Pro:500" rel="stylesheet" type="text/css">
+        <link rel="stylesheet" href="../fonts/fonts.css">
 
         <!-- Highlight.js Stylesheets -->
         <link rel="stylesheet" href="../highlight.css">
@@ -26,16 +29,18 @@
         <link rel="stylesheet" href="../ayu-highlight.css">
 
         <!-- Custom theme stylesheets -->
-        
 
-        
     </head>
-    <body class="light">
+    <body class="sidebar-visible no-js">
+    <div id="body-container">
         <!-- Provide site root to javascript -->
-        <script type="text/javascript">var path_to_root = "../";</script>
+        <script>
+            var path_to_root = "../";
+            var default_theme = window.matchMedia("(prefers-color-scheme: dark)").matches ? "navy" : "light";
+        </script>
 
         <!-- Work around some values being stored in localStorage wrapped in quotes -->
-        <script type="text/javascript">
+        <script>
             try {
                 var theme = localStorage.getItem('mdbook-theme');
                 var sidebar = localStorage.getItem('mdbook-sidebar');
@@ -51,71 +56,104 @@
         </script>
 
         <!-- Set the theme before any content is loaded, prevents flash -->
-        <script type="text/javascript">
+        <script>
             var theme;
-            try { theme = localStorage.getItem('mdbook-theme'); } catch(e) { } 
-            if (theme === null || theme === undefined) { theme = 'light'; }
-            document.body.className = theme;
-            document.querySelector('html').className = theme + ' js';
+            try { theme = localStorage.getItem('mdbook-theme'); } catch(e) { }
+            if (theme === null || theme === undefined) { theme = default_theme; }
+            var html = document.querySelector('html');
+            html.classList.remove('light')
+            html.classList.add(theme);
+            var body = document.querySelector('body');
+            body.classList.remove('no-js')
+            body.classList.add('js');
         </script>
 
+        <input type="checkbox" id="sidebar-toggle-anchor" class="hidden">
+
         <!-- Hide / unhide sidebar before it is displayed -->
-        <script type="text/javascript">
-            var html = document.querySelector('html');
-            var sidebar = 'hidden';
+        <script>
+            var body = document.querySelector('body');
+            var sidebar = null;
+            var sidebar_toggle = document.getElementById("sidebar-toggle-anchor");
             if (document.body.clientWidth >= 1080) {
                 try { sidebar = localStorage.getItem('mdbook-sidebar'); } catch(e) { }
                 sidebar = sidebar || 'visible';
+            } else {
+                sidebar = 'hidden';
             }
-            html.classList.remove('sidebar-visible');
-            html.classList.add("sidebar-" + sidebar);
+            sidebar_toggle.checked = sidebar === 'visible';
+            body.classList.remove('sidebar-visible');
+            body.classList.add("sidebar-" + sidebar);
         </script>
 
         <nav id="sidebar" class="sidebar" aria-label="Table of contents">
-            <ol class="chapter"><li><a href="../overview/overview.html"><strong aria-hidden="true">1.</strong> Overview</a></li><li><a href="../features/features.html"><strong aria-hidden="true">2.</strong> Features</a></li><li><ol class="section"><li><a href="../features/self.html"><strong aria-hidden="true">2.1.</strong> Self hosting</a></li><li><a href="../features/p2p.html"><strong aria-hidden="true">2.2.</strong> Peer-to-peer</a></li><li><a href="../features/trust.html"><strong aria-hidden="true">2.3.</strong> Trust free server</a></li><li><a href="../features/multi.html"><strong aria-hidden="true">2.4.</strong> Multi-device login</a></li><li><a href="../features/web.html"><strong aria-hidden="true">2.5.</strong> Web interface</a></li><li><a href="../features/social.html"><strong aria-hidden="true">2.6.</strong> Social</a></li><li><a href="../features/sharing.html"><strong aria-hidden="true">2.7.</strong> Sharing</a></li><li><a href="../features/large.html"><strong aria-hidden="true">2.8.</strong> Large files</a></li><li><a href="../features/streaming.html"><strong aria-hidden="true">2.9.</strong> Streaming</a></li><li><a href="../features/fast-seeking.html"><strong aria-hidden="true">2.10.</strong> Fast seeking</a></li><li><a href="../features/resumable-uploads.html"><strong aria-hidden="true">2.11.</strong> Resumable uploads</a></li><li><a href="../features/viewers.html"><strong aria-hidden="true">2.12.</strong> File viewers</a></li><li><a href="../features/secret.html"><strong aria-hidden="true">2.13.</strong> Secret links</a></li><li><a href="../features/migration.html"><strong aria-hidden="true">2.14.</strong> Migration</a></li><li><a href="../features/sync.html"><strong aria-hidden="true">2.15.</strong> File Sync</a></li><li><a href="../features/open.html"><strong aria-hidden="true">2.16.</strong> Open source</a></li><li><a href="../features/apps.html" class="active"><strong aria-hidden="true">2.17.</strong> Custom Apps</a></li><li><a href="../features/private-web.html"><strong aria-hidden="true">2.18.</strong> Private websites</a></li></ol></li><li><a href="../architecture/architecture.html"><strong aria-hidden="true">3.</strong> Architecture</a></li><li><ol class="section"><li><a href="../architecture/logical.html"><strong aria-hidden="true">3.1.</strong> Logical</a></li><li><a href="../architecture/physical.html"><strong aria-hidden="true">3.2.</strong> Physical</a></li><li><a href="../architecture/immutable.html"><strong aria-hidden="true">3.3.</strong> Immutable data</a></li><li><a href="../architecture/mutable.html"><strong aria-hidden="true">3.4.</strong> Mutable pointers</a></li><li><a href="../architecture/writer.html"><strong aria-hidden="true">3.5.</strong> Writing subspaces</a></li><li><a href="../architecture/champ.html"><strong aria-hidden="true">3.6.</strong> Merkle-CHAMP</a></li><li><a href="../architecture/pki.html"><strong aria-hidden="true">3.7.</strong> Usernames</a></li><li><a href="../architecture/follow.html"><strong aria-hidden="true">3.8.</strong> Follow requests</a></li><li><a href="../architecture/spec.html"><strong aria-hidden="true">3.9.</strong> Specification</a></li></ol></li><li><a href="../security/security.html"><strong aria-hidden="true">4.</strong> Security</a></li><li><ol class="section"><li><a href="../security/trust.html"><strong aria-hidden="true">4.1.</strong> Trust free layers</a></li><li><a href="../security/threats.html"><strong aria-hidden="true">4.2.</strong> Threat models</a></li><li><a href="../security/login.html"><strong aria-hidden="true">4.3.</strong> Login</a></li><li><a href="../security/encryption.html"><strong aria-hidden="true">4.4.</strong> Encryption</a></li><li><a href="../security/bats.html"><strong aria-hidden="true">4.5.</strong> Block access control</a></li><li><a href="../security/cryptree.html"><strong aria-hidden="true">4.6.</strong> File access control</a></li><li><a href="../security/capabilities.html"><strong aria-hidden="true">4.7.</strong> Capabilities</a></li><li><a href="../security/meta.html"><strong aria-hidden="true">4.8.</strong> Metadata</a></li><li><a href="../security/quantum.html"><strong aria-hidden="true">4.9.</strong> Quantum resistance</a></li><li><a href="../security/social.html"><strong aria-hidden="true">4.10.</strong> Social graph</a></li><li><a href="../security/pki.html"><strong aria-hidden="true">4.11.</strong> PKI</a></li></ol></li><li><a href="../dev/details.html"><strong aria-hidden="true">5.</strong> How does it work?</a></li><li><ol class="section"><li><a href="../dev/signup.html"><strong aria-hidden="true">5.1.</strong> Signing up</a></li><li><a href="../dev/upload.html"><strong aria-hidden="true">5.2.</strong> Uploading a file</a></li><li><a href="../dev/follow.html"><strong aria-hidden="true">5.3.</strong> Sending a follow request</a></li><li><a href="../dev/proxy.html"><strong aria-hidden="true">5.4.</strong> Proxying requests</a></li></ol></li></ol>
+            <div class="sidebar-scrollbox">
+                <ol class="chapter"><li class="chapter-item expanded "><a href="../overview/overview.html"><strong aria-hidden="true">1.</strong> Overview</a></li><li class="chapter-item expanded "><a href="../features/features.html"><strong aria-hidden="true">2.</strong> Features</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../features/self.html"><strong aria-hidden="true">2.1.</strong> Self hosting</a></li><li class="chapter-item expanded "><a href="../features/p2p.html"><strong aria-hidden="true">2.2.</strong> Peer-to-peer</a></li><li class="chapter-item expanded "><a href="../features/trust.html"><strong aria-hidden="true">2.3.</strong> Trust free server</a></li><li class="chapter-item expanded "><a href="../features/multi.html"><strong aria-hidden="true">2.4.</strong> Multi-device login</a></li><li class="chapter-item expanded "><a href="../features/web.html"><strong aria-hidden="true">2.5.</strong> Web interface</a></li><li class="chapter-item expanded "><a href="../features/social.html"><strong aria-hidden="true">2.6.</strong> Social</a></li><li class="chapter-item expanded "><a href="../features/sharing.html"><strong aria-hidden="true">2.7.</strong> Sharing</a></li><li class="chapter-item expanded "><a href="../features/large.html"><strong aria-hidden="true">2.8.</strong> Large files</a></li><li class="chapter-item expanded "><a href="../features/streaming.html"><strong aria-hidden="true">2.9.</strong> Streaming</a></li><li class="chapter-item expanded "><a href="../features/fast-seeking.html"><strong aria-hidden="true">2.10.</strong> Fast seeking</a></li><li class="chapter-item expanded "><a href="../features/resumable-uploads.html"><strong aria-hidden="true">2.11.</strong> Resumable uploads</a></li><li class="chapter-item expanded "><a href="../features/viewers.html"><strong aria-hidden="true">2.12.</strong> File viewers</a></li><li class="chapter-item expanded "><a href="../features/secret.html"><strong aria-hidden="true">2.13.</strong> Secret links</a></li><li class="chapter-item expanded "><a href="../features/migration.html"><strong aria-hidden="true">2.14.</strong> Migration</a></li><li class="chapter-item expanded "><a href="../features/sync.html"><strong aria-hidden="true">2.15.</strong> File Sync</a></li><li class="chapter-item expanded "><a href="../features/open.html"><strong aria-hidden="true">2.16.</strong> Open source</a></li><li class="chapter-item expanded "><a href="../features/apps.html" class="active"><strong aria-hidden="true">2.17.</strong> Custom Apps</a></li><li class="chapter-item expanded "><a href="../features/private-web.html"><strong aria-hidden="true">2.18.</strong> Private websites</a></li></ol></li><li class="chapter-item expanded "><a href="../architecture/architecture.html"><strong aria-hidden="true">3.</strong> Architecture</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../architecture/logical.html"><strong aria-hidden="true">3.1.</strong> Logical</a></li><li class="chapter-item expanded "><a href="../architecture/physical.html"><strong aria-hidden="true">3.2.</strong> Physical</a></li><li class="chapter-item expanded "><a href="../architecture/immutable.html"><strong aria-hidden="true">3.3.</strong> Immutable data</a></li><li class="chapter-item expanded "><a href="../architecture/mutable.html"><strong aria-hidden="true">3.4.</strong> Mutable pointers</a></li><li class="chapter-item expanded "><a href="../architecture/writer.html"><strong aria-hidden="true">3.5.</strong> Writing subspaces</a></li><li class="chapter-item expanded "><a href="../architecture/champ.html"><strong aria-hidden="true">3.6.</strong> Merkle-CHAMP</a></li><li class="chapter-item expanded "><a href="../architecture/pki.html"><strong aria-hidden="true">3.7.</strong> Usernames</a></li><li class="chapter-item expanded "><a href="../architecture/follow.html"><strong aria-hidden="true">3.8.</strong> Follow requests</a></li><li class="chapter-item expanded "><a href="../architecture/spec.html"><strong aria-hidden="true">3.9.</strong> Specification</a></li></ol></li><li class="chapter-item expanded "><a href="../security/security.html"><strong aria-hidden="true">4.</strong> Security</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../security/trust.html"><strong aria-hidden="true">4.1.</strong> Trust free layers</a></li><li class="chapter-item expanded "><a href="../security/threats.html"><strong aria-hidden="true">4.2.</strong> Threat models</a></li><li class="chapter-item expanded "><a href="../security/login.html"><strong aria-hidden="true">4.3.</strong> Login</a></li><li class="chapter-item expanded "><a href="../security/encryption.html"><strong aria-hidden="true">4.4.</strong> Encryption</a></li><li class="chapter-item expanded "><a href="../security/bats.html"><strong aria-hidden="true">4.5.</strong> Block access control</a></li><li class="chapter-item expanded "><a href="../security/cryptree.html"><strong aria-hidden="true">4.6.</strong> File access control</a></li><li class="chapter-item expanded "><a href="../security/capabilities.html"><strong aria-hidden="true">4.7.</strong> Capabilities</a></li><li class="chapter-item expanded "><a href="../security/meta.html"><strong aria-hidden="true">4.8.</strong> Metadata</a></li><li class="chapter-item expanded "><a href="../security/quantum.html"><strong aria-hidden="true">4.9.</strong> Quantum resistance</a></li><li class="chapter-item expanded "><a href="../security/social.html"><strong aria-hidden="true">4.10.</strong> Social graph</a></li><li class="chapter-item expanded "><a href="../security/pki.html"><strong aria-hidden="true">4.11.</strong> PKI</a></li></ol></li><li class="chapter-item expanded "><a href="../dev/details.html"><strong aria-hidden="true">5.</strong> How does it work?</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../dev/signup.html"><strong aria-hidden="true">5.1.</strong> Signing up</a></li><li class="chapter-item expanded "><a href="../dev/upload.html"><strong aria-hidden="true">5.2.</strong> Uploading a file</a></li><li class="chapter-item expanded "><a href="../dev/follow.html"><strong aria-hidden="true">5.3.</strong> Sending a follow request</a></li><li class="chapter-item expanded "><a href="../dev/proxy.html"><strong aria-hidden="true">5.4.</strong> Proxying requests</a></li></ol></li></ol>
+            </div>
+            <div id="sidebar-resize-handle" class="sidebar-resize-handle">
+                <div class="sidebar-resize-indicator"></div>
+            </div>
         </nav>
+
+        <!-- Track and set sidebar scroll position -->
+        <script>
+            var sidebarScrollbox = document.querySelector('#sidebar .sidebar-scrollbox');
+            sidebarScrollbox.addEventListener('click', function(e) {
+                if (e.target.tagName === 'A') {
+                    sessionStorage.setItem('sidebar-scroll', sidebarScrollbox.scrollTop);
+                }
+            }, { passive: true });
+            var sidebarScrollTop = sessionStorage.getItem('sidebar-scroll');
+            sessionStorage.removeItem('sidebar-scroll');
+            if (sidebarScrollTop) {
+                // preserve sidebar scroll position when navigating via links within sidebar
+                sidebarScrollbox.scrollTop = sidebarScrollTop;
+            } else {
+                // scroll sidebar to current active section when navigating via "next/previous chapter" buttons
+                var activeSection = document.querySelector('#sidebar .active');
+                if (activeSection) {
+                    activeSection.scrollIntoView({ block: 'center' });
+                }
+            }
+        </script>
 
         <div id="page-wrapper" class="page-wrapper">
 
             <div class="page">
-                
-                <div id="menu-bar" class="menu-bar">
-                    <div id="menu-bar-sticky-container">
-                        <div class="left-buttons">
-                            <button id="sidebar-toggle" class="icon-button" type="button" title="Toggle Table of Contents" aria-label="Toggle Table of Contents" aria-controls="sidebar">
-                                <i class="fa fa-bars"></i>
-                            </button>
-                            <button id="theme-toggle" class="icon-button" type="button" title="Change theme" aria-label="Change theme" aria-haspopup="true" aria-expanded="false" aria-controls="theme-list">
-                                <i class="fa fa-paint-brush"></i>
-                            </button>
-                            <ul id="theme-list" class="theme-popup" aria-label="Themes" role="menu">
-                                <li role="none"><button role="menuitem" class="theme" id="light">Light <span class="default">(default)</span></button></li>
-                                <li role="none"><button role="menuitem" class="theme" id="rust">Rust</button></li>
-                                <li role="none"><button role="menuitem" class="theme" id="coal">Coal</button></li>
-                                <li role="none"><button role="menuitem" class="theme" id="navy">Navy</button></li>
-                                <li role="none"><button role="menuitem" class="theme" id="ayu">Ayu</button></li>
-                            </ul>
-                            
-                            <button id="search-toggle" class="icon-button" type="button" title="Search. (Shortkey: s)" aria-label="Toggle Searchbar" aria-expanded="false" aria-keyshortcuts="S" aria-controls="searchbar">
-                                <i class="fa fa-search"></i>
-                            </button>
-                            
-                        </div>
+                                <div id="menu-bar-hover-placeholder"></div>
+                <div id="menu-bar" class="menu-bar sticky">
+                    <div class="left-buttons">
+                        <label id="sidebar-toggle" class="icon-button" for="sidebar-toggle-anchor" title="Toggle Table of Contents" aria-label="Toggle Table of Contents" aria-controls="sidebar">
+                            <i class="fa fa-bars"></i>
+                        </label>
+                        <button id="theme-toggle" class="icon-button" type="button" title="Change theme" aria-label="Change theme" aria-haspopup="true" aria-expanded="false" aria-controls="theme-list">
+                            <i class="fa fa-paint-brush"></i>
+                        </button>
+                        <ul id="theme-list" class="theme-popup" aria-label="Themes" role="menu">
+                            <li role="none"><button role="menuitem" class="theme" id="light">Light</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="rust">Rust</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="coal">Coal</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="navy">Navy</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="ayu">Ayu</button></li>
+                        </ul>
+                        <button id="search-toggle" class="icon-button" type="button" title="Search. (Shortkey: s)" aria-label="Toggle Searchbar" aria-expanded="false" aria-keyshortcuts="S" aria-controls="searchbar">
+                            <i class="fa fa-search"></i>
+                        </button>
+                    </div>
 
-                        <h1 class="menu-title"></h1> 
+                    <h1 class="menu-title"></h1>
 
-                        <div class="right-buttons">
-                            <a href="../print.html" title="Print this book" aria-label="Print this book">
-                                <i id="print-button" class="fa fa-print"></i>
-                            </a>
-                        </div>
+                    <div class="right-buttons">
+                        <a href="../print.html" title="Print this book" aria-label="Print this book">
+                            <i id="print-button" class="fa fa-print"></i>
+                        </a>
+
                     </div>
                 </div>
 
-                
                 <div id="search-wrapper" class="hidden">
                     <form id="searchbar-outer" class="searchbar-outer">
-                        <input type="search" name="search" id="searchbar" name="searchbar" placeholder="Search this book ..." aria-controls="searchresults-outer" aria-describedby="searchresults-header">
+                        <input type="search" id="searchbar" name="searchbar" placeholder="Search this book ..." aria-controls="searchresults-outer" aria-describedby="searchresults-header">
                     </form>
                     <div id="searchresults-outer" class="searchresults-outer hidden">
                         <div id="searchresults-header" class="searchresults-header"></div>
@@ -123,10 +161,9 @@
                         </ul>
                     </div>
                 </div>
-                
 
                 <!-- Apply ARIA attributes after the sidebar and the sidebar toggle button are added to the DOM -->
-                <script type="text/javascript">
+                <script>
                     document.getElementById('sidebar-toggle').setAttribute('aria-expanded', sidebar === 'visible');
                     document.getElementById('sidebar').setAttribute('aria-hidden', sidebar !== 'visible');
                     Array.from(document.querySelectorAll('#sidebar a')).forEach(function(link) {
@@ -136,12 +173,12 @@
 
                 <div id="content" class="content">
                     <main>
-                        <a class="header" href="#custom-apps" id="custom-apps"><h1>Custom Apps</h1></a>
+                        <h1 id="custom-apps"><a class="header" href="#custom-apps">Custom Apps</a></h1>
 <p>Peergos Apps are a way to extend the Peergos platform to add custom functionality</p>
 <p>When an app is run, its HTML5 assets are rendered in a unique hostname (sha256(app path).$peergos-domain) of the peergos server, e.g. https://bciqjmdntozhuanb2c3ka5vtqpux75j5symbyomhkpnilndngl6iaspy.peergos.net. The app domain is isolated from the main peergos domain in a separate OS process, and from other apps. The app domain is also locked down with CSP http headers so it cannot make any external requests which could be used to exfilrate data [0]. Requests made by the app are intercepted in a service worker and translated to post messages which are sent to the main peergos tab. That is where the requests are checked for validity and permissions are enforced. By default, an app has no permissions and can only read its own assets. Running an app also doesn't reveal its assets to the server - they are served via a service worker and post messages to the main peergos tab, and thus benefit from all the existing privacy protections in Peergos.</p>
-<p><img alt="App sandbox" src="/img/sandbox.jpeg" class="center" style="width: 100%;" /></p>
+<img alt="App sandbox" src="/img/sandbox.jpeg" class="center" style="width: 100%;" />
 <p>[0] This is currently not true until browsers implement <a href="https://github.com/w3c/webappsec-csp/issues/92">webrtc CSP</a> which blocks any webrtc connections. Browser issues for this are <a href="https://bugzilla.mozilla.org/show_bug.cgi?id=1783489">firefox</a>, <a href="https://bugs.chromium.org/p/chromium/issues/detail?id=1225968">Chrome</a>. So only install apps from authors you trust for now, unless they don't require any permissions which is safe.</p>
-<a class="header" href="#use-cases" id="use-cases"><h2>Use cases:</h2></a>
+<h2 id="use-cases"><a class="header" href="#use-cases">Use cases:</a></h2>
 <ol>
 <li>
 <p>Media Player App. The App should appear as a context menu item when a media file is selected on the Drive screen.</p>
@@ -156,32 +193,32 @@
 <p>White Board App. App will appear on the Launcher page. App can create, retrieve, update, append and delete files within it’s own App space.</p>
 </li>
 </ol>
-<a class="header" href="#example-apps" id="example-apps"><h2>Example apps</h2></a>
+<h2 id="example-apps"><a class="header" href="#example-apps">Example apps</a></h2>
 <p>You can find some example apps here: <a href="https://github.com/Peergos/example-apps">https://github.com/Peergos/example-apps</a></p>
-<a class="header" href="#anatomy-of-a-peergos-app" id="anatomy-of-a-peergos-app"><h2>Anatomy of a Peergos App</h2></a>
+<h2 id="anatomy-of-a-peergos-app"><a class="header" href="#anatomy-of-a-peergos-app">Anatomy of a Peergos App</a></h2>
 <p>An app consists of plain HTML/Javascript/CSS packaged in a folder</p>
 <p>The App is described by a mandatory manifest file called peergos-app.json</p>
-<a class="header" href="#app-folder-structure" id="app-folder-structure"><h3>App Folder Structure</h3></a>
-<p>asssets                 - Must contain index.html as an entry point</p>
-<p>data                    - Files under the control of the App</p>
-<p>peergos-app.json        - manifest file</p>
-<a class="header" href="#peergos-appjson" id="peergos-appjson"><h3>Peergos-app.json</h3></a>
+<h3 id="app-folder-structure"><a class="header" href="#app-folder-structure">App Folder Structure</a></h3>
+<p>asssets					- Must contain index.html as an entry point</p>
+<p>data					- Files under the control of the App</p>
+<p>peergos-app.json		- manifest file</p>
+<h3 id="peergos-appjson"><a class="header" href="#peergos-appjson">Peergos-app.json</a></h3>
 <p>This file describes the App. It also indicates the permissions required for the App to function</p>
 <p>Fields:</p>
-<p>schemaVersion   - Currently always set to 1</p>
-<p>displayName     - Used for display.  Limited to 25 characters. (alphanumeric plus dash and underscore).</p>
-<p>version         - Format of Major.Minor.Patch-Suffix. Example: 0.0.1-initial</p>
-<p>description     - Text. Length must not exceed 100 characters</p>
-<p>author          - Text. Length must not exceed 32 characters</p>
-<p>fileExtensions  - Array of target file extensions e.g. [&quot;jpg&quot;,&quot;png&quot;,&quot;gif&quot;]</p>
-<p>mimeTypes       - Array of target mime types e.g. [&quot;application/zip&quot;,&quot;application/vnd.peergos-todo&quot;,&quot;video/quicktime&quot;]</p>
-<p>fileTypes       - Another way to target files e.g. [“image”, “video”, “audio”, “text”]</p>
-<p>launchable      - Indicates App can be opened on the Launcher page</p>
-<p>folderAction    - Indicates App acts on folders</p>
-<p>appIcon         - filename of image to use as icon on launcher page. Must be available in assets folder</p>
-<p>permissions     - see below</p>
+<p>schemaVersion	- Currently always set to 1</p>
+<p>displayName		- Used for display.  Limited to 25 characters. (alphanumeric plus dash and underscore).</p>
+<p>version			- Format of Major.Minor.Patch-Suffix. Example: 0.0.1-initial</p>
+<p>description		- Text. Length must not exceed 100 characters</p>
+<p>author			- Text. Length must not exceed 32 characters</p>
+<p>fileExtensions	- Array of target file extensions e.g. ["jpg","png","gif"]</p>
+<p>mimeTypes		- Array of target mime types e.g. ["application/zip","application/vnd.peergos-todo","video/quicktime"]</p>
+<p>fileTypes		- Another way to target files e.g. [“image”, “video”, “audio”, “text”]</p>
+<p>launchable		- Indicates App can be opened on the Launcher page</p>
+<p>folderAction	- Indicates App acts on folders</p>
+<p>appIcon			- filename of image to use as icon on launcher page. Must be available in assets folder</p>
+<p>permissions		- see below</p>
 <p>Permissions:</p>
-<p>STORE_APP_DATA  - Can store and read files in a folder private to the app</p>
+<p>STORE_APP_DATA	- Can store and read files in a folder private to the app</p>
 <p>EDIT_CHOSEN_FILE – Can modify file chosen by user</p>
 <p>READ_CHOSEN_FOLDER – Can read contents of folder chosen by user</p>
 <p>EXCHANGE_MESSAGES_WITH_FRIENDS - Can exchange messages with friends</p>
@@ -189,25 +226,25 @@
 <p>CSP_UNSAFE_EVAL - Allow app to modify its own code via calls to eval()</p>
 <p>A minimal peergos-app.json file would look like:</p>
 <pre><code class="language-js">{
-    &quot;displayName&quot;: &quot;App&quot;,
-    &quot;description&quot;: &quot;does something&quot;,
-    &quot;launchable&quot;: true  	
+    "displayName": "App",
+    "description": "does something",
+    "launchable": true  	
 }
 </code></pre>
 <p>These are already quite powerful, but we plan to add more permissions as we see more use cases.</p>
-<a class="header" href="#peergos-rest-api" id="peergos-rest-api"><h2>Peergos REST API</h2></a>
+<h2 id="peergos-rest-api"><a class="header" href="#peergos-rest-api">Peergos REST API</a></h2>
 <p>The following endpoints are available:</p>
 <p>/peergos-api/v0/data/path.to.file – The data folder is where the App can store and retrieve files</p>
 <p>/peergos-api/v0/form/path.to.file – An app can POST a HTML Form and have the results stored in a file of the same name in the data folder.</p>
 <p>/peergos-api/v0/chat/ - An app can use the chat api for communication between friends.</p>
 <p>If an App is launched from a file/folder context menu item, the path of the file/folder will be available via:</p>
 <pre><code class="language-js">let url = new URL(window.location.href);
-let filePath = url.searchParams.get(&quot;path&quot;);
+let filePath = url.searchParams.get("path");
 </code></pre>
 <p>Dark mode can be detected via the theme param</p>
-<pre><code class="language-js">let theme = url.searchParams.get(&quot;theme&quot;);// curent values: ['dark-mode', '']
+<pre><code class="language-js">let theme = url.searchParams.get("theme");// curent values: ['dark-mode', '']
 </code></pre>
-<a class="header" href="#drive---the-following-http-actions-are-supported" id="drive---the-following-http-actions-are-supported"><h3>Drive - The following HTTP actions are supported:</h3></a>
+<h3 id="drive---the-following-http-actions-are-supported"><a class="header" href="#drive---the-following-http-actions-are-supported">Drive - The following HTTP actions are supported:</a></h3>
 <p>Note: /peergos-api/v0/data/ is only relevant for the App's data folder. It is not necessary when referencing a file in the App's assets folder or the folder/file selected by the user.</p>
 <p>GET – Retrieve a resource. Can be a file or folder</p>
 <p>Response code: 200 – success.</p>
@@ -244,9 +281,9 @@ let filePath = url.searchParams.get(&quot;path&quot;);
 <p>Response code: 200 and an array of the selected paths.</p>
 <p>GET - launch file picker</p>
 <p>/peergos-api/v0/file-picker
-Optional url parameter ?extension=&quot;json&quot; to filter files shown in picker.</p>
+Optional url parameter ?extension="json" to filter files shown in picker.</p>
 <p>Response code: 200 and an array containing the selected file path.</p>
-<a class="header" href="#chat-v0---the-following-http-actions-are-supported-see-chat-api-in-example-apps" id="chat-v0---the-following-http-actions-are-supported-see-chat-api-in-example-apps"><h3>Chat V0 - The following HTTP actions are supported (see chat-api in example-apps):</h3></a>
+<h3 id="chat-v0---the-following-http-actions-are-supported-see-chat-api-in-example-apps"><a class="header" href="#chat-v0---the-following-http-actions-are-supported-see-chat-api-in-example-apps">Chat V0 - The following HTTP actions are supported (see chat-api in example-apps):</a></h3>
 <p>See Chat V1 below for a more comprehensive API to support more complex apps</p>
 <p>GET – Retrieve a list of all chats created by this App</p>
 <p>/peergos-api/v0/chat/</p>
@@ -278,7 +315,7 @@ Optional url parameter ?extension=&quot;json&quot; to filter files shown in pick
 <p>parameters:</p>
 <p>text - Contents of message</p>
 <p>Response code: 201 – success.</p>
-<a class="header" href="#chat-v1---the-following-http-actions-are-supported-see-chat-folder-in-example-apps" id="chat-v1---the-following-http-actions-are-supported-see-chat-folder-in-example-apps"><h3>Chat V1 - The following HTTP actions are supported (see chat folder in example-apps):</h3></a>
+<h3 id="chat-v1---the-following-http-actions-are-supported-see-chat-folder-in-example-apps"><a class="header" href="#chat-v1---the-following-http-actions-are-supported-see-chat-folder-in-example-apps">Chat V1 - The following HTTP actions are supported (see chat folder in example-apps):</a></h3>
 <p>GET – Retrieve chats for current App</p>
 <p>/peergos-api/v1/chat/</p>
 <p>Response code: 200 – success.</p>
@@ -354,7 +391,7 @@ hasFriendsInChat: number of friends in current chat membership}</p>
 <p>to delete an existing message</p>
 <p>{ deleteMessage : { messageRef: uuid of message to delete} }</p>
 <p>Response code: 201</p>
-<a class="header" href="#profile" id="profile"><h3>Profile:</h3></a>
+<h3 id="profile"><a class="header" href="#profile">Profile:</a></h3>
 <p>GET – Launch the profile modal for the requested Peergos user (must be friend of current user)</p>
 <p>/peergos-api/v0/profile/:username</p>
 <p>Response code: 200 – success.  400 - failure.</p>
@@ -363,7 +400,7 @@ hasFriendsInChat: number of friends in current chat membership}</p>
 <p>Response code: 200 – success.  400 - failure.</p>
 <p>Response:</p>
 <p>{profileThumbnail: base64 data}</p>
-<a class="header" href="#developing-a-peergos-app" id="developing-a-peergos-app"><h2>Developing a Peergos App</h2></a>
+<h2 id="developing-a-peergos-app"><a class="header" href="#developing-a-peergos-app">Developing a Peergos App</a></h2>
 <p>Select the peergos-app.json file and choose ‘Run App’ to launch the app from the current directory.
 This is only available for launchable apps.</p>
 <p>Tip: During development, set the launchable property to get the fast dev cycle feedback.</p>
@@ -377,17 +414,13 @@ The previously installed peergos-app.json file is copied to the App’s data dir
 
                     <nav class="nav-wrapper" aria-label="Page navigation">
                         <!-- Mobile navigation buttons -->
-                        
                             <a rel="prev" href="../features/open.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
                                 <i class="fa fa-angle-left"></i>
                             </a>
-                        
 
-                        
-                            <a rel="next" href="../features/private-web.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                            <a rel="next prefetch" href="../features/private-web.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
                                 <i class="fa fa-angle-right"></i>
                             </a>
-                        
 
                         <div style="clear: both"></div>
                     </nav>
@@ -395,41 +428,36 @@ The previously installed peergos-app.json file is copied to the App’s data dir
             </div>
 
             <nav class="nav-wide-wrapper" aria-label="Page navigation">
-                
-                    <a href="../features/open.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                    <a rel="prev" href="../features/open.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
                         <i class="fa fa-angle-left"></i>
                     </a>
-                
 
-                
-                    <a href="../features/private-web.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                    <a rel="next prefetch" href="../features/private-web.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
                         <i class="fa fa-angle-right"></i>
                     </a>
-                
             </nav>
 
         </div>
 
-        
 
-        
 
-        
 
-        
-        <script src="../elasticlunr.min.js" type="text/javascript" charset="utf-8"></script>
-        <script src="../mark.min.js" type="text/javascript" charset="utf-8"></script>
-        <script src="../searcher.js" type="text/javascript" charset="utf-8"></script>
-        
+        <script>
+            window.playground_copyable = true;
+        </script>
 
-        <script src="../clipboard.min.js" type="text/javascript" charset="utf-8"></script>
-        <script src="../highlight.js" type="text/javascript" charset="utf-8"></script>
-        <script src="../book.js" type="text/javascript" charset="utf-8"></script>
+
+        <script src="../elasticlunr.min.js"></script>
+        <script src="../mark.min.js"></script>
+        <script src="../searcher.js"></script>
+
+        <script src="../clipboard.min.js"></script>
+        <script src="../highlight.js"></script>
+        <script src="../book.js"></script>
 
         <!-- Custom JS scripts -->
-        
 
-        
 
+    </div>
     </body>
 </html>
