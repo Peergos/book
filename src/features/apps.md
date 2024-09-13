@@ -75,6 +75,8 @@ READ_CHOSEN_FOLDER – Can read contents of folder chosen by user
 
 EXCHANGE_MESSAGES_WITH_FRIENDS - Can exchange messages with friends
 
+USE_MAILBOX - Can manage an email mailbox
+
 ACCESS_PROFILE_PHOTO - Can retrieve profile photos shared with you
 
 CSP_UNSAFE_EVAL - Allow app to modify its own code via calls to eval()
@@ -435,6 +437,167 @@ Response:
 
 {profileThumbnail: base64 data}
 
+
+### Mailbox: (see email folder in example-apps):
+
+GET – Get mailbox information
+
+/peergos-api/v0/mailbox/
+
+Response code: 200 – success.
+
+{userFolders: array of type Folder, mailboxAddress: email address for user}
+
+Where Folder is:
+{name: display string, path: name of internal folder}
+
+
+GET – Get contents of inbox
+
+/peergos-api/v0/mailbox/inbox
+
+Response code: 200 – success.
+
+{data: array of type Email, folderName: 'inbox', filterStarredEmails: boolean}
+
+Where Email is:
+{ id: string, msgId: string, from: string, subject: string, timestamp: string of timestamp
+, to: array of string, cc: array of string, bcc: array of string, content: string
+, replyingToEmail: optional - of type Email, forwardingToEmail: optional - of type Email
+, unread: boolean, star: boolean, attachments: array of type Attachment
+, icalEvent: contents of an .ics file};
+
+Where Attachment is:
+{filename: string, size: integer, type: mime type string, uuid: string}
+
+
+GET – Get contents of sent folder
+
+/peergos-api/v0/mailbox/sent
+
+Response code: 200 – success.
+
+See /inbox for description of response
+
+
+GET – Get contents of another folder [trash, archive, custom folder]
+
+/peergos-api/v0/mailbox/:folderName
+
+Response code: 200 – success.
+
+See /inbox for description of response
+
+
+DELETE - delete a custom folder
+
+/peergos-api/v0/mailbox/:folderName
+
+Response code: 204 – success.	400 - failure.
+
+
+POST - move an email from one folder to another
+
+/peergos-api/v0/mailbox/move/?from='srcFolderName'&to='destFolderName'
+
+Response code: 200 – success.	400 - failure.
+
+
+POST - move an email from one folder to another
+
+/peergos-api/v0/mailbox/move/?from='srcFolderName'&to='destFolderName'
+
+Request body:
+
+either byte[] of singular Email json or Array of multiple Email json
+
+Response code: 200 – success.	400 - failure.
+
+
+POST - delete an email from a folder
+
+/peergos-api/v0/mailbox/delete/?from='folderName'
+
+Request body:
+
+either byte[] of singular Email json or Array of multiple Email json
+
+Response code: 200 – success.	400 - failure.
+
+
+POST - download an attachment
+
+/peergos-api/v0/mailbox/download
+
+Request body:
+
+byte[] of Attachment json
+
+Response code: 200 – success.	400 - failure.
+
+
+PUT - upload an attachment
+
+/peergos-api/v0/mailbox/attachment
+
+Request body:
+
+byte[] of Attachment binary data
+
+Response code: 201 – success.	400 - failure.
+
+Response (location response header field): 
+
+{uuid: string id for uploaded attachment}
+
+
+PUT - send an Email
+
+/peergos-api/v0/mailbox/post
+
+Request body:
+
+byte[] of Email json
+
+Response code: 201 – success.	400 - failure.
+
+
+PUT - import an ical event
+
+/peergos-api/v0/mailbox/event-inline
+
+Request body:
+
+byte[] of the text of an ical file
+
+Response code: 201 – success.	400 - failure.
+
+
+PUT - import an ical attachment
+
+/peergos-api/v0/mailbox/event
+
+Request body:
+
+byte[] of Attachment json where the existing attachment references a valid ical file
+
+Response code: 201 – success.	400 - failure.
+
+
+PUT - create a new user folder. API Call launches dialog to enter the folder name
+
+/peergos-api/v0/mailbox/folder
+
+Response code: 201 – success.	400 - failure.
+
+
+PUT - Updates the boolean state values of an email (unread, star)
+
+/peergos-api/v0/mailbox/inbox
+
+byte[] of Email json
+
+Response code: 201 – success.	400 - failure.
 
 
 ## Developing a Peergos App
