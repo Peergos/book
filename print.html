@@ -343,6 +343,7 @@
 <p>EDIT_CHOSEN_FILE – Can modify file chosen by user</p>
 <p>READ_CHOSEN_FOLDER – Can read contents of folder chosen by user</p>
 <p>EXCHANGE_MESSAGES_WITH_FRIENDS - Can exchange messages with friends</p>
+<p>USE_MAILBOX - Can manage an email mailbox</p>
 <p>ACCESS_PROFILE_PHOTO - Can retrieve profile photos shared with you</p>
 <p>CSP_UNSAFE_EVAL - Allow app to modify its own code via calls to eval()</p>
 <p>A minimal peergos-app.json file would look like:</p>
@@ -521,6 +522,83 @@ hasFriendsInChat: number of friends in current chat membership}</p>
 <p>Response code: 200 – success.  400 - failure.</p>
 <p>Response:</p>
 <p>{profileThumbnail: base64 data}</p>
+<h3 id="mailbox-see-email-folder-in-example-apps"><a class="header" href="#mailbox-see-email-folder-in-example-apps">Mailbox: (see email folder in example-apps):</a></h3>
+<p>GET – Get mailbox information</p>
+<p>/peergos-api/v0/mailbox/</p>
+<p>Response code: 200 – success.</p>
+<p>{userFolders: array of type Folder, mailboxAddress: email address for user}</p>
+<p>Where Folder is:
+{name: display string, path: name of internal folder}</p>
+<p>GET – Get contents of inbox</p>
+<p>/peergos-api/v0/mailbox/inbox</p>
+<p>Response code: 200 – success.</p>
+<p>{data: array of type Email, folderName: 'inbox', filterStarredEmails: boolean}</p>
+<p>Where Email is:
+{ id: string, msgId: string, from: string, subject: string, timestamp: string of timestamp
+, to: array of string, cc: array of string, bcc: array of string, content: string
+, replyingToEmail: optional - of type Email, forwardingToEmail: optional - of type Email
+, unread: boolean, star: boolean, attachments: array of type Attachment
+, icalEvent: contents of an .ics file};</p>
+<p>Where Attachment is:
+{filename: string, size: integer, type: mime type string, uuid: string}</p>
+<p>GET – Get contents of sent folder</p>
+<p>/peergos-api/v0/mailbox/sent</p>
+<p>Response code: 200 – success.</p>
+<p>See /inbox for description of response</p>
+<p>GET – Get contents of another folder [trash, archive, custom folder]</p>
+<p>/peergos-api/v0/mailbox/:folderName</p>
+<p>Response code: 200 – success.</p>
+<p>See /inbox for description of response</p>
+<p>DELETE - delete a custom folder</p>
+<p>/peergos-api/v0/mailbox/:folderName</p>
+<p>Response code: 204 – success.	400 - failure.</p>
+<p>POST - move an email from one folder to another</p>
+<p>/peergos-api/v0/mailbox/move/?from='srcFolderName'&amp;to='destFolderName'</p>
+<p>Response code: 200 – success.	400 - failure.</p>
+<p>POST - move an email from one folder to another</p>
+<p>/peergos-api/v0/mailbox/move/?from='srcFolderName'&amp;to='destFolderName'</p>
+<p>Request body:</p>
+<p>either byte[] of singular Email json or Array of multiple Email json</p>
+<p>Response code: 200 – success.	400 - failure.</p>
+<p>POST - delete an email from a folder</p>
+<p>/peergos-api/v0/mailbox/delete/?from='folderName'</p>
+<p>Request body:</p>
+<p>either byte[] of singular Email json or Array of multiple Email json</p>
+<p>Response code: 200 – success.	400 - failure.</p>
+<p>POST - download an attachment</p>
+<p>/peergos-api/v0/mailbox/download</p>
+<p>Request body:</p>
+<p>byte[] of Attachment json</p>
+<p>Response code: 200 – success.	400 - failure.</p>
+<p>PUT - upload an attachment</p>
+<p>/peergos-api/v0/mailbox/attachment</p>
+<p>Request body:</p>
+<p>byte[] of Attachment binary data</p>
+<p>Response code: 201 – success.	400 - failure.</p>
+<p>Response (location response header field):</p>
+<p>{uuid: string id for uploaded attachment}</p>
+<p>PUT - send an Email</p>
+<p>/peergos-api/v0/mailbox/post</p>
+<p>Request body:</p>
+<p>byte[] of Email json</p>
+<p>Response code: 201 – success.	400 - failure.</p>
+<p>PUT - import an ical event</p>
+<p>/peergos-api/v0/mailbox/event-inline</p>
+<p>Request body:</p>
+<p>byte[] of the text of an ical file</p>
+<p>Response code: 201 – success.	400 - failure.</p>
+<p>PUT - import an ical attachment</p>
+<p>/peergos-api/v0/mailbox/event</p>
+<p>Request body:</p>
+<p>byte[] of Attachment json where the existing attachment references a valid ical file</p>
+<p>Response code: 201 – success.	400 - failure.</p>
+<p>PUT - create a new user folder. API Call launches dialog to enter the folder name</p>
+<p>/peergos-api/v0/mailbox/folder</p>
+<p>Response code: 201 – success.	400 - failure.</p>
+<p>PUT - Updates the boolean state values of an email (unread, star)</p>
+<p>/peergos-api/v0/mailbox/inbox</p>
+<p>byte[] of Email json</p>
+<p>Response code: 201 – success.	400 - failure.</p>
 <h2 id="developing-a-peergos-app"><a class="header" href="#developing-a-peergos-app">Developing a Peergos App</a></h2>
 <p>Select the peergos-app.json file and choose ‘Run App’ to launch the app from the current directory.
 This is only available for launchable apps.</p>
