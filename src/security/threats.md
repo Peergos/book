@@ -25,19 +25,21 @@ This class of user can download the Peergos application (or otherwise obtain a s
 
 # General Threat model
 ## Actors and capabilities
-1. Device with logged out client
-Can See:
+### Device with logged out client
+
+CAN See:
 * any cached ciphertext blocks and mutable pointers
 
-Cannot see:
+CANNOT see:
 * any plaintext of any files or directories or their metadata. 
 
-2. Home server
-Can see:
+### Home server
+
+CAN see:
 * total space used (rounded up due to padding before encryption). 
 * total number of secret links and any expiry, use limit and use count
 
-Can't see:
+CANNOT see:
 * file/directory names
 * file/directory sizes
 * file thumbnails
@@ -47,13 +49,18 @@ Can't see:
 * what file/dir or chunk a secret link points to
 * your friend or followers list
 
-3. Mirror servers
-Can see the same things as your home server
+### Mirror servers
 
-4. Friends or followers
-* Can retrieve ciphertext for things they have been granted access to. 
-* Can read or modify files or directories they have been granted access to.
+CAN see the same things as your home server
 
-5. Global active network adversary
-* Cannot MITM connetions
-* Cannot MITM friends
+### Friends or followers
+
+CAN
+* retrieve ciphertext for things they have been granted access to. 
+* read or modify files or directories they have been granted access to.
+
+### Global active network adversary
+
+CANNOT
+* MITM connetions
+* MITM friends
