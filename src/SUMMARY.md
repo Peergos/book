@@ -16,6 +16,7 @@
     - [Resumable uploads](./features/resumable-uploads.md)
     - [File viewers](./features/viewers.md)
     - [Secret links](./features/secret.md)
+    - [Webdav bridge](./features/webdav.md)
     - [Migration](./features/migration.md)
     - [File Sync](./features/sync.md)
     - [Open source](./features/open.md)

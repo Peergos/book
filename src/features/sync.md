@@ -2,7 +2,7 @@
 
 Peergos has the ability to do standard directory syncing and transparently mount a folder to your host operating system. This is achieved with a FUSE binding (or equivalent for Windows and MacOS). Peergos can do bi-direcitonal syncing between a local folder and a peergos folder. It keep sboth folders in sync including deletes and empty folders. If a large file charges it only copies the changed chunks of the file, rather than the entire file.
 
-To get started with sync, fir create a folder in Peergos. Then run the following (replace peergos with "java -jar Peergos.jar" if you are using the jar instead of the desktop app):
+To get started with sync, fir create a folder in Peergos. Then run the following (replace peergos with "java -jar Peergos.jar" if you are using the jar instead of the desktop app, or with "peergos-cli" if you are on Windows):
 
 > peergos sync init -peergos-url https://peergos.net
 
