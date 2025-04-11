@@ -289,7 +289,29 @@
 <p>Your identity in Peergos is not tied to any particular server. Compared to other federated social networks where moving server typically involves losing your social network and meta-data, if not data too, Peergos allows you to transparently migrate between servers and storage providers without any action required from your friends and without any data loss.</p>
 <p>This means, for example, you could start out by creating an account on your device which gives you limited storage and uptime, then effortlessly migrate to a paid server, or to your own server, when you realise how awesome Peergos is.</p>
 <div style="break-before: page; page-break-before: always;"></div><h1 id="file-sync"><a class="header" href="#file-sync">File Sync</a></h1>
-<p>Peergos has the ability to do standard directory syncing and transparently mount a folder to your host operating system. This is achieved with a FUSE binding (or equivalent for Windows and MacOS).</p>
+<p>Peergos has the ability to do standard directory syncing and transparently mount a folder to your host operating system. This is achieved with a FUSE binding (or equivalent for Windows and MacOS). Peergos can do bi-direcitonal syncing between a local folder and a peergos folder. It keep sboth folders in sync including deletes and empty folders. If a large file charges it only copies the changed chunks of the file, rather than the entire file.</p>
+<p>To get started with sync, fir create a folder in Peergos. Then run the following (replace peergos with "java -jar Peergos.jar" if you are using the jar instead of the desktop app):</p>
+<blockquote>
+<p>peergos sync init -peergos-url https://peergos.net</p>
+</blockquote>
+<p>Follow the prompts to enter your username, password and the peergos dir you want to sync with. This will generate a writable secret link to the folder which will be used by the sync process. This will output something like:</p>
+<blockquote>
+<p>Run the sync dir command with the following args: -links secret/z59vuwzfFDomTEuyeEw7rkofcd2vt5EnVffmAy5fnQe9V9MG36ZiBVY/3615659421#QUq6mf4gz8uk -local-dirs $LOCAL_DIR</p>
+</blockquote>
+<p>Then to run the sync client with:</p>
+<blockquote>
+<p>peergos sync dir -peergos-url https://peergos.net -links secret/z59vuwzfFDomTEuyeEw7rkofcd2vt5EnVffmAy5fnQe9V9MG36ZiBVY/3615659421#QUq6mf4gz8uk -local-dirs /path/to/local/dir</p>
+</blockquote>
+<p>You can use the same link to sync on multiple different devices at the same time. You can also sync multiple pairs of directories, just use a comma separated list for the links and local-dirs arguments. This will sync the dirs and check for changes every 30s.</p>
+<p>For more customisation you can use the following args:</p>
+<p>Only do one sync run</p>
+<blockquote>
+<p>-run-once true</p>
+</blockquote>
+<p>Set the minium local free space allowed as a percentage of the total</p>
+<blockquote>
+<p>-min-free-space-percent 5</p>
+</blockquote>
 <div style="break-before: page; page-break-before: always;"></div><h1 id="open-source"><a class="header" href="#open-source">Open source</a></h1>
 <p>Peergos is fully open-source, both clients, and server (incuding the web-interface). The main interface is a web-ui, but Peergos can also be accessed using a Java client on the command line, or with a FUSE mount of your Peergos filesystem.</p>
 <p>No part of our infrastructure, apart from TLS and Peergos private keys, are secret. We also have reproducible builds (we don't use npm or browserify etc.) We also vendor all dependencies so any historic git commit should be buildable without any external data.</p>
