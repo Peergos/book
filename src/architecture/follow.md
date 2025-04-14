@@ -1,6 +1,6 @@
 # Follow requests
 
-A user's storage server stores their pending follow requests until they are retrieved and deleted. These are not actually stored in ipfs itself, and reading them is guarded by a challenge protocol to mitigate against someone logging them alll now and decrypting them with a large quantum computer when one is built. 
+A user's storage server stores their pending follow requests until they are retrieved and deleted. These are not actually stored in ipfs itself, and reading them is guarded by a challenge protocol to mitigate against someone logging them all now and decrypting them with a large quantum computer when one is built. 
 
 Follow requests contain no unencrypted data visible to the network, or server, apart from the target user. Only the target user can decrypt the follow request to see the sender.
 
