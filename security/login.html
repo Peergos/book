@@ -174,7 +174,7 @@
                 <div id="content" class="content">
                     <main>
                         <h1 id="login"><a class="header" href="#login">Login</a></h1>
-<p>To login your password + username + public salt are hashed using <a href="https://en.wikipedia.org/wiki/Scrypt">scrypt</a> hashing function (with parameters 17, 8, 1, 64). The output of this is your login keypair and a symmetric key. The login keypair is used to auth with your home server and retrieve your encrypted login data, which is decrypted using the aforementioned symmetric key. Alternatively client can cache the encrypted login data to allow offline login. The login data contains your identity keypair, social keypair, and the root capability to your filesystem. The public salt and encrypted login data are stored on your home server, and any mirror your have authorised.</p>
+<p>To login your password + username + public salt are hashed using <a href="https://en.wikipedia.org/wiki/Scrypt">scrypt</a> hashing function (with parameters 17, 8, 1, 64). The output of this is your login keypair and a symmetric key. The login keypair is used to auth with your home server and retrieve your encrypted login data, which is decrypted using the aforementioned symmetric key. Alternatively client can cache the encrypted login data to allow offline login. The login data contains your identity keypair, social keypair, and the root capability to your filesystem. The public salt and encrypted login data are stored on your home server, and any mirror you have authorised.</p>
 <img alt="Login key derivation" src="/img/login.png" class="center" style="width: 70%;" />
                     </main>
 

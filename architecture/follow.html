@@ -174,7 +174,7 @@
                 <div id="content" class="content">
                     <main>
                         <h1 id="follow-requests"><a class="header" href="#follow-requests">Follow requests</a></h1>
-<p>A user's storage server stores their pending follow requests until they are retrieved and deleted. These are not actually stored in ipfs itself, and reading them is guarded by a challenge protocol to mitigate against someone logging them alll now and decrypting them with a large quantum computer when one is built.</p>
+<p>A user's storage server stores their pending follow requests until they are retrieved and deleted. These are not actually stored in ipfs itself, and reading them is guarded by a challenge protocol to mitigate against someone logging them all now and decrypting them with a large quantum computer when one is built.</p>
 <p>Follow requests contain no unencrypted data visible to the network, or server, apart from the target user. Only the target user can decrypt the follow request to see the sender.</p>
 <p>The interface for sending, receiving and removing follow requests is called SocialNetwork and has the following methods:</p>
 <pre><code class="language-java">/** Send a follow request to the target public key
