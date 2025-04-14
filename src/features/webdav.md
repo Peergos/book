@@ -1,6 +1,6 @@
 # Webdav bridge
 
-Peergos has a webdav bridge which you can run locally to allow any webdav-compatible client (including browsers) to talk to Peergos. Run the following command (replace peergos with "java -jar Peergos.jar" if you are using the jar, or with peergos-cli with the Windows desktop app):
+Peergos has a webdav bridge which you can run locally to allow any webdav-compatible client (including browsers) to talk to Peergos. Run the following command (replace peergos with "java -jar Peergos.jar" if you are using the jar):
 
 > peergos webdav -peergos-url https://peergos.net -username $username -PEERGOS_PASSWORD $password -webdav.username $webdav-username -PEERGOS_WEBDAV_PASSWORD $webdav-password
 
