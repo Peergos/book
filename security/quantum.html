@@ -176,7 +176,7 @@
                         <h1 id="quantum-resistance"><a class="header" href="#quantum-resistance">Quantum resistance</a></h1>
 <p>Peergos aims to be a long term secure file storage system, and hence we have architected it with an awareness of quantum computer based attacks (many of us are ex physicists).</p>
 <p>Files that you store but don't share with anyone are already resistant to quantum computer based attacks. This is because the process from logging in to decrypting them only involves hashing and symmetric encryption, neither of which are significantly weakened by a quantum computer.</p>
-<p>Files that have been shared are currently vulnerable to a quantum computer attack because they use asymmetric elliptic curve cryptography (Curve25519) to share the decryption capability. However, we plan to upgade to a suitable post-quantum algorithm soon.</p>
+<p>Files that have been shared are secured using a post-quantum hyrbid of X25519 and MLKEM.</p>
 
                     </main>
 
