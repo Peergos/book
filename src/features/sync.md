@@ -1,6 +1,13 @@
 # File Sync
 
-Peergos has the ability to do standard directory syncing and transparently mount a folder to your host operating system. This is achieved with a FUSE binding (or equivalent for Windows and MacOS). Peergos can do bi-directional syncing between a local folder and a peergos folder. It keep sboth folders in sync including deletes and empty folders. If a large file changes it only copies the changed chunks of the file, rather than the entire file.
+Peergos can do bi-directional syncing between a local folder and a peergos folder. It keeps both folders in sync including deletes (optional) and empty folders. If a large file changes it only copies the changed chunks of the file, rather than the entire file.
+
+## Web ui instructions
+1. Click on the sync icon in the left sidebar when running the desktop or android app (must be on localhost)
+2. Click on "Add folder to sync"
+3. Follow the instructions to select a pre-existing peergos folder and a local folder and whether to sync deletes.
+
+## CLI instructions
 
 To get started with sync, first create a folder in Peergos. Then run the following (replace peergos with "java -jar Peergos.jar" if you are using the jar instead of the desktop app):
 
@@ -11,9 +18,9 @@ Follow the prompts to enter your username, password and the peergos dir you want
 > Run the sync dir command with the following args: -links secret/z59vuwzfFDomTEuyeEw7rkofcd2vt5EnVffmAy5fnQe9V9MG36ZiBVY/3615659421#QUq6mf4gz8uk -local-dirs $LOCAL_DIR
 
 Then to run the sync client with:
-> peergos sync dir -peergos-url https://peergos.net -links secret/z59vuwzfFDomTEuyeEw7rkofcd2vt5EnVffmAy5fnQe9V9MG36ZiBVY/3615659421#QUq6mf4gz8uk -local-dirs /path/to/local/dir
+> peergos sync dir -peergos-url https://peergos.net -links secret/z59vuwzfFDomTEuyeEw7rkofcd2vt5EnVffmAy5fnQe9V9MG36ZiBVY/3615659421#QUq6mf4gz8uk -local-dirs /path/to/local/dir -sync-local-deletes true -sync-remote-deletes true
 
-You can use the same link to sync on multiple different devices at the same time. You can also sync multiple pairs of directories, just use a comma separated list for the links and local-dirs arguments. This will sync the dirs and check for changes every 30s.
+You can use the same link to sync on multiple different devices at the same time. You can also sync multiple pairs of directories, just use a comma separated list for the links, local-dirs, sync-local-deletes and sync-remote-deletes arguments. This will sync the dirs and check for changes every 30s.
 
 For more customisation you can use the following args:
 
