@@ -63,6 +63,24 @@ folderAction	- Indicates App acts on folders
 
 appIcon			- filename of image to use as icon on launcher page. Must be available in assets folder
 
+template		- Various templates exist to make certain App types easier to develop
+
+Possible  values: 
+
+"messaging"		- App is preconfigured for sharing. Multiple instances of App can be installed. Membership to the App is provided by a "Share" context menu item on the launcher icon.
+
+"messaging-instance"	- Same as "messaging", but with the condition that only 1 instance of the App can be installed
+
+newFileExtensions	- Array of files extensions supported by App. Create a placeholder file in assets folder with filename empty.<extension>
+
+e.g.
+
+	"newFileExtensions": [
+		{"extension": "docx", "name": "Microsoft Word"}, 
+		{"extension": "odt", "name": "ODF Text Document"},
+	],
+
+
 permissions		- see below
 
 Permissions:
@@ -175,13 +193,16 @@ GET - launch folder picker
 
 /peergos-api/v0/folders
 
+Optional url parameter ?multiple="false" to only select one folder in picker.
+
 Response code: 200 and an array of the selected paths.
 
 
 GET - launch file picker
 
 /peergos-api/v0/file-picker
-Optional url parameter ?extension="json" to filter files shown in picker.
+
+Optional url parameter ?extension="jpg, png" to filter files shown in picker.
 
 Response code: 200 and an array containing the selected file path.
 
