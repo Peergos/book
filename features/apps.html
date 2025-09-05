@@ -216,6 +216,17 @@
 <p>launchable		- Indicates App can be opened on the Launcher page</p>
 <p>folderAction	- Indicates App acts on folders</p>
 <p>appIcon			- filename of image to use as icon on launcher page. Must be available in assets folder</p>
+<p>template		- Various templates exist to make certain App types easier to develop</p>
+<p>Possible  values:</p>
+<p>"messaging"		- App is preconfigured for sharing. Multiple instances of App can be installed. Membership to the App is provided by a "Share" context menu item on the launcher icon.</p>
+<p>"messaging-instance"	- Same as "messaging", but with the condition that only 1 instance of the App can be installed</p>
+<p>newFileExtensions	- Array of files extensions supported by App. Create a placeholder file in assets folder with filename empty.<extension></p>
+<p>e.g.</p>
+<pre><code>"newFileExtensions": [
+	{"extension": "docx", "name": "Microsoft Word"}, 
+	{"extension": "odt", "name": "ODF Text Document"},
+],
+</code></pre>
 <p>permissions		- see below</p>
 <p>Permissions:</p>
 <p>STORE_APP_DATA	- Can store and read files in a folder private to the app</p>
@@ -279,10 +290,11 @@ let filePath = url.searchParams.get("path");
 <p>Response code: 200 or 201 – success.</p>
 <p>GET - launch folder picker</p>
 <p>/peergos-api/v0/folders</p>
+<p>Optional url parameter ?multiple="false" to only select one folder in picker.</p>
 <p>Response code: 200 and an array of the selected paths.</p>
 <p>GET - launch file picker</p>
-<p>/peergos-api/v0/file-picker
-Optional url parameter ?extension="json" to filter files shown in picker.</p>
+<p>/peergos-api/v0/file-picker</p>
+<p>Optional url parameter ?extension="jpg, png" to filter files shown in picker.</p>
 <p>Response code: 200 and an array containing the selected file path.</p>
 <h3 id="chat-v0---the-following-http-actions-are-supported-see-chat-api-in-example-apps"><a class="header" href="#chat-v0---the-following-http-actions-are-supported-see-chat-api-in-example-apps">Chat V0 - The following HTTP actions are supported (see chat-api in example-apps):</a></h3>
 <p>See Chat V1 below for a more comprehensive API to support more complex apps</p>
