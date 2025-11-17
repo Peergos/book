@@ -310,10 +310,57 @@ http://localhost:8090/$YOUR-USERNAME</p>
 <p>Peergos can do bi-directional syncing between a local folder and a peergos folder. It keeps both folders in sync including deletes (optional) and empty folders. If a large file changes it only copies the changed chunks of the file, rather than the entire file.</p>
 <h2 id="web-ui-instructions"><a class="header" href="#web-ui-instructions">Web ui instructions</a></h2>
 <ol>
-<li>Click on the sync icon in the left sidebar when running the desktop or android app (must be on localhost)</li>
-<li>Click on "Add folder to sync"</li>
-<li>Follow the instructions to select a pre-existing peergos folder and a local folder and whether to sync deletes.</li>
+<li>
+<p>Download the desktop or mobile app from https://peergos.org/download</p>
+</li>
+<li>
+<p>Run the app and it should open a login page in your browser to http://localhost:7777
+On some versions of Debian it won't be able to open the browser, in that case just open the URL above yourself.</p>
+</li>
+<li>
+<p>Login or sign up to your account</p>
+</li>
+<li>
+<p>Create a folder in peergos which wil be the sync target</p>
+</li>
+<li>
+<p>Click on the sync icon in the left sidebar
+<img alt="The sync page" src="features//img/sync.jpg" class="center" style="width: 100%;" /></p>
+</li>
+<li>
+<p>Click on "Add folder to sync"</p>
+</li>
+<li>
+<p>Follow the instructions to select a pre-existing peergos folder and a local folder and whether to sync deletes.</p>
+</li>
+<li>
+<p>You will start by choosing the local folder to sync. You will see a drive selection box and a folder selection box. You will see a [+] sign next to a local folder that has subdirectories.
+<img alt="The sync page" src="features//img/sync-local.jpg" class="center" style="width: 80%;" /></p>
+</li>
+<li>
+<p>To choose a different drive, click the drive selection box and you will get a list of available drives. Click the one you want.</p>
+</li>
 </ol>
+<img alt="The sync page" src="features//img/sync-drive.jpg" class="center" style="width: 100px;" />
+<ol start="10">
+<li>Scroll the directory list until you find the one you want. select the checkbox for that folder to choose it for sync.</li>
+</ol>
+<img alt="The sync page" src="features//img/sync-select.jpg" class="center" style="width: 50%;" />
+<ol start="11">
+<li>Click the Done button to go to the next stage which will allow you to select the desirted remote Peergos folder using the same process.</li>
+</ol>
+<img alt="The sync page" src="features//img/sync-remote.jpg" class="center" style="width: 80%;" />
+<ol start="12">
+<li>
+<p>Click the done button to go to the next stagw which will allow you to selection the behaviour for deletions.</p>
+</li>
+<li>
+<p>Select the desired behaviour for deletes and click confirm. Peergos will then create the sync pair and start displaying the sync status. Syncing local deletes means if you delete a local file in the synced directory then it will be deleted in the peergos directory. Syncing remote deletes means if you delete a file in the peergos folder it will be deleted in the local folder.</p>
+</li>
+</ol>
+<img alt="The sync page" src="features//img/sync-status.jpg" class="center" style="width: 80%;" />
+You can close your browser now. The app does the syncs in the background. 
+<p>To stop syncing a folder, click on the "Stop syncing folder" button.</p>
 <h2 id="cli-instructions"><a class="header" href="#cli-instructions">CLI instructions</a></h2>
 <p>To get started with sync, first create a folder in Peergos. Then run the following (replace peergos with "java -jar Peergos.jar" if you are using the jar instead of the desktop app):</p>
 <blockquote>
@@ -333,10 +380,11 @@ http://localhost:8090/$YOUR-USERNAME</p>
 <blockquote>
 <p>-run-once true</p>
 </blockquote>
-<p>Set the minium local free space allowed as a percentage of the total</p>
+<p>Set the minimum local free space allowed as a percentage of the total</p>
 <blockquote>
 <p>-min-free-space-percent 5</p>
 </blockquote>
+<p>To stop a CLI sync just kill the process in the usual way for your OS.</p>
 <div style="break-before: page; page-break-before: always;"></div><h1 id="open-source"><a class="header" href="#open-source">Open source</a></h1>
 <p>Peergos is fully open-source, both clients, and server (incuding the web-interface). The main interface is a web-ui, but Peergos can also be accessed using a Java client on the command line, or with a FUSE mount of your Peergos filesystem.</p>
 <p>No part of our infrastructure, apart from TLS and Peergos private keys, are secret. We also have reproducible builds (we don't use npm or browserify etc.) We also vendor all dependencies so any historic git commit should be buildable without any external data.</p>
