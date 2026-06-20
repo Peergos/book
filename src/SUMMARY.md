@@ -19,6 +19,7 @@
     - [Webdav bridge](./features/webdav.md)
     - [Migration](./features/migration.md)
     - [File Sync](./features/sync.md)
+    - [Drive mount](./features/mount.md)
     - [Open source](./features/open.md)
     - [Custom Apps](./features/apps.md)
     - [Private websites](./features/private-web.md)

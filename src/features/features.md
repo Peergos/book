@@ -14,6 +14,7 @@
 - Secret links
 - Migration
 - Folder Sync
+- Drive mount
 - Open source
 - Custom Apps
 - Private Websites
