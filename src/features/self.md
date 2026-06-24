@@ -20,6 +20,8 @@ The config is written to `$PEERGOS_PATH/config` on first run, so subsequent runs
 
 > java -jar Peergos.jar daemon
 
+It needs a publicly routeable IP address, and inbound tcp and udp on port 4001 should be allowed. 
+
 Browse to the localhost address printed on startup (it includes a single use signup token) to create your account.
 
 ## Public IP
