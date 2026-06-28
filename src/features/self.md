@@ -12,7 +12,7 @@ To self host, we recommend at least 2 CPU cores and 2 GiB of RAM. You can use a 
 2. Install Java >= 25 (only required for the jar; native packages bundle their own runtime)
 3. Run Peergos with:
 
-> java -jar Peergos.jar daemon -generate-token true
+> java -jar Peergos.jar daemon -generate-token true -quota-upload-limit-seconds 600
 
 All Peergos data is stored in `~/.peergos` by default. Override this with the `PEERGOS_PATH` environment variable or arg.
 
@@ -102,6 +102,7 @@ docker run --volume $(PEERGOS_PATH):/opt/peergos/data ghcr.io/peergos/web-ui:mas
     daemon -listen-host 0.0.0.0 \
     -public-domain $YOUR_DOMAIN_NAME -public-server true \
     -announce-ipfs-addresses /ip4/$IP/tcp/4001,/ip4/$IP/udp/4001/quic-v1 \
+     -quota-upload-limit-seconds 600 \
     -log-to-console true
 ```
 
