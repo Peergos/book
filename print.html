@@ -438,6 +438,36 @@ docker run --volume $(PEERGOS_PATH):/opt/peergos/data ghcr.io/peergos/web-ui:mas
 <p>java -jar Peergos.jar daemon -mirror.username $username -mirror.bat $mirrorBat -login-keypair $loginKeypair</p>
 </blockquote>
 <p>That instance will then continuously mirror the user's data.</p>
+<h2 id="mirroring-an-entire-server"><a class="header" href="#mirroring-an-entire-server">Mirroring an entire server</a></h2>
+<p>A server admin can keep an up to date copy of every user whose home is a given server (their data, login data, mirror BATs and secret link counts) on another server.</p>
+<ol>
+<li>On any instance, generate a new instance BAT:</li>
+</ol>
+<blockquote>
+<p>java -jar Peergos.jar admin bat generate</p>
+</blockquote>
+<p>This prints a line like <code>Generate new BAT and id: $instanceBat</code>.</p>
+<ol start="2">
+<li>Restart the source server's daemon with this BAT added to its existing arguments:</li>
+</ol>
+<blockquote>
+<p>java -jar Peergos.jar daemon ... -instance-bat $instanceBat</p>
+</blockquote>
+<p>Keep the BAT secret: anyone who has it can request a snapshot of every user on the source server.</p>
+<ol start="3">
+<li>Get the node id of the source server:</li>
+</ol>
+<blockquote>
+<p>curl -X POST https://YOUR_SOURCE_SERVER_DOMAIN/api/v0/id</p>
+</blockquote>
+<p>This returns JSON like <code>{"ID":"12D3KooW..."}</code>. The value of <code>ID</code> is <code>$sourceNodeId</code>.</p>
+<ol start="4">
+<li>Start the daemon on the mirror server with these additional arguments:</li>
+</ol>
+<blockquote>
+<p>java -jar Peergos.jar daemon ... -mirror.node.id $sourceNodeId -mirror-instance-bat $instanceBat</p>
+</blockquote>
+<p>The mirror server will then copy all users of the source server, and repeat this once a day. Change the interval with <code>-server-mirror-period-seconds</code>. If a run has errors, it retries after 30 seconds.</p>
 <div style="break-before: page; page-break-before: always;"></div><h1 id="migration"><a class="header" href="#migration">Migration</a></h1>
 <p>Your identity in Peergos is not tied to any particular server. Compared to other federated social networks where moving server typically involves losing your social network and meta-data, if not data too, Peergos allows you to transparently migrate between servers and storage providers without any action required from your friends and without any data loss. We pioneered this account and data portability in 2019.</p>
 <p>This means, for example, you could start out by creating an account on your device which gives you limited storage and uptime, then effortlessly migrate to a paid server, or to your own server, when you realise how awesome Peergos is.</p>
