@@ -134,6 +134,12 @@ let filePath = url.searchParams.get("path");
  ```js
  let theme = url.searchParams.get("theme");// curent values: ['dark-mode', '']
  ```
+
+The user's Peergos UI language can be read from the lang param. It is one of the languages Peergos is translated into, and en-GB when the user's language isn't one of them. It can be absent with older Peergos versions, so fall back to `navigator.language`.
+
+ ```js
+ let lang = url.searchParams.get("lang") || navigator.language;// current values: ['en-GB', 'zh-CN', 'de', 'el', 'es', 'fr', 'it', 'ko', 'nl', 'pl']
+ ```
  
 ### Drive - The following HTTP actions are supported:
 
