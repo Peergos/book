@@ -97,6 +97,8 @@ EXCHANGE_MESSAGES_WITH_FRIENDS - Can exchange messages with friends
 
 USE_MAILBOX - Can manage an email mailbox
 
+MANAGE_CONTACTS - Can read and change the user's contacts, in every address book. These are the same contacts Peergos serves over CardDAV
+
 ACCESS_PROFILE_PHOTO - Can retrieve profile photos shared with you
 
 CSP_UNSAFE_EVAL - Allow app to modify its own code via calls to eval()
@@ -542,6 +544,67 @@ Response code: 200 – success.  400 - failure.
 Response:
 
 {profileThumbnail: base64 data}
+
+
+### Contacts: (see address-book folder in example-apps):
+
+Requires permission MANAGE_CONTACTS. Contacts are vCards (3.0 or 4.0) grouped into address books, and are the same ones a CardDAV client sees, so a change made here reaches the user's phone on its next sync. The address book with id `default` always exists and cannot be deleted.
+
+GET – List address books
+
+/peergos-api/v0/contacts/
+
+Response code: 200 – success.
+
+[{id: address book id, name: display name}]
+
+POST – Create an address book
+
+/peergos-api/v0/contacts/
+
+Request body: {name: display name}
+
+Response code: 201 – success, with the new address book in the Location header. 400 – failure.
+
+PUT – Rename an address book, creating it if it does not exist
+
+/peergos-api/v0/contacts/:bookId
+
+Request body: {name: display name}
+
+Response code: 200 – renamed. 201 – created. 400 – failure.
+
+DELETE – Delete an address book and every contact in it
+
+/peergos-api/v0/contacts/:bookId
+
+Response code: 204 – success. 403 – the default address book. 404 – not found.
+
+GET – Every contact in an address book
+
+/peergos-api/v0/contacts/:bookId
+
+Response code: 200 – success. 404 – not found.
+
+[{file: filename ending .vcf, vcard: vCard text}]
+
+GET – One contact
+
+/peergos-api/v0/contacts/:bookId/:filename.vcf
+
+Response code: 200 – success, with the vCard as the body. 404 – not found.
+
+PUT – Create or replace a contact. The body is the vCard. Name the file after the vCard's UID, so that a CardDAV client and the app agree on which file a contact is
+
+/peergos-api/v0/contacts/:bookId/:filename.vcf
+
+Response code: 200 – replaced. 201 – created. 400 – failure, including a body that is not a vCard.
+
+DELETE – Delete a contact
+
+/peergos-api/v0/contacts/:bookId/:filename.vcf
+
+Response code: 204 – success. 404 – not found.
 
 
 ### Mailbox: (see email folder in example-apps):
