@@ -635,6 +635,7 @@ You can close your browser now. The app does the syncs in the background.
 <p>READ_CHOSEN_FOLDER – Can read contents of folder chosen by user. This covers a folder the App is launched on and the plain folder picker, whose folders are read by absolute path for as long as the App is open</p>
 <p>EXCHANGE_MESSAGES_WITH_FRIENDS - Can exchange messages with friends</p>
 <p>USE_MAILBOX - Can manage an email mailbox</p>
+<p>MANAGE_CONTACTS - Can read and change the user's contacts, in every address book. These are the same contacts Peergos serves over CardDAV</p>
 <p>ACCESS_PROFILE_PHOTO - Can retrieve profile photos shared with you</p>
 <p>CSP_UNSAFE_EVAL - Allow app to modify its own code via calls to eval()</p>
 <p>There is no permission for <a href="features/apps.html#granted-folders">granted folders</a>. The user approves each one individually when the App asks, so a request for a granted folder never fails for want of a permission in the manifest.</p>
@@ -860,6 +861,36 @@ hasFriendsInChat: number of friends in current chat membership}</p>
 <p>Response code: 200 – success.  400 - failure.</p>
 <p>Response:</p>
 <p>{profileThumbnail: base64 data}</p>
+<h3 id="contacts-see-address-book-folder-in-example-apps"><a class="header" href="#contacts-see-address-book-folder-in-example-apps">Contacts: (see address-book folder in example-apps):</a></h3>
+<p>Requires permission MANAGE_CONTACTS. Contacts are vCards (3.0 or 4.0) grouped into address books, and are the same ones a CardDAV client sees, so a change made here reaches the user's phone on its next sync. The address book with id <code>default</code> always exists and cannot be deleted.</p>
+<p>GET – List address books</p>
+<p>/peergos-api/v0/contacts/</p>
+<p>Response code: 200 – success.</p>
+<p>[{id: address book id, name: display name}]</p>
+<p>POST – Create an address book</p>
+<p>/peergos-api/v0/contacts/</p>
+<p>Request body: {name: display name}</p>
+<p>Response code: 201 – success, with the new address book in the Location header. 400 – failure.</p>
+<p>PUT – Rename an address book, creating it if it does not exist</p>
+<p>/peergos-api/v0/contacts/:bookId</p>
+<p>Request body: {name: display name}</p>
+<p>Response code: 200 – renamed. 201 – created. 400 – failure.</p>
+<p>DELETE – Delete an address book and every contact in it</p>
+<p>/peergos-api/v0/contacts/:bookId</p>
+<p>Response code: 204 – success. 403 – the default address book. 404 – not found.</p>
+<p>GET – Every contact in an address book</p>
+<p>/peergos-api/v0/contacts/:bookId</p>
+<p>Response code: 200 – success. 404 – not found.</p>
+<p>[{file: filename ending .vcf, vcard: vCard text}]</p>
+<p>GET – One contact</p>
+<p>/peergos-api/v0/contacts/:bookId/:filename.vcf</p>
+<p>Response code: 200 – success, with the vCard as the body. 404 – not found.</p>
+<p>PUT – Create or replace a contact. The body is the vCard. Name the file after the vCard's UID, so that a CardDAV client and the app agree on which file a contact is</p>
+<p>/peergos-api/v0/contacts/:bookId/:filename.vcf</p>
+<p>Response code: 200 – replaced. 201 – created. 400 – failure, including a body that is not a vCard.</p>
+<p>DELETE – Delete a contact</p>
+<p>/peergos-api/v0/contacts/:bookId/:filename.vcf</p>
+<p>Response code: 204 – success. 404 – not found.</p>
 <h3 id="mailbox-see-email-folder-in-example-apps"><a class="header" href="#mailbox-see-email-folder-in-example-apps">Mailbox: (see email folder in example-apps):</a></h3>
 <p>GET – Get mailbox information</p>
 <p>/peergos-api/v0/mailbox/</p>
