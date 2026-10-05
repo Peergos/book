@@ -2,18 +2,18 @@
 
 Peergos Apps are a way to extend the Peergos platform to add custom functionality
 
-When an app is run, its HTML5 assets are rendered in a unique hostname (sha256(app path).$peergos-domain) of the peergos server, e.g. https://bciqjmdntozhuanb2c3ka5vtqpux75j5symbyomhkpnilndngl6iaspy.peergos.net. The app domain is isolated from the main peergos domain in a separate OS process, and from other apps. The app domain is also locked down with CSP http headers so it cannot make any external requests which could be used to exfilrate data [0]. Requests made by the app are intercepted in a service worker and translated to post messages which are sent to the main peergos tab. That is where the requests are checked for validity and permissions are enforced. By default, an app has no permissions and can only read its own assets. Running an app also doesn't reveal its assets to the server - they are served via a service worker and post messages to the main peergos tab, and thus benefit from all the existing privacy protections in Peergos.
+When an app is run, its HTML5 assets are rendered in a unique hostname (sha256(app path).$peergos-domain) of the peergos server, e.g. https://bciqjmdntozhuanb2c3ka5vtqpux75j5symbyomhkpnilndngl6iaspy.peergos.net. The app domain is isolated from the main peergos domain in a separate OS process, and from other apps. The app domain is also locked down with CSP http headers so it cannot make any external requests which could be used to exfilrate data [0]. Requests made by the app are intercepted in a service worker and translated to post messages which are sent to the main peergos tab. That is where the requests are checked for validity and permissions are enforced. By default, an app has no permissions and can only read its own assets. Most permissions are declared in the app's manifest, but access to folders in the user's drive is granted at runtime instead: the app asks, the user chooses a folder and approves it in a dialog, and they can revoke it at any time from the app's details on the Launcher (see [Granted folders](#granted-folders)). Running an app also doesn't reveal its assets to the server - they are served via a service worker and post messages to the main peergos tab, and thus benefit from all the existing privacy protections in Peergos.
 
 <img alt="App sandbox" src="/img/sandbox.jpeg" class="center" style="width: 100%;" />
 
 [0] This is currently not true until browsers implement [webrtc CSP](https://github.com/w3c/webappsec-csp/issues/92) which blocks any webrtc connections. Browser issues for this are [firefox](https://bugzilla.mozilla.org/show_bug.cgi?id=1783489), [Chrome](https://bugs.chromium.org/p/chromium/issues/detail?id=1225968). So only install apps from authors you trust for now, unless they don't require any permissions which is safe.
 
 ## Use cases:
-1. Media Player App. The App should appear as a context menu item when a media file is selected on the Drive screen.
+1. Media Player App. The App should appear as a context menu item when a media file is selected on the Drive screen, or open straight onto the user's music folders from the Launcher, without asking for them again on every run.
 
 1. Word Processor App. As well as having read access to a document file, the App should be able to overwrite the contents of the document file.
 
-1. Image Gallery App. The App should be able to read image files from the selected Folder tree.
+1. Image Gallery App. The App should be able to read image files from the selected Folder tree, and keep showing a photos folder the user chose once, including photos added to it later.
 
 1. White Board App. App will appear on the Launcher page. App can create, retrieve, update, append and delete files within it’s own App space.
     
@@ -61,6 +61,8 @@ launchable		- Indicates App can be opened on the Launcher page
 
 folderAction	- Indicates App acts on folders
 
+libraryFolders	- Optional, for a folderAction App. Indicates the App can also be launched from the Launcher with no folder, to open onto the folders the user has granted it. Without it, launching a folderAction App from the Launcher asks for a folder first
+
 appIcon			- filename of image to use as icon on launcher page. Must be available in assets folder
 
 template		- Various templates exist to make certain App types easier to develop
@@ -89,7 +91,7 @@ STORE_APP_DATA	- Can store and read files in a folder private to the app
 
 EDIT_CHOSEN_FILE – Can modify file chosen by user
 
-READ_CHOSEN_FOLDER – Can read contents of folder chosen by user
+READ_CHOSEN_FOLDER – Can read contents of folder chosen by user. This covers a folder the App is launched on and the plain folder picker, whose folders are read by absolute path for as long as the App is open
 
 EXCHANGE_MESSAGES_WITH_FRIENDS - Can exchange messages with friends
 
@@ -98,6 +100,8 @@ USE_MAILBOX - Can manage an email mailbox
 ACCESS_PROFILE_PHOTO - Can retrieve profile photos shared with you
 
 CSP_UNSAFE_EVAL - Allow app to modify its own code via calls to eval()
+
+There is no permission for [granted folders](#granted-folders). The user approves each one individually when the App asks, so a request for a granted folder never fails for want of a permission in the manifest.
 
 
 A minimal peergos-app.json file would look like:
@@ -143,7 +147,7 @@ The user's Peergos UI language can be read from the lang param. It is one of the
  
 ### Drive - The following HTTP actions are supported:
 
-Note: /peergos-api/v0/data/ is only relevant for the App's data folder. It is not necessary when referencing a file in the App's assets folder or the folder/file selected by the user. 
+Note: /peergos-api/v0/data/ is only relevant for the App's data folder. It is not necessary when referencing a file in the App's assets folder, the folder the App was launched on, or a folder/file returned by the plain pickers. A [granted folder](#granted-folders) is the exception: it is always addressed through /peergos-api/v0/folder/:grantId/. 
 
 GET – Retrieve a resource. Can be a file or folder
 
@@ -201,7 +205,14 @@ GET - launch folder picker
 
 Optional url parameter ?multiple="false" to only select one folder in picker.
 
-Response code: 200 and an array of the selected paths.
+Optional url parameters ?write=true and ?persist=true ask for [granted folders](#granted-folders) instead. Either can be given alone: persist=true on its own asks to keep reading the folder, write=true on its own asks to change files in it until the App closes. The picker then tells the user what the App is asking for, with a switch for each, set as requested. The user can change either before approving, so read the flags in the response rather than assuming the request was granted as asked.
+
+Response code: 200 and
+
+- with neither write nor persist, an array of the selected paths, e.g. ["/alice/Photos"]
+- with either, an array of grants, e.g. [{"grantId": "b5fq7k2m...", "path": "/alice/Photos", "write": false, "persist": true, "granted": 1757000000000, "stale": false}]
+
+If the user cancels, the array is empty.
 
 
 GET - launch file picker
@@ -212,6 +223,74 @@ Optional url parameter ?extension="jpg, png" to filter files shown in picker.
 
 Response code: 200 and an array containing the selected file path.
 
+
+### Granted folders
+
+A granted folder is a folder in the user's drive that they have chosen, and approved, for the App to use. Ask for one with /peergos-api/v0/folders?persist=true (add &write=true to change files in it). A grant with persist set lasts until the user revokes it, across closing the App and signing in on another device. One without lasts until the App closes. The user sees every remembered grant, and can revoke it, in the App's details on the Launcher.
+
+An App keeping a remembered grant should look for it on start and only ask when there is none:
+
+```js
+let grants = await (await fetch('/peergos-api/v0/grants/')).json();
+let usable = grants.filter(g => ! g.stale);
+if (usable.length == 0)
+    usable = await (await fetch('/peergos-api/v0/folders/?persist=true')).json();
+let listing = await (await fetch('/peergos-api/v0/folder/' + usable[0].grantId + '/')).json();
+```
+
+GET – list the App's grants
+
+/peergos-api/v0/grants/
+
+Response code: 200 and an array of {grantId, path, write, persist, granted, stale}, empty when there are none. granted is milliseconds since the epoch. path is the folder's current location, for display only: it is omitted when the grant is stale, and must never be used to build a request url.
+
+DELETE – give up a grant
+
+/peergos-api/v0/grants/:grantId
+
+Response code: 204 – success. 400 – request failed
+
+Files in a granted folder are addressed by the grant id and a path relative to the folder, never by absolute path:
+
+/peergos-api/v0/folder/:grantId/path/to/file
+
+Reading and writing a file use the same url and differ only in the method. The urls can be used directly in markup, e.g. `<img src="/peergos-api/v0/folder/:grantId/photo.jpg">`. Range requests and streaming work as they do for any other file.
+
+GET – Retrieve a file or folder. A folder lists as {files:[], subFolders:[]}, without hidden entries. ?preview=true returns a media file's thumbnail as a Base64 string.
+
+Response code: 200 – success. 404 – not found
+
+PUT – create or overwrite a file. Folders missing on the way to it are created.
+
+Response code: 201 – created, see Response header field: location. 200 – overwritten
+
+POST – create a file with a generated name in the folder at the url
+
+Response code: 201 – created, see Response header field: location
+
+POST with ?type=directory – create a folder
+
+Response code: 201 – created
+
+PATCH – append to a file, with the header X-Update-Range: append
+
+Response code: 204 – success
+
+DELETE – delete a file or folder
+
+Response code: 204 – success
+
+For every method:
+
+403 – a change was attempted through a grant that only allows reading
+
+404 – nothing at the path read, or the grant is stale
+
+400 – unknown grant id, a path containing .. or an element starting with ., or the request failed
+
+#### When a grant goes stale
+
+A grant follows its folder through renames and moves, but it stops working when the folder's keys change: when the user unshares the folder, or any folder above it, with anyone, moves it in a way that re-encrypts it, or deletes it. From then on /peergos-api/v0/grants/ reports the grant with "stale": true, and requests through it answer 404. This is expected, not a bug, so don't retry. The first time the App uses a stale grant while it is open, Peergos asks the user whether the App may use the folder again. If they agree, the grant keeps its id and every url the App stored keeps working. Otherwise, or if the folder no longer exists, ask for a folder again with /peergos-api/v0/folders, which gives a new grant id.
 
 ### Chat V0 - The following HTTP actions are supported (see chat-api in example-apps):
 
