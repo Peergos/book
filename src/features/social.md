@@ -6,4 +6,4 @@ Your friend list is kept encrypted in your own Peergos space, hidden from other 
 
 There is also a secret link mechanism for sharing files with people who do not have peergos accounts. 
 
-Files your friends share with you appear in your newsfeed. A shared calendar event is shown there as the event itself - its time, place and how it repeats - and an installed [App](./apps.md#newsfeed-tiles) can show the files it handles the same way. Clicking one opens it in the full app.
+Files your friends share with you appear in your newsfeed. A shared calendar event is shown there as the event itself - its time, place, how it repeats and its description - and an installed [App](./apps.md#newsfeed-tiles) can show the files it handles the same way. Clicking one opens it in the full app.
