@@ -73,6 +73,12 @@ Possible  values:
 
 "messaging-instance"	- Same as "messaging", but with the condition that only 1 instance of the App can be installed
 
+tile			- Optional. Lets the App draw a live preview of a matching file in the user's newsfeed. See [Newsfeed tiles](#newsfeed-tiles)
+
+e.g.
+
+	"tile": {"page": "tile.html", "height": 160}
+
 newFileExtensions	- Array of files extensions supported by App. Create a placeholder file in assets folder with filename empty.<extension>
 
 e.g.
@@ -768,6 +774,89 @@ byte[] of Email json
 
 Response code: 201 – success.	400 - failure.
 
+
+## Newsfeed tiles
+
+When a friend shares a file with you, the newsfeed normally shows it as an icon. An App can instead show the file itself there, as a tile: a small page from the App that draws one file, inline in the feed. Clicking the tile opens the file in the full App. Shared calendar events are shown this way by the built-in calendar.
+
+To provide tiles, add a `tile` field to peergos-app.json:
+
+```js
+{
+    "displayName": "Notes",
+    "description": "plain text notes",
+    "launchable": true,
+    "fileExtensions": ["note"],
+    "tile": {"page": "tile.html", "height": 160}
+}
+```
+
+page			- Path of the tile's html page, relative to the assets folder. Plain path characters only, no `..`, and it must end in .html
+
+height			- Optional. The height in CSS pixels to reserve before the tile has drawn, from 64 to 480. Default 160
+
+A tile covers the files the App already registers for through fileExtensions, mimeTypes and fileTypes. It does not declare types of its own, and a wildcard `*` doesn't count: an App needs at least one explicit type to have a tile. A folderAction App can't have a tile.
+
+Tiles need no permission, because a tile can do much less than its App. Installing an App with a tile does mean its code runs automatically, as the feed scrolls, on files other people share with you, and the install dialog says so. Only Apps the user has installed draw tiles, so a file someone shares can never cause code to run that the reader didn't choose. If more than one installed App has a tile for a file, the one whose displayName comes first alphabetically draws it.
+
+### What a tile can do
+
+A tile runs in the same sandbox as its App - the same origin, service worker and CSP - and can make exactly these requests:
+
+GET (or HEAD) – the App's own files from its assets folder, e.g. `tile.css`
+
+GET – the file being shown, always at the same path:
+
+/peergos-api/v0/tile/file
+
+Every other request, including the data folder, chat, mailbox, contacts, profile, pickers, save, print and any write, gets a 403 - whatever permissions the App holds. A shared file whose type would make it a page of its own (html, xhtml, svg or xml) is served as text/plain. Files over 16 MiB are refused.
+
+The tile page gets these url parameters:
+
+```js
+let url = new URL(window.location.href);
+let theme = url.searchParams.get("theme");// ['dark-mode', '']
+let name = url.searchParams.get("name");// the shared file's name
+let username = url.searchParams.get("username");// the user viewing the feed
+let lang = url.searchParams.get("lang") || navigator.language;
+```
+
+It also has a `pgi` parameter, which identifies this running instance of the sandbox to the service worker. Leave it in place: requests from a document without it are refused while any tile of the App is running, so a tile can't navigate to another page. Keep a tile to a single page, and don't fetch from a web worker - a worker's requests can't be traced back to its tile.
+
+A tile talks to the feed by posting messages to its parent:
+
+```js
+// the height the tile wants, in CSS pixels; the feed holds it between 64 and 480
+parent.postMessage({type: 'resize', height: document.body.scrollHeight}, location.origin);
+// the tile has drawn, so the feed can swap out its placeholder
+parent.postMessage({type: 'ready'}, location.origin);
+// open the file in the full App
+parent.postMessage({type: 'open'}, location.origin);
+```
+
+Nothing else is passed on. Until a tile sends `ready` the feed shows the file's icon in its place, and a tile that hasn't sent it within 15 seconds is replaced by that icon. When the user switches between light and dark mode, the tile receives `{type: 'setTheme', theme: 'dark-mode' | ''}`.
+
+A tile never receives keyboard focus from the feed, and it can't open dialogs, go fullscreen or navigate the page. A complete tile:
+
+```html
+<!doctype html>
+<html>
+<head><meta charset="utf-8"><link rel="stylesheet" href="tile.css"></head>
+<body>
+<pre id="note"></pre>
+<script>
+fetch('/peergos-api/v0/tile/file').then(r => r.text()).then(text => {
+    document.getElementById('note').textContent = text;
+    parent.postMessage({type: 'resize', height: document.body.scrollHeight}, location.origin);
+    parent.postMessage({type: 'ready'}, location.origin);
+});
+document.body.addEventListener('click', () => parent.postMessage({type: 'open'}, location.origin));
+</script>
+</body>
+</html>
+```
+
+The feed mounts a tile shortly before it scrolls into view and unmounts it once it is well past, so a tile should draw quickly and keep no state of its own. Several tiles of the same App can be live at once, each in its own instance of the sandbox.
 
 ## Developing a Peergos App
 
