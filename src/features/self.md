@@ -44,7 +44,7 @@ If a reverse proxy like nginx is terminating TLS, also tell Peergos your domain:
 
 > -public-domain $YOUR_DOMAIN
 
-The TLS certificate must cover the wildcard subdomain so that apps (PDF viewer, text editor, calendar, third party apps) work. Set A records for both `$YOUR_DOMAIN` and `*.$YOUR_DOMAIN`.
+The TLS certificate must cover the wildcard subdomain so that apps (PDF viewer, text editor, calendar, address book, third party apps) work. Set A records for both `$YOUR_DOMAIN` and `*.$YOUR_DOMAIN`.
 
 ### Example nginx config
 
