@@ -11,32 +11,30 @@ Peergos can do bi-directional syncing between a local folder and a peergos folde
 5. Click on the sync icon in the left sidebar
 <img alt="The sync page" src="/img/sync.jpg" class="center" style="width: 100%;" />
 
-6. Click on "Add folder to sync"
-7. Follow the instructions to select a pre-existing peergos folder and a local folder and whether to sync deletes.
+6. Click on "Add folder"
+7. Choose a local folder and a Peergos folder, and whether to sync deletes.
 
-8. You will start by choosing the local folder to sync. You will see a drive selection box and a folder selection box. You will see a [+] sign next to a local folder that has subdirectories. 
-   <img alt="The sync page" src="/img/sync-local.jpg" class="center" style="width: 80%;" />
+8. You will start by choosing the local folder to sync. Click the arrow next to a folder to see its subfolders.
+   <img alt="Choosing a folder on this device" src="/img/sync-local.jpg" class="center" style="width: 80%;" />
 
-9. To choose a different drive, click the drive selection box and you will get a list of available drives. Click the one you want.
+9. To choose a different drive, click the drive box at the top and pick the one you want from the list.
 
-<img alt="The sync page" src="/img/sync-drive.jpg" class="center" style="width: 100px;" />
+<img alt="Choosing a drive" src="/img/sync-drive.jpg" class="center" style="width: 50%;" />
 
-10. Scroll the directory list until you find the one you want. select the checkbox for that folder to choose it for sync.
+10. Find the folder you want and click the circle next to it to select it.
 
-<img alt="The sync page" src="/img/sync-select.jpg" class="center" style="width: 50%;" />
+<img alt="A local folder selected" src="/img/sync-select.jpg" class="center" style="width: 80%;" />
 
-11. Click the Done button to go to the next stage which will allow you to select the desired remote Peergos folder using the same process.
+11. Click the Select button to go to the next stage, which lets you choose the Peergos folder in the same way. Below the folders you can choose the behaviour for deletes. Syncing local deletes means if you delete a local file in the synced folder then it will be deleted in the Peergos folder. Syncing remote deletes means if you delete a file in the Peergos folder it will be deleted in the local folder.
 
-<img alt="The sync page" src="/img/sync-remote.jpg" class="center" style="width: 80%;" />
+<img alt="Choosing a folder in your Drive" src="/img/sync-remote.jpg" class="center" style="width: 80%;" />
 
-12. Click the done button to go to the next stagw which will allow you to selection the behaviour for deletions.
+12. Click the Select button. Peergos will then create the sync pair and start displaying the sync status.
 
-13. Select the desired behaviour for deletes and click confirm. Peergos will then create the sync pair and start displaying the sync status. Syncing local deletes means if you delete a local file in the synced directory then it will be deleted in the peergos directory. Syncing remote deletes means if you delete a file in the peergos folder it will be deleted in the local folder.
-
-<img alt="The sync page" src="/img/sync-status.jpg" class="center" style="width: 80%;" />
+<img alt="A folder being synced" src="/img/sync-status.jpg" class="center" style="width: 100%;" />
 You can close your browser now. The app does the syncs in the background. 
 
-To stop syncing a folder, click on the "Stop syncing folder" button. 
+To stop syncing a folder, click on the "Stop syncing" button. 
 
 
 ## CLI instructions
