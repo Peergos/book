@@ -6,7 +6,11 @@ You can mount your Peergos drive as a native folder in the desktop and mobile ap
 1. Click on the mount icon in the left sidebar
 2. Enter your password and click "Enable"
 
-<img alt="Mount page" src="/img/mount.png" class="center" style="width: 100%;" />
+<img alt="Mount page" src="/img/mount-setup.png" class="center" style="width: 100%;" />
+
+3. Click "Open in file explorer" to see your Drive as a folder
+
+<img alt="Drive mounted" src="/img/mount.png" class="center" style="width: 100%;" />
 
 ## Calendars and contacts on Android
 
