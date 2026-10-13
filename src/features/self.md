@@ -101,7 +101,7 @@ docker pull ghcr.io/peergos/web-ui:master
 docker run --volume $(PEERGOS_PATH):/opt/peergos/data ghcr.io/peergos/web-ui:master \
     daemon -listen-host 0.0.0.0 \
     -public-domain $YOUR_DOMAIN_NAME -public-server true \
-    -announce-ipfs-addresses /ip4/$IP/tcp/4001,/ip4/$IP/udp/4001/quic-v1 \
+    -ipfs-announce-addresses /ip4/$IP/tcp/4001,/ip4/$IP/udp/4001/quic-v1 \
      -quota-upload-limit-seconds 600 \
     -log-to-console true
 ```
