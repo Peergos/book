@@ -111,7 +111,6 @@ docker run --volume $(PEERGOS_PATH):/opt/peergos/data ghcr.io/peergos/web-ui:mas
 Add the following to the command line (or the `.peergos/config` file after the first run):
 
 ```
--use-s3 true
 -authed-s3-reads true
 -direct-s3-writes true
 -s3.accessKey $ACCESS_KEY
