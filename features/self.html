@@ -209,7 +209,7 @@
 <blockquote>
 <p>-public-domain $YOUR_DOMAIN</p>
 </blockquote>
-<p>The TLS certificate must cover the wildcard subdomain so that apps (PDF viewer, text editor, calendar, third party apps) work. Set A records for both <code>$YOUR_DOMAIN</code> and <code>*.$YOUR_DOMAIN</code>.</p>
+<p>The TLS certificate must cover the wildcard subdomain so that apps (PDF viewer, text editor, calendar, address book, third party apps) work. Set A records for both <code>$YOUR_DOMAIN</code> and <code>*.$YOUR_DOMAIN</code>.</p>
 <h3 id="example-nginx-config"><a class="header" href="#example-nginx-config">Example nginx config</a></h3>
 <pre><code>server {
     listen 80 default_server;
@@ -259,14 +259,13 @@ server {
 docker run --volume $(PEERGOS_PATH):/opt/peergos/data ghcr.io/peergos/web-ui:master \
     daemon -listen-host 0.0.0.0 \
     -public-domain $YOUR_DOMAIN_NAME -public-server true \
-    -announce-ipfs-addresses /ip4/$IP/tcp/4001,/ip4/$IP/udp/4001/quic-v1 \
+    -ipfs-announce-addresses /ip4/$IP/tcp/4001,/ip4/$IP/udp/4001/quic-v1 \
      -quota-upload-limit-seconds 600 \
     -log-to-console true
 </code></pre>
 <h2 id="s3-compatible-blockstore"><a class="header" href="#s3-compatible-blockstore">S3 compatible blockstore</a></h2>
 <p>Add the following to the command line (or the <code>.peergos/config</code> file after the first run):</p>
-<pre><code>-use-s3 true
--authed-s3-reads true
+<pre><code>-authed-s3-reads true
 -direct-s3-writes true
 -s3.accessKey $ACCESS_KEY
 -s3.bucket $BUCKET

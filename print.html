@@ -254,7 +254,7 @@
 <blockquote>
 <p>-public-domain $YOUR_DOMAIN</p>
 </blockquote>
-<p>The TLS certificate must cover the wildcard subdomain so that apps (PDF viewer, text editor, calendar, third party apps) work. Set A records for both <code>$YOUR_DOMAIN</code> and <code>*.$YOUR_DOMAIN</code>.</p>
+<p>The TLS certificate must cover the wildcard subdomain so that apps (PDF viewer, text editor, calendar, address book, third party apps) work. Set A records for both <code>$YOUR_DOMAIN</code> and <code>*.$YOUR_DOMAIN</code>.</p>
 <h3 id="example-nginx-config"><a class="header" href="#example-nginx-config">Example nginx config</a></h3>
 <pre><code>server {
     listen 80 default_server;
@@ -304,14 +304,13 @@ server {
 docker run --volume $(PEERGOS_PATH):/opt/peergos/data ghcr.io/peergos/web-ui:master \
     daemon -listen-host 0.0.0.0 \
     -public-domain $YOUR_DOMAIN_NAME -public-server true \
-    -announce-ipfs-addresses /ip4/$IP/tcp/4001,/ip4/$IP/udp/4001/quic-v1 \
+    -ipfs-announce-addresses /ip4/$IP/tcp/4001,/ip4/$IP/udp/4001/quic-v1 \
      -quota-upload-limit-seconds 600 \
     -log-to-console true
 </code></pre>
 <h2 id="s3-compatible-blockstore"><a class="header" href="#s3-compatible-blockstore">S3 compatible blockstore</a></h2>
 <p>Add the following to the command line (or the <code>.peergos/config</code> file after the first run):</p>
-<pre><code>-use-s3 true
--authed-s3-reads true
+<pre><code>-authed-s3-reads true
 -direct-s3-writes true
 -s3.accessKey $ACCESS_KEY
 -s3.bucket $BUCKET
@@ -359,6 +358,7 @@ docker run --volume $(PEERGOS_PATH):/opt/peergos/data ghcr.io/peergos/web-ui:mas
 <p>Peergos users can send follow requests to each other. If accepted, the other user can then share files or send messages with you. Following is a one-way mechanism: If Agata follows Bartek then Bartek can share files with Agata. If Bartek is also following Agata, then she can also share files with Bartek. Following can be revoked by either user at any point.</p>
 <p>Your friend list is kept encrypted in your own Peergos space, hidden from other users and the server.</p>
 <p>There is also a secret link mechanism for sharing files with people who do not have peergos accounts.</p>
+<p>Files your friends share with you appear in your newsfeed. A shared calendar event is shown there as the event itself - its time, place, how it repeats and its description - and an installed <a href="features/./apps.html#newsfeed-tiles">App</a> can show the files it handles the same way. Clicking one opens it in the full app.</p>
 <div style="break-before: page; page-break-before: always;"></div><h1 id="sharing"><a class="header" href="#sharing">Sharing</a></h1>
 <p>A file or folder can be shared with any user who is following you. This access can be read only or writable. Access can be revoked at any time whilst maintaining access to anyone else the item is shared with. This is all achieved cryptographically with capabilities and lazy re-encryption.</p>
 <div style="break-before: page; page-break-before: always;"></div><h1 id="large-files"><a class="header" href="#large-files">Large files</a></h1>
@@ -567,9 +567,25 @@ You can close your browser now. The app does the syncs in the background.
 <h2 id="instructions"><a class="header" href="#instructions">Instructions</a></h2>
 <ol>
 <li>Click on the mount icon in the left sidebar</li>
-<li>Enter your password and click "Mount"</li>
+<li>Enter your password and click "Enable"</li>
 </ol>
-<img alt="Mount page" src="features//img/mount.png" class="center" style="width: 100%;" /><div style="break-before: page; page-break-before: always;"></div><h1 id="open-source"><a class="header" href="#open-source">Open source</a></h1>
+<img alt="Mount page" src="features//img/mount.png" class="center" style="width: 100%;" />
+<h2 id="calendars-and-contacts-on-android"><a class="header" href="#calendars-and-contacts-on-android">Calendars and contacts on Android</a></h2>
+<p>On Android, the Mount page can also sync your Peergos calendars and contacts with the phone's Calendar and Contacts apps. Turn on "Sync your calendars", "Sync your contacts" or both before clicking "Enable".</p>
+<p>What syncs, and what doesn't:</p>
+<ul>
+<li>Your Peergos calendars and contacts sync into a Peergos account of their own on the phone, and only that account is synced with Peergos.</li>
+<li>Calendars and contacts already on the phone, whether stored on the phone itself or in another account such as Google, aren't read, copied or changed. A contact syncs only once it's in Peergos, or saved to the Peergos account on the phone.</li>
+</ul>
+<p>How syncing works:</p>
+<ul>
+<li>Changes go both ways: adding, editing or deleting an event or contact in the Peergos account on the phone does the same in Peergos, and the other way round. Android syncs them about every 30 minutes, and can wait longer to save battery. To change or delete one occurrence of a repeating event, do it in Peergos.</li>
+<li>If something was changed both on the phone and in Peergos before they synced, the Peergos version is kept and the phone's is saved next to it as a copy; a contact's copy is marked "(edited on this device)". Something deleted on one side and changed on the other is kept.</li>
+<li>Contacts you save to the Peergos account on the phone go into your first Peergos address book.</li>
+<li>Tasks stay in the Peergos calendar and aren't added to the phone.</li>
+<li>Unmounting stops the syncing. The calendars and contacts already on the phone stay there but stop updating, and your calendars and contacts in Peergos aren't changed. Anything you change or delete in those copies on the phone is sent to Peergos if you turn syncing on again.</li>
+</ul>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="open-source"><a class="header" href="#open-source">Open source</a></h1>
 <p>Peergos is fully open-source, both clients, and server (incuding the web-interface). The main interface is a web-ui, but Peergos can also be accessed using a Java client on the command line, or with a FUSE mount of your Peergos filesystem.</p>
 <p>No part of our infrastructure, apart from TLS and Peergos private keys, are secret. We also have reproducible builds (we don't use npm or browserify etc.) We also vendor all dependencies so any historic git commit should be buildable without any external data.</p>
 <p>Eventually we want to self host our git repos in Peergos itself.</p>
@@ -621,6 +637,10 @@ You can close your browser now. The app does the syncs in the background.
 <p>Possible  values:</p>
 <p>"messaging"		- App is preconfigured for sharing. Multiple instances of App can be installed. Membership to the App is provided by a "Share" context menu item on the launcher icon.</p>
 <p>"messaging-instance"	- Same as "messaging", but with the condition that only 1 instance of the App can be installed</p>
+<p>tile			- Optional. Lets the App draw a live preview of a matching file in the user's newsfeed. See <a href="features/apps.html#newsfeed-tiles">Newsfeed tiles</a></p>
+<p>e.g.</p>
+<pre><code>"tile": {"page": "tile.html", "height": 160}
+</code></pre>
 <p>newFileExtensions	- Array of files extensions supported by App. Create a placeholder file in assets folder with filename empty.<extension></p>
 <p>e.g.</p>
 <pre><code>"newFileExtensions": [
@@ -968,6 +988,62 @@ hasFriendsInChat: number of friends in current chat membership}</p>
 <p>/peergos-api/v0/mailbox/inbox</p>
 <p>byte[] of Email json</p>
 <p>Response code: 201 – success.	400 - failure.</p>
+<h2 id="newsfeed-tiles"><a class="header" href="#newsfeed-tiles">Newsfeed tiles</a></h2>
+<p>When a friend shares a file with you, the newsfeed normally shows it as an icon. An App can instead show the file itself there, as a tile: a small page from the App that draws one file, inline in the feed. Clicking the tile opens the file in the full App. Shared calendar events are shown this way by the built-in calendar.</p>
+<p>To provide tiles, add a <code>tile</code> field to peergos-app.json:</p>
+<pre><code class="language-js">{
+    "displayName": "Notes",
+    "description": "plain text notes",
+    "launchable": true,
+    "fileExtensions": ["note"],
+    "tile": {"page": "tile.html", "height": 160}
+}
+</code></pre>
+<p>page			- Path of the tile's html page, relative to the assets folder. Plain path characters only, no <code>..</code>, and it must end in .html</p>
+<p>height			- Optional. The height in CSS pixels to reserve before the tile has drawn, from 64 to 480. Default 160</p>
+<p>A tile covers the files the App already registers for through fileExtensions, mimeTypes and fileTypes. It does not declare types of its own, and a wildcard <code>*</code> doesn't count: an App needs at least one explicit type to have a tile. A folderAction App can't have a tile.</p>
+<p>Tiles need no permission, because a tile can do much less than its App. Installing an App with a tile does mean its code runs automatically, as the feed scrolls, on files other people share with you, and the install dialog says so. Only Apps the user has installed draw tiles, so a file someone shares can never cause code to run that the reader didn't choose. If more than one installed App has a tile for a file, the one whose displayName comes first alphabetically draws it.</p>
+<h3 id="what-a-tile-can-do"><a class="header" href="#what-a-tile-can-do">What a tile can do</a></h3>
+<p>A tile runs in the same sandbox as its App - the same origin, service worker and CSP - and can make exactly these requests:</p>
+<p>GET (or HEAD) – the App's own files from its assets folder, e.g. <code>tile.css</code></p>
+<p>GET – the file being shown, always at the same path:</p>
+<p>/peergos-api/v0/tile/file</p>
+<p>Every other request, including the data folder, chat, mailbox, contacts, profile, pickers, save, print and any write, gets a 403 - whatever permissions the App holds. A shared file whose type would make it a page of its own (html, xhtml, svg or xml) is served as text/plain. Files over 16 MiB are refused.</p>
+<p>The tile page gets these url parameters:</p>
+<pre><code class="language-js">let url = new URL(window.location.href);
+let theme = url.searchParams.get("theme");// ['dark-mode', '']
+let name = url.searchParams.get("name");// the shared file's name
+let username = url.searchParams.get("username");// the user viewing the feed
+let lang = url.searchParams.get("lang") || navigator.language;
+</code></pre>
+<p>It also has a <code>pgi</code> parameter, which identifies this running instance of the sandbox to the service worker. Leave it in place: requests from a document without it are refused while any tile of the App is running, so a tile can't navigate to another page. Keep a tile to a single page, and don't fetch from a web worker - a worker's requests can't be traced back to its tile.</p>
+<p>A tile talks to the feed by posting messages to its parent:</p>
+<pre><code class="language-js">// the height the tile wants, in CSS pixels; the feed holds it between 64 and 480
+parent.postMessage({type: 'resize', height: document.body.scrollHeight}, location.origin);
+// the tile has drawn, so the feed can swap out its placeholder
+parent.postMessage({type: 'ready'}, location.origin);
+// open the file in the full App
+parent.postMessage({type: 'open'}, location.origin);
+</code></pre>
+<p>Nothing else is passed on. Until a tile sends <code>ready</code> the feed shows the file's icon in its place, and a tile that hasn't sent it within 15 seconds is replaced by that icon. When the user switches between light and dark mode, the tile receives <code>{type: 'setTheme', theme: 'dark-mode' | ''}</code>.</p>
+<p>A tile never receives keyboard focus from the feed, and it can't open dialogs, go fullscreen or navigate the page. A complete tile:</p>
+<pre><code class="language-html">&lt;!doctype html&gt;
+&lt;html&gt;
+&lt;head&gt;&lt;meta charset="utf-8"&gt;&lt;link rel="stylesheet" href="tile.css"&gt;&lt;/head&gt;
+&lt;body&gt;
+&lt;pre id="note"&gt;&lt;/pre&gt;
+&lt;script&gt;
+fetch('/peergos-api/v0/tile/file').then(r =&gt; r.text()).then(text =&gt; {
+    document.getElementById('note').textContent = text;
+    parent.postMessage({type: 'resize', height: document.body.scrollHeight}, location.origin);
+    parent.postMessage({type: 'ready'}, location.origin);
+});
+document.body.addEventListener('click', () =&gt; parent.postMessage({type: 'open'}, location.origin));
+&lt;/script&gt;
+&lt;/body&gt;
+&lt;/html&gt;
+</code></pre>
+<p>The feed mounts a tile shortly before it scrolls into view and unmounts it once it is well past, so a tile should draw quickly and keep no state of its own. Several tiles of the same App can be live at once, each in its own instance of the sandbox.</p>
 <h2 id="developing-a-peergos-app"><a class="header" href="#developing-a-peergos-app">Developing a Peergos App</a></h2>
 <p>Select the peergos-app.json file and choose ‘Run App’ to launch the app from the current directory.
 This is only available for launchable apps.</p>
