@@ -505,39 +505,34 @@ On some versions of Debian it won't be able to open the browser, in that case ju
 <img alt="The sync page" src="features//img/sync.jpg" class="center" style="width: 100%;" /></p>
 </li>
 <li>
-<p>Click on "Add folder to sync"</p>
+<p>Click on "Add folder"</p>
 </li>
 <li>
-<p>Follow the instructions to select a pre-existing peergos folder and a local folder and whether to sync deletes.</p>
+<p>Choose a local folder and a Peergos folder, and whether to sync deletes.</p>
 </li>
 <li>
-<p>You will start by choosing the local folder to sync. You will see a drive selection box and a folder selection box. You will see a [+] sign next to a local folder that has subdirectories.
-<img alt="The sync page" src="features//img/sync-local.jpg" class="center" style="width: 80%;" /></p>
+<p>You will start by choosing the local folder to sync. Click the arrow next to a folder to see its subfolders.
+<img alt="Choosing a folder on this device" src="features//img/sync-local.jpg" class="center" style="width: 80%;" /></p>
 </li>
 <li>
-<p>To choose a different drive, click the drive selection box and you will get a list of available drives. Click the one you want.</p>
+<p>To choose a different drive, click the drive box at the top and pick the one you want from the list.</p>
 </li>
 </ol>
-<img alt="The sync page" src="features//img/sync-drive.jpg" class="center" style="width: 100px;" />
+<img alt="Choosing a drive" src="features//img/sync-drive.jpg" class="center" style="width: 50%;" />
 <ol start="10">
-<li>Scroll the directory list until you find the one you want. select the checkbox for that folder to choose it for sync.</li>
+<li>Find the folder you want and click the circle next to it to select it.</li>
 </ol>
-<img alt="The sync page" src="features//img/sync-select.jpg" class="center" style="width: 50%;" />
+<img alt="A local folder selected" src="features//img/sync-select.jpg" class="center" style="width: 80%;" />
 <ol start="11">
-<li>Click the Done button to go to the next stage which will allow you to select the desired remote Peergos folder using the same process.</li>
+<li>Click the Select button to go to the next stage, which lets you choose the Peergos folder in the same way. Below the folders you can choose the behaviour for deletes. Syncing local deletes means if you delete a local file in the synced folder then it will be deleted in the Peergos folder. Syncing remote deletes means if you delete a file in the Peergos folder it will be deleted in the local folder.</li>
 </ol>
-<img alt="The sync page" src="features//img/sync-remote.jpg" class="center" style="width: 80%;" />
+<img alt="Choosing a folder in your Drive" src="features//img/sync-remote.jpg" class="center" style="width: 80%;" />
 <ol start="12">
-<li>
-<p>Click the done button to go to the next stagw which will allow you to selection the behaviour for deletions.</p>
-</li>
-<li>
-<p>Select the desired behaviour for deletes and click confirm. Peergos will then create the sync pair and start displaying the sync status. Syncing local deletes means if you delete a local file in the synced directory then it will be deleted in the peergos directory. Syncing remote deletes means if you delete a file in the peergos folder it will be deleted in the local folder.</p>
-</li>
+<li>Click the Select button. Peergos will then create the sync pair and start displaying the sync status.</li>
 </ol>
-<img alt="The sync page" src="features//img/sync-status.jpg" class="center" style="width: 80%;" />
+<img alt="A folder being synced" src="features//img/sync-status.jpg" class="center" style="width: 100%;" />
 You can close your browser now. The app does the syncs in the background. 
-<p>To stop syncing a folder, click on the "Stop syncing folder" button.</p>
+<p>To stop syncing a folder, click on the "Stop syncing" button.</p>
 <h2 id="cli-instructions"><a class="header" href="#cli-instructions">CLI instructions</a></h2>
 <p>To get started with sync, first create a folder in Peergos. Then run the following (replace peergos with "java -jar Peergos.jar" if you are using the jar instead of the desktop app):</p>
 <blockquote>
@@ -569,7 +564,11 @@ You can close your browser now. The app does the syncs in the background.
 <li>Click on the mount icon in the left sidebar</li>
 <li>Enter your password and click "Enable"</li>
 </ol>
-<img alt="Mount page" src="features//img/mount.png" class="center" style="width: 100%;" />
+<img alt="Mount page" src="features//img/mount-setup.png" class="center" style="width: 100%;" />
+<ol start="3">
+<li>Click "Open in file explorer" to see your Drive as a folder</li>
+</ol>
+<img alt="Drive mounted" src="features//img/mount.png" class="center" style="width: 100%;" />
 <h2 id="calendars-and-contacts-on-android"><a class="header" href="#calendars-and-contacts-on-android">Calendars and contacts on Android</a></h2>
 <p>On Android, the Mount page can also sync your Peergos calendars and contacts with the phone's Calendar and Contacts apps. Turn on "Sync your calendars", "Sync your contacts" or both before clicking "Enable".</p>
 <p>What syncs, and what doesn't:</p>
