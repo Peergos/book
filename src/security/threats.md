@@ -47,6 +47,7 @@ CANNOT see:
 * how many files or folders there are
 * who has access to a file or folder
 * what file/dir or chunk a secret link points to
+* whether a secret link hides where its items are
 * your friend or followers list
 
 ### Mirror servers
@@ -58,6 +59,20 @@ CAN see the same things as your home server
 CAN
 * retrieve ciphertext for things they have been granted access to. 
 * read or modify files or directories they have been granted access to.
+* see the names of the folders above anything shared with them directly
+
+CANNOT
+* see the contents of those folders, or anything else not shared with them
+
+### Secret link holders
+
+CAN
+* read, and if the link is writable modify, the items in the link and everything inside them
+* see where the items are, if the link was made to show it
+
+CANNOT
+* see your username or the folders above the items, if the link hides where they are (the default)
+* see anything else of yours
 
 ### Global active network adversary
 
