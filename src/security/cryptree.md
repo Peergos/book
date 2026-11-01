@@ -12,7 +12,7 @@ The base key opens all of that, and the way back up as well. Each file and folde
 
 A folder's entry for each child holds the child's restricted key, and the child's base key encrypted with the folder's base key. So the base key to a folder gives the base keys to everything inside it, and the restricted key gives only restricted keys.
 
-<img alt="Read access capability tree" src="/img/read-cryptree-restricted.svg" class="center" style="width: 100%;" />
+<img alt="Read access capability tree" src="/img/read-cryptree-restricted.png" class="center" style="width: 100%;" />
 
 When you share a file or folder with a friend they get its base key, so they can see where it is in your drive. A [secret link](/features/secret.html) can instead give out restricted keys, so whoever opens it sees only the items themselves, under their own names, and neither your username nor the folders they're in.
 
