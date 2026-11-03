@@ -1,0 +1,26 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 720 380" width="720" height="380" font-family="Montserrat, Helvetica, Arial, sans-serif">
+  <rect width="720" height="380" fill="#ffffff"/>
+
+  <rect x="225" y="15" width="475" height="350" rx="16" fill="#7d9cc6"/>
+  <rect x="240" y="27" width="445" height="248" rx="14" fill="#a8bcd9"/>
+  <rect x="255" y="39" width="415" height="150" rx="12" fill="#bfcde3"/>
+  <rect x="270" y="51" width="385" height="56" rx="10" fill="#d5dfee"/>
+
+  <g font-size="18" font-weight="bold" fill="#2c3e50" letter-spacing="3">
+    <text x="20" y="86">MIRROR</text>
+    <text x="20" y="160">RESTRICTED</text>
+    <text x="20" y="182">READ</text>
+    <text x="20" y="248">READ</text>
+    <text x="20" y="335">WRITE</text>
+  </g>
+
+  <g font-size="22" font-weight="bold" fill="#2c3e50" text-anchor="middle">
+    <text x="462" y="87">(Owner, Writer, map key, BAT)</text>
+    <text x="462" y="136">+</text>
+    <text x="462" y="172">(restricted read key)</text>
+    <text x="462" y="222">+</text>
+    <text x="462" y="256">(read key)</text>
+    <text x="462" y="304">+</text>
+    <text x="462" y="340">(write key)</text>
+  </g>
+</svg>

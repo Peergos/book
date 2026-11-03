@@ -15,7 +15,7 @@ A file upload proceeds in the following steps
    - Create a FileAccess cryptree node with merkle links to all the resulting fragments
    - Add the FileAccess to the champ of the writing key pair (under a random 32 byte label for initial chunks, or sha256(stream secret + previous label))
 
-5) Add a cryptree link from the parent directory to the file
+5) Add a cryptree link from the parent directory to the file, holding the file's restricted key and its base key encrypted with the directory's base key (or, when uploading through a link that hides where it is, sealed to the directory's public key)
 
 6) Delete the transaction file
 
