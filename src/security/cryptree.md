@@ -10,7 +10,7 @@ The restricted key opens everything needed to read an item and everything below 
 
 The base key opens all of that, and the way back up as well. Each file and folder has a parent link, which points at the folder it is in. A file's parent link is encrypted with its base key. A folder's base key holds its parent key P, which decrypts the folder's own parent link, and which its children's parent links point to. P′ is derived from P, so a holder of P can read the folder's name, but a holder of P′ can't get P. So holding the base key to an item lets you walk up the tree and learn the names of the folders above it (though nothing else in them), whereas holding the restricted key only lets you go down.
 
-A folder's entry for each child holds the child's restricted key, and the child's base key encrypted with the folder's base key. So the base key to a folder gives the base keys to everything inside it, and the restricted key gives only restricted keys.
+A folder's entry for each child holds the child's restricted key, and the child's base key encrypted with a key derived from the folder's base key. So the base key to a folder gives the base keys to everything inside it, and the restricted key gives only restricted keys.
 
 <img alt="Read access capability tree" src="/img/read-cryptree-restricted.png" class="center" style="width: 100%;" />
 
