@@ -24,6 +24,8 @@ The first is giving the folder the base key of something new. They know the base
 
 The second is the new item's parent link, which needs the folder's parent key. Until it has one, the item is pending. The first time the owner shares it directly, or adds it to a link that doesn't hide where it is, their client gives it new keys and a real parent link, so its maker can't use what they knew to reach anything above it.
 
+<img alt="Writing a new file through a restricted key" src="/img/write-cryptree-restricted.png" class="center" style="width: 100%;" />
+
 Moving an existing item also needs keys a restricted writer doesn't have: a new parent link, and the item's base key for its new folder. So a move through such a link is done as a copy followed by a delete, and the copy is pending like any other new item.
 
 ## Older data
