@@ -1,3 +1,3 @@
 # Sharing
 
-A file or folder can be shared with any user who is following you. This access can be read only or writable. Access can be revoked at any time whilst maintaining access to anyone else the item is shared with. This is all achieved cryptographically with capabilities and lazy re-encryption. 
+A file or folder can be shared with any user who is following you. This access can be read only or writable. Access can be revoked at any time whilst maintaining access to anyone else the item is shared with. This is all achieved cryptographically with capabilities and lazy re-encryption. Someone you share an item with can see where it is in your drive, though nothing else there. To share something without showing where it is, use a [secret link](/features/secret.html#hiding-where-items-are).
