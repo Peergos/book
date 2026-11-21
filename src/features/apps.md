@@ -169,6 +169,8 @@ Notes:
 
 1. If the file is a media file with a thumbnail, provide ?preview=true to the request to have the thumbnail returned in the Response as a Base64 string.
 
+1. A file's response carries an ETag header: the file's tree hash, in quotes. Writing the whole file with PUT gives it the tag of its new contents. A file written by an older Peergos may have none, as has one appended to with PATCH until it is next written whole with PUT.
+
 POST – Create a resource
 
 Response code: 201 – create success. See Response header field: location
@@ -184,6 +186,21 @@ Response code: 201 – create success. See Response header field: location
 200 – for update success
 
 400 – request failed
+
+412 – the request had an If-Match header and the file is no longer that version, or isn't there: nothing was written
+
+To write only over the version the app read, send the ETag a GET gave in an If-Match header (RFC 9110). If another device has saved the file since, the write is refused with 412, also when the two writes happen at the same moment, so neither save is lost: read the file again and make the change on what is there now. A device can take a few seconds to see another's save, so a read straight after a 412 may still give the version it had, and a write based on it another 412: wait a moment before each new try, a little longer each time. If-Match is honoured on a PUT to /peergos-api/v0/data/; older Peergos versions ignore it, as do writes anywhere else, such as to a granted folder or to the file the App was opened on.
+
+```js
+let r = await fetch('/peergos-api/v0/data/notes.json');
+let tag = r.headers.get('ETag');
+let notes = await r.json();
+notes.push(newNote);
+let put = await fetch('/peergos-api/v0/data/notes.json', {method: 'PUT', headers: tag ? {'If-Match': tag} : {}, body: JSON.stringify(notes)});
+if (put.status == 412) {
+    // changed on another device since the read: wait a moment, read it again and add the note to that
+}
+```
 
 DELETE – delete a file
 
@@ -205,6 +222,8 @@ PUT|POST - save a file (launches a dialog)
 Request body set to contents of file to save
 
 Response code: 200 or 201 – success.
+
+If a file of the chosen name is already there, Peergos asks the user whether to replace it; if not, the user can choose another name.
 
 
 GET - launch folder picker
