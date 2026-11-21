@@ -169,7 +169,7 @@ Notes:
 
 1. If the file is a media file with a thumbnail, provide ?preview=true to the request to have the thumbnail returned in the Response as a Base64 string.
 
-1. A file's response carries an ETag header: the file's tree hash, in quotes. Every write gives the file a new one. A file written by an older Peergos may have none.
+1. A file's response carries an ETag header: the file's tree hash, in quotes, so it changes whenever the file's contents do. A file written by an older Peergos may have none.
 
 POST – Create a resource
 
@@ -189,7 +189,7 @@ Response code: 201 – create success. See Response header field: location
 
 412 – the request had an If-Match header and the file is no longer that version, or isn't there: nothing was written
 
-To write only over the version the app read, send the ETag a GET gave in an If-Match header (RFC 9110). If another device has saved the file since, the write is refused with 412, also when the two writes happen at the same moment, so neither save is lost: read the file again and make the change on what is there now. If-Match is honoured on a PUT to /peergos-api/v0/data/; older Peergos versions ignore it.
+To write only over the version the app read, send the ETag a GET gave in an If-Match header (RFC 9110). If another device has saved the file since, the write is refused with 412, also when the two writes happen at the same moment, so neither save is lost: read the file again and make the change on what is there now. If-Match is honoured on a PUT to /peergos-api/v0/data/; older Peergos versions ignore it, as do writes anywhere else, such as to a granted folder or to the file the App was opened on.
 
 ```js
 let r = await fetch('/peergos-api/v0/data/notes.json');
