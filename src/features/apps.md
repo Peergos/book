@@ -169,7 +169,7 @@ Notes:
 
 1. If the file is a media file with a thumbnail, provide ?preview=true to the request to have the thumbnail returned in the Response as a Base64 string.
 
-1. A file's response carries an ETag header: the file's tree hash, in quotes, so it changes whenever the file's contents do. A file written by an older Peergos may have none.
+1. A file's response carries an ETag header: the file's tree hash, in quotes, so it changes whenever the file's contents do. A file written by an older Peergos may have none, as has one appended to with PATCH until it is next written whole with PUT.
 
 POST – Create a resource
 
