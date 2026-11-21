@@ -189,7 +189,7 @@ Response code: 201 – create success. See Response header field: location
 
 412 – the request had an If-Match header and the file is no longer that version, or isn't there: nothing was written
 
-To write only over the version the app read, send the ETag a GET gave in an If-Match header (RFC 9110). If another device has saved the file since, the write is refused with 412, also when the two writes happen at the same moment, so neither save is lost: read the file again and make the change on what is there now. If-Match is honoured on a PUT to /peergos-api/v0/data/; older Peergos versions ignore it, as do writes anywhere else, such as to a granted folder or to the file the App was opened on.
+To write only over the version the app read, send the ETag a GET gave in an If-Match header (RFC 9110). If another device has saved the file since, the write is refused with 412, also when the two writes happen at the same moment, so neither save is lost: read the file again and make the change on what is there now. A device can take a few seconds to see another's save, so a read straight after a 412 may still give the version it had, and a write based on it another 412: wait a moment before each new try, a little longer each time. If-Match is honoured on a PUT to /peergos-api/v0/data/; older Peergos versions ignore it, as do writes anywhere else, such as to a granted folder or to the file the App was opened on.
 
 ```js
 let r = await fetch('/peergos-api/v0/data/notes.json');
@@ -198,7 +198,7 @@ let notes = await r.json();
 notes.push(newNote);
 let put = await fetch('/peergos-api/v0/data/notes.json', {method: 'PUT', headers: tag ? {'If-Match': tag} : {}, body: JSON.stringify(notes)});
 if (put.status == 412) {
-    // changed on another device since the read: read it again and add the note to that
+    // changed on another device since the read: wait a moment, read it again and add the note to that
 }
 ```
 
